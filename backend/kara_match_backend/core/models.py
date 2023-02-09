@@ -33,3 +33,23 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+
+class FriendRequest(models.Model):
+    askFrom = models.ForeignKey(
+        settings.AUTH_USER_MODEL, related_name='askFrom',
+        on_delete=models.CASCADE
+    )
+    askTo = models.ForeignKey(
+        settings.AUTH_USER_MODEL, related_name='askTo',
+        on_delete=models.CASCADE
+    )
+    approved = models.BooleanField(default=False)
+
+    class Meta:
+        unique_together = (('askFrom', 'askTo'),)
+
+    def __str__(self):
+        return str(self.askFrom) + '----->' + str(self.askTo)
+
+
