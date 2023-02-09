@@ -1,8 +1,15 @@
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.conf import settings
 
+
+# フロントエンドでアップロードされてくる画像ファイルをきれいなファイル名に直す関数
+def upload_path(instance, filename):
+    ext = filename.split('.')[-1]  # .で分けたファイル名の[-1]番目->つまり拡張子を抜き出す
+    return '/'.join(['image'], str(instance.userPro.id)+str(instance.nickName)+str(".")+ext)
 
 class UserManager(BaseUserManager):
-
+    # email形式のユーザーモデルにするためにオーバーライド
     def create_user(self, email, password=None, **extra_fields):
         if not email:
             raise ValueError('email is must')
@@ -35,15 +42,34 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 
+class Profile(models.Model):
+    nickName = models.CharField(max_length=20)
+    # userProは一つのユーザーが一つのプロフィールを持てるようにする
+    userPro = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        related_name='userPro',
+        on_delete=models.CASCADE  # ユーザーの削除がされた時このモデルも削除される
+    )
+    created_on = models.DateTimeField(auto_now_add=True)
+    img = models.ImageField(blank=True, null=True, upload_to=upload_path)
+
+    def __str__(self):
+        return self.nickName
+
+
 class FriendRequest(models.Model):
+    # 1対多のフォーリンキー
     askFrom = models.ForeignKey(
-        settings.AUTH_USER_MODEL, related_name='askFrom',
+        settings.AUTH_USER_MODEL,
+        related_name='askFrom',
         on_delete=models.CASCADE
     )
     askTo = models.ForeignKey(
-        settings.AUTH_USER_MODEL, related_name='askTo',
+        settings.AUTH_USER_MODEL,
+        related_name='askTo',
         on_delete=models.CASCADE
     )
+
     approved = models.BooleanField(default=False)
 
     class Meta:
