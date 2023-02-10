@@ -88,9 +88,9 @@ class Song(models.Model):
         on_delete=models.CASCADE
     )
 
-    song_name = models.TextField()  # 歌名
+    song_name = models.TextField(default="")  # 歌名
 
-    singer = models.TextField()  # 歌手
+    singer = models.TextField(default="")  # 歌手
 
     api_id = models.IntegerField(default=0)  # APIのid,初期値なしでもいけるかも
 
