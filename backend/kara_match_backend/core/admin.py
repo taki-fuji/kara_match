@@ -1,3 +1,4 @@
+
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext as _
@@ -35,3 +36,4 @@ class UserAdmin(BaseUserAdmin):
 admin.site.register(models.User, UserAdmin)  # UserAdminをオーバライドする必要があるため上のような記述をする
 admin.site.register(models.Profile)
 admin.site.register(models.FriendRequest)
+
