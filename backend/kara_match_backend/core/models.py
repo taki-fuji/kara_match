@@ -88,4 +88,10 @@ class Song(models.Model):
         on_delete=models.CASCADE
     )
 
-    created_on = models.DateTimeField(auto_now_add=True)
+    song_name = models.TextField()  # 歌名
+
+    singer = models.TextField()  # 歌手
+
+    api_id = models.IntegerField(default=0)  # APIのid,初期値なしでもいけるかも
+
+    created_on = models.DateTimeField(auto_now_add=True)  # 作成日付
