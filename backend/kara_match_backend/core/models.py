@@ -6,7 +6,7 @@ from django.conf import settings
 # フロントエンドでアップロードされてくる画像ファイルをきれいなファイル名に直す関数
 def upload_path(instance, filename):
     ext = filename.split('.')[-1]  # .で分けたファイル名の[-1]番目->つまり拡張子を抜き出す
-    return '/'.join(['image'], str(instance.userPro.id) + str(instance.nickName) + str(".") + ext)
+    return '/'.join(['image', str(instance.userPro.id) + str(instance.nickName) + str(".") + ext])
 
 
 class UserManager(BaseUserManager):
@@ -80,4 +80,12 @@ class FriendRequest(models.Model):
         return str(self.askFrom) + '----->' + str(self.askTo)
 
 
+class Song(models.Model):
 
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name='user',
+        on_delete=models.CASCADE
+    )
+
+    created_on = models.DateTimeField(auto_now_add=True)
