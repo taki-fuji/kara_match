@@ -54,6 +54,16 @@ const Menu = () => {
       >
         Go to setting!
       </Button>
+
+      <p></p>
+      <Button
+        variant="outlined"
+        color="primary"
+        component={Link}
+        to="/itunes-api-test"
+      >
+        Go to itunesAPI test!
+      </Button>
     </>
   );
 };
