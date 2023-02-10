@@ -78,3 +78,6 @@ class FriendRequest(models.Model):
 
     def __str__(self):
         return str(self.askFrom) + '----->' + str(self.askTo)
+
+
+
