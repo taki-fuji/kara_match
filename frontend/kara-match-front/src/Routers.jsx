@@ -16,6 +16,7 @@ import MusicSearch from "./components/myUse_components/music_search"
 
 import Setting from "./components/setting_components/setting"
 
+import Search from "./components/itunes_API_components/Search"
 
 const Routers = () => {
   return (
@@ -54,6 +55,8 @@ const Routers = () => {
           <Route path="/music-search" element={<MusicSearch />} />
 
           <Route path="/setting" element={<Setting />} />
+
+          <Route path="/itunes-api-test" element={<Search />} />
 
         </Routes>
       </BrowserRouter>
