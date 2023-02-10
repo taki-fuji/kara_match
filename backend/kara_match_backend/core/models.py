@@ -6,7 +6,8 @@ from django.conf import settings
 # フロントエンドでアップロードされてくる画像ファイルをきれいなファイル名に直す関数
 def upload_path(instance, filename):
     ext = filename.split('.')[-1]  # .で分けたファイル名の[-1]番目->つまり拡張子を抜き出す
-    return '/'.join(['image'], str(instance.userPro.id)+str(instance.nickName)+str(".")+ext)
+    return '/'.join(['image'], str(instance.userPro.id) + str(instance.nickName) + str(".") + ext)
+
 
 class UserManager(BaseUserManager):
     # email形式のユーザーモデルにするためにオーバーライド
@@ -77,5 +78,3 @@ class FriendRequest(models.Model):
 
     def __str__(self):
         return str(self.askFrom) + '----->' + str(self.askTo)
-
-
