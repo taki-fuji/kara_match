@@ -11,9 +11,9 @@ from rest_framework.routers import DefaultRouter
 app_name = 'user'
 
 router = DefaultRouter()
-router = DefaultRouter()
 router.register('profile', views.ProfileViewSet)
 router.register('approval', views.FriendRequestViewSet)
+router.register('song', views.SongView)
 
 urlpatterns = [
     path('create/', views.CreateUserView.as_view(), name='create'),

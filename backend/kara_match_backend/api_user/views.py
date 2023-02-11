@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics, authentication, permissions
 from . import serializers
-from core.models import Profile, FriendRequest
+from core.models import Profile, FriendRequest, Song
 from django.db.models import Q  # フィルタリングする時に使う
 from rest_framework import viewsets
 from rest_framework.exceptions import ValidationError
@@ -15,7 +15,7 @@ class CreateUserView(generics.CreateAPIView):
     serializer_class = serializers.UserSerializer  # ここでuserのシリアライザーを割り当てるだけで新規userのviewを作れる
 
 
-class FriendRequestViewSet(viewsets.ModelViewSet):
+class FriendRequestViewSet(viewsets.ModelViewSet):  # ModelViewSetはCRUDの動き全てに対応できる
     queryset = FriendRequest.objects.all()
     serializer_class = serializers.FriendRequestSerializer
     authentication_classes = (authentication.TokenAuthentication,)
@@ -44,6 +44,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.ProfileSerializer
     authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.IsAuthenticated, custompermissions.ProfilePermission)
+
     # custompermissions.pyでログインしているusrだけが書き換えられるようにする
 
     def perform_create(self, serializer):
@@ -58,3 +59,13 @@ class MyProfileListView(generics.ListAPIView):
 
     def get_queryset(self):
         return self.queryset.filter(userPro=self.request.user)
+
+
+class SongView(viewsets.ModelViewSet):  # ModelViewSetはCRUDに対応
+    queryset = Song.objects.all()
+    serializer_class = serializers.SongSerializer
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
