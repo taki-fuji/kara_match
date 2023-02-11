@@ -67,5 +67,6 @@ class SongView(viewsets.ModelViewSet):  # ModelViewSetはCRUDに対応
     authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
 
+    # うまくCRUDができなかったら下記が原因になる
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

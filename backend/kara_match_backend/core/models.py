@@ -81,7 +81,6 @@ class FriendRequest(models.Model):
 
 
 class Song(models.Model):
-
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         related_name='user',
@@ -92,10 +91,13 @@ class Song(models.Model):
 
     singer = models.TextField(default="")  # 歌手(API:artistName)
 
-    artistId = models.IntegerField(default=0)
+    artistId = models.IntegerField(default=0)  # id
 
-    collectionId = models.IntegerField(default=0)
+    collectionId = models.IntegerField(default=0)  # id
 
-    trackId = models.IntegerField(default=0)
+    trackId = models.IntegerField(default=0)  # id
 
     created_on = models.DateTimeField(auto_now_add=True)  # 作成日付
+
+    def __str__(self):
+        return self.song_name
