@@ -1,7 +1,6 @@
 @media (min-width: 600px){
     body{
-      background: rgb(36,34,0);
-    background: linear-gradient(90deg, rgb(86, 3, 107) 0%, rgba(96,121,9,1) 84%, rgb(255, 72, 0) 100%);
+      background: white;
     }
     
     .formContainer{

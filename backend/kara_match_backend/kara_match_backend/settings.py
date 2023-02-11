@@ -123,10 +123,10 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # メディアの入っているディレクトリを追記
 MEDIA_ROOT = os.path.join(BASE_DIR, '_media')
 MEDIA_URL = '/media/'
 
+# userモデルをカスタマイズしていくという宣言
 AUTH_USER_MODEL = 'core.User'
