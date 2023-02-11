@@ -7,6 +7,10 @@ import ErrorPage from './modules/Error';
 import NoResult from './modules/No_result';
 import Result from './modules/Result';
 
+//material-ui
+import SearchIcon from '@mui/icons-material/Search';
+import { TextField } from '@mui/material';
+
 const Search = () => {
     // 検索キーワードを保持するためのstate
     const [keyword, setKeyword] = useState('');
@@ -73,12 +77,10 @@ const Search = () => {
 
   return (
     <div>
-        <input 
-            type="text"
-            className="search-input"
-            onChange={handleChange}
-        />
-
+        {/* 検索バー */}
+        <SearchIcon />
+        <TextField fullWidth label="キーワードで音楽を検索" id="fullWidth" onChange={handleChange} type="text"/>
+        {/* 検索ボタン */}
         <button className="search-botton" onClick={handleSearch}>検索</button>
         {switchView()}
     </div>
