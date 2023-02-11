@@ -33,7 +33,9 @@ class FriendRequestSerializer(serializers.ModelSerializer):
 
 
 class SongSerializer(serializers.ModelSerializer):
+    created_on = serializers.DateTimeField(format="%Y-%m-%d", read_only=True)  # 日付をシンプルなものにするために追記
+
     class Meta:
         model = Song
         fields = ('id', 'user', 'song_name', 'singer', 'artistId', 'collectionId', 'trackId', 'created_on')
-        extra_kwargs = {'user': {'read_only': True}}  # 何となくuserにした
+        extra_kwargs = {'user': {'read_only': True}}  # 何となくuserにした,自分だと知らせる役割?
