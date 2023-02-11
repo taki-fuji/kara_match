@@ -88,10 +88,14 @@ class Song(models.Model):
         on_delete=models.CASCADE
     )
 
-    song_name = models.TextField(default="")  # 歌名
+    song_name = models.TextField(default="")  # 歌名(API:trackCensoredName)
 
-    singer = models.TextField(default="")  # 歌手
+    singer = models.TextField(default="")  # 歌手(API:artistName)
 
-    api_id = models.IntegerField(default=0)  # APIのid,初期値なしでもいけるかも
+    artistId = models.IntegerField(default=0)
+
+    collectionId = models.IntegerField(default=0)
+
+    trackId = models.IntegerField(default=0)
 
     created_on = models.DateTimeField(auto_now_add=True)  # 作成日付
