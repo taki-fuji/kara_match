@@ -35,5 +35,5 @@ class FriendRequestSerializer(serializers.ModelSerializer):
 class SongSerializer(serializers.ModelSerializer):
     class Meta:
         model = Song
-        fields = ('id', 'user', 'song_name', 'singer', 'api_id', 'created_on')
+        fields = ('id', 'user', 'song_name', 'singer', 'artistId', 'collectionId', 'trackId', 'created_on')
         extra_kwargs = {'user': {'read_only': True}}  # 何となくuserにした
