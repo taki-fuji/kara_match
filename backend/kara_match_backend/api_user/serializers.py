@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
-from core.models import Profile, FriendRequest
+from core.models import Profile, FriendRequest, Song
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -30,3 +30,10 @@ class FriendRequestSerializer(serializers.ModelSerializer):
         model = FriendRequest
         fields = ('id', 'askFrom', 'askTo', 'approved')
         extra_kwargs = {'askFrom': {'read_only': True}}
+
+
+class SongSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Song
+        fields = ('id', 'user', 'song_name', 'singer', 'api_id', 'created_on')
+        extra_kwargs = {'user': {'read_only': True}}  # 何となくuserにした
