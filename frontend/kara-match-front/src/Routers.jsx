@@ -60,7 +60,8 @@ const Routers = () => {
 
             <Route path="/setting" element={<Setting />} />
 
-            <Route path="/itunes-api-test" element={<Search />} />
+
+            <Route path="/itunes-api" element={<Search />} />
 
           </Routes>
         </CookiesProvider>
