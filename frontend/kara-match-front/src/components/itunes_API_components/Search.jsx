@@ -10,6 +10,9 @@ import Result from './modules/Result';
 //material-ui
 import SearchIcon from '@mui/icons-material/Search';
 import { TextField } from '@mui/material';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import Paper from '@mui/material/Paper';
 
 const Search = () => {
     // 検索キーワードを保持するためのstate
@@ -77,11 +80,16 @@ const Search = () => {
 
   return (
     <div>
-        {/* 検索バー */}
-        <SearchIcon />
-        <TextField fullWidth label="キーワードで音楽を検索" id="fullWidth" onChange={handleChange} type="text"/>
-        {/* 検索ボタン */}
-        <button className="search-botton" onClick={handleSearch}>検索</button>
+            <Paper
+                component="form"
+                sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '80%' }}>
+                <TextField sx={{ ml: 1, flex: 1 }} variant='standard' label="キーワードで音楽を検索" id="standard-basic" onChange={handleChange} type="text"/>
+                <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+                <IconButton type="button" sx={{ p: '15px', width:'20px'}} aria-label="search" size='small' onClick={handleSearch}>
+                    <SearchIcon />
+                </IconButton>
+            </Paper>
+        {/* 検索結果表示 */}
         {switchView()}
     </div>
   )
