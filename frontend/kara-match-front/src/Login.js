@@ -1,12 +1,8 @@
 //ログイン画面でログインが完了したら、メニューに遷移できるようにしたい
 //https://qiita.com/kouji0705/items/dd22e8982efb5d2a5d85
 
-
-import React ,{ useReducer }from "react";
-
 import * as React from 'react';
-
-import { useState } from "react";
+import { useState , useReducer} from "react";
 //import { Link as RouterLink } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -23,17 +19,11 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
-
 import { withCookies } from 'react-cookie';
 import axios from 'axios';
 
 import { Paper } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import Avatar from '@mui/material/Avatar';
-import TextField from '@mui/material/TextField';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 import { CircularProgress } from '@mui/material';
 
 import {
@@ -47,15 +37,6 @@ import {
 } from "./actionTypes";
 
 
-const Exspan = styled('span')(({theme}) => ({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  color: "teal",
-
-})); 
-
-
 const SpanError = styled('span')(({theme}) => ({
   display: "flex",
     flexDirection: "column",
@@ -63,8 +44,6 @@ const SpanError = styled('span')(({theme}) => ({
     color: "fuchsia",
     marginTop: 10,
 })); 
-
-
 
 const initialState = {//stateの初期値
   isLoading: false,//ログインされているか
@@ -144,25 +123,21 @@ const loginReducer = (state, action) => {
 
 
 
-const Login = (props) => {
-  const [state, dispatch] = useReducer(loginReducer, initialState);
-  //loginReducerはstateを更新するための関数,dispatchはそれを呼び出す関数
-  //initialStateはstateの初期値
-  const initialValues = { id: "", password: "" }; //初期値
-
 
 const theme = createTheme();
 
-export default function SignIn() {
-  const initialValues = { mailAddres: "", password: "" }; //初期値
+export default function SignIn(props) {
 
+  const [state, dispatch] = useReducer(loginReducer, initialState);
+
+  const initialValues = { mailAddres: "", password: "" }; //初期値
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({}); //{}←オブジェクトキーと値を入れる為irerutame
   const [isSubmit, setIsSubmit] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();//更新を妨げる
-    //ログイン情報　バリデーションチェック
+    //ログイン情報バリデーションチェック
     const data = new FormData(e.currentTarget);
     console.log({
       email: data.get('email'),
@@ -200,6 +175,9 @@ export default function SignIn() {
 
 
 
+
+
+
   const inputChangedLog = () => (event) => {
     //const cred = state.credentialsLog;
     //cred[event.target.name] = event.target.value;
@@ -214,12 +192,12 @@ export default function SignIn() {
 
 
   const inputChangedReg = () => (event) => {
-    //const cred = state.credentialsReg;
-    //cred[event.target.name] = event.target.value;
+    const cred = state.credentialsReg;
+    cred[event.target.name] = event.target.value;
     dispatch({
       type: INPUT_EDIT_REG,
-      //inputName: "state.credentialReg",
-      //payload: cred,
+      inputName: "state.credentialReg",
+      payload: cred,
       inputName: event.target.name,
       payload: event.target.value,
     });
@@ -263,36 +241,16 @@ export default function SignIn() {
       }
     }
   };
-
+  
 
   const toggleView = () => {
     dispatch({ type: TOGGLE_MODE });
   };
 
 
-  //書き換えたところをコメントアウトに書いていくエラーが起きた場合に備える
-  //一時的なメモ:下の{login}はもしかすると右のような書き方で書かなければいけないかも今のところエラーはないが{(e) => handleSubmit(e)}
-  //<h1>ログインフォーム</h1>を{state.isLoginView ? "Login" : "Register"}にした
-  //onChange={inputChangedLog()}が変更点
+
 
   return (
-
-    <div className="formContainer">
-
-      <form onSubmit={(e) => handleSubmit(e)}>
-        {/* onSubmitプロパティは*/}
-        {state.isLoginView ? "Login" : "Register"}
-        <hr />
-        {/*横線 */}
-        <div className="uiForm">
-          <div className="formField">
-            <label>ユーザーID</label>
-            <input
-              type="text"
-              placeholder="ユーザーID"
-              name="id"
-              onChange={(e) => handleChange(e)} //で文字が打ち込まれてる時(onChange)にhandleChangeを呼び出す
-
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -308,41 +266,124 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            ログイン
+            {state.isLoginView ? "Login" : "Register"}
           </Typography>
-          <Box component="form" onSubmit={(e) => handleSubmit(e)} noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="メールアドレス"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              onChange={(e) => handleChange(e)}
+          <Box component="form" onSubmit={login} noValidate sx={{ mt: 1 }}>
 
-            />
+            {state.isLoginView ? (
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="メールアドレス"
+                  name="username"
+                  autoComplete="email"
+                  autoFocus
+                  onChange={inputChangedLog()}
+                />
+
+              ) : (
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="メールアドレス"
+                  name="email"
+                  autoComplete="email"
+                  autoFocus
+                  onChange={inputChangedReg()}
+                />
+            )}
               <p className='errorMsg'>{formErrors.mailAddres}</p>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="パスワード"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              onChange={(e) => handleChange(e)}
-            />
-            <p className="errorMsg">{formErrors.password}</p>
 
+            {state.isLoginView ? (  
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="パスワード"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                onChange={inputChangedLog()}
+              />
+            ) : (
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="パスワード"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                onChange={inputChangedReg()}
+              />
+            )}
+
+            <p className="errorMsg">{formErrors.password}</p>
+            <SpanError >{state.error}</SpanError>
+
+
+            {state.isLoginView ? (
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="ログイン情報を記憶する"
             />
+              ) : (
+                <div></div>
+            )}
+
+
+
+            {state.isLoginView ? (
+            !state.credentialsLog.password || !state.credentialsLog.username ? (
+              <Button
+                type="submit"
+                fullWidth
+                disabled
+                variant="contained"
+                color="primary"
+              >
+                Login
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+              >
+                Login
+              </Button>
+            )
+          ) : !state.credentialsReg.password || !state.credentialsReg.email ? (
+            <Button
+              type="submit"
+              fullWidth
+              disabled
+              variant="contained"
+              color="primary"
+            >
+              Register
+            </Button>
+          ) : (
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+            >
+              Register
+            </Button>
+          )}
+
+            
           
-           {(Object.keys(formErrors).length === 0 && isSubmit) ?　(
+           {/* {(Object.keys(formErrors).length === 0 && isSubmit) ?(
             <Button
               type="submit"
               variant="contained"
@@ -363,20 +404,22 @@ export default function SignIn() {
               </Button>
               <p>{validate}</p>
               </div>
-              )}
+              )} */}
               
            
 
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
-                  パスワードを忘れた場合
+                  パスワードを忘れた場合&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
-                  {"アカウント新規作成"}
-                </Link>
+                <span onClick={() => toggleView()} >
+                  <Link href="#" variant="body2">
+                  {state.isLoginView ? "アカウント新規作成" : "ログイン画面へ"}
+                  </Link>
+                </span>
               </Grid>
             </Grid>
           </Box>
@@ -385,24 +428,3 @@ export default function SignIn() {
     </ThemeProvider>
   );
 }
-
-
-export default  withCookies(Login)
-
-
-
-// const Login =()=>{
-//   return(
-//     <>
-//     <h1>Login page</h1>
-//     <Button
-//     variant="outlined"
-//     color="primary"
-//     component={Link}
-//     to = "/menu"
-//     >Success Login</Button>
-//     </>
-//   )
-// }
-// export default Login;
-
