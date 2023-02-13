@@ -6,7 +6,7 @@ from django.conf import settings
 # フロントエンドでアップロードされてくる画像ファイルをきれいなファイル名に直す関数
 def upload_path(instance, filename):
     ext = filename.split('.')[-1]  # .で分けたファイル名の[-1]番目->つまり拡張子を抜き出す
-    return '/'.join(['image'], str(instance.userPro.id) + str(instance.nickName) + str(".") + ext)
+    return '/'.join(['image', str(instance.userPro.id) + str(instance.nickName) + str(".") + ext])
 
 
 class UserManager(BaseUserManager):
@@ -78,3 +78,26 @@ class FriendRequest(models.Model):
 
     def __str__(self):
         return str(self.askFrom) + '----->' + str(self.askTo)
+
+
+class Song(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name='user',
+        on_delete=models.CASCADE
+    )
+
+    song_name = models.TextField(default="")  # 歌名(API:trackCensoredName)
+
+    singer = models.TextField(default="")  # 歌手(API:artistName)
+
+    artistId = models.IntegerField(default=0)  # id
+
+    collectionId = models.IntegerField(default=0)  # id
+
+    trackId = models.IntegerField(default=0)  # id
+
+    created_on = models.DateTimeField(auto_now_add=True)  # 作成日付
+
+    def __str__(self):
+        return self.song_name
