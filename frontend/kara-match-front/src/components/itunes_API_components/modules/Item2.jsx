@@ -14,6 +14,10 @@ const Item2 = (props) => {
         // 曲の追加済みと追加前を切り替える関数
       setChecked(!checked);
     };
+
+    const handleDisplayCollectionId = () => {
+        console.log(props.item.collectionId)
+    }
   return (
         <ListItem
           key={props.key}
@@ -26,7 +30,7 @@ const Item2 = (props) => {
           }
           disablePadding
         >
-          <ListItemButton>
+          <ListItemButton onClick={handleDisplayCollectionId}>
             <ListItemAvatar>
               <Avatar
                 alt={`Avatar n°${props.key + 1}`}
