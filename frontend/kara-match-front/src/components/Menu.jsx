@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
+import {withCookies} from 'react-cookie';
 
-const Menu = () => {
+const Menu = (props) => {
   return (
     <>
       <h1>Menu Page</h1>
@@ -68,4 +69,4 @@ const Menu = () => {
   );
 };
 
-export default Menu;
+export default withCookies(Menu);

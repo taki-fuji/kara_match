@@ -20,11 +20,13 @@ import Search from "./components/itunes_API_components/Search"
 
 
 import { CookiesProvider } from 'react-cookie';
+import React from 'react';//いらないかも
 
 const Routers = () => {
   return (
     <>
     {/* <h1>RoutersPage</h1> */}
+    <React.StrictMode>
       <BrowserRouter>
         <CookiesProvider>
           <Routes>
@@ -66,6 +68,7 @@ const Routers = () => {
           </Routes>
         </CookiesProvider>
       </BrowserRouter>
+      </React.StrictMode>
     </>
   );
 };
