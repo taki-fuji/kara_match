@@ -18,7 +18,11 @@ import Setting from "./components/setting_components/setting"
 
 import Search from "./components/itunes_API_components/Search"
 
+//redux
+import {Provider} from 'react-redux';
+import store from './components/redux/store';
 
+// cookie管理
 import { CookiesProvider } from 'react-cookie';
 import React from 'react';//いらないかも
 
@@ -29,43 +33,45 @@ const Routers = () => {
     <React.StrictMode>
       <BrowserRouter>
         <CookiesProvider>
-          <Routes>
-            {/* <Route path="A" element={<B />} />
-            AのURLページでBのコンポーネントを表示している。
+          {/* <Provider store={store}> */}
+            <Routes>
+              {/* <Route path="A" element={<B />} />
+              AのURLページでBのコンポーネントを表示している。
 
-            http://localhost:3000 + "A"
-            ↑
-            3000までのURLがデフォルト
-          */}
-            {/*
-            遷移ボタンはMaterial-UI(Reactのデザインライブラリ)のButtonとLinkを使っている。
-            例）下の"ボタン名"というボタンを押すとCのURLページに切り替わる。
-            <Button
-            component = {Link} to = "C"
-            >ボタン名<Button>
+              http://localhost:3000 + "A"
+              ↑
+              3000までのURLがデフォルト
             */}
+              {/*
+              遷移ボタンはMaterial-UI(Reactのデザインライブラリ)のButtonとLinkを使っている。
+              例）下の"ボタン名"というボタンを押すとCのURLページに切り替わる。
+              <Button
+              component = {Link} to = "C"
+              >ボタン名<Button>
+              */}
 
-            <Route path="/" element={<Login />} />
-            <Route path="/menu" element={<Menu />} />
+              <Route path="/" element={<Login />} />
+              <Route path="/menu" element={<Menu />} />
 
-            <Route path="/match-search" element={<MatchSearch />} />
-            <Route path="/match-waite" element={<MatchWaite />} />
-            <Route path="/match-candidate" element={<MatchCandidate />} />
-            <Route path="/match-complite" element={<MatchComplete />} />
+              <Route path="/match-search" element={<MatchSearch />} />
+              <Route path="/match-waite" element={<MatchWaite />} />
+              <Route path="/match-candidate" element={<MatchCandidate />} />
+              <Route path="/match-complite" element={<MatchComplete />} />
 
-            <Route path="/friend-list" element={<FriendList />} />
-            <Route path="/friend-detail" element={<FriendDetail />} />
+              <Route path="/friend-list" element={<FriendList />} />
+              <Route path="/friend-detail" element={<FriendDetail />} />
 
-            <Route path="/myplaylist" element={<MyPlayList />} />
-            <Route path="/myplaylist-list" element={<MyPlaylistList />} />
-            <Route path="/music-search" element={<MusicSearch />} />
+              <Route path="/myplaylist" element={<MyPlayList />} />
+              <Route path="/myplaylist-list" element={<MyPlaylistList />} />
+              <Route path="/music-search" element={<MusicSearch />} />
 
-            <Route path="/setting" element={<Setting />} />
+              <Route path="/setting" element={<Setting />} />
 
 
-            <Route path="/itunes-api" element={<Search />} />
+              <Route path="/itunes-api" element={<Search />} />
 
-          </Routes>
+            </Routes>
+          {/* </Provider> */}
         </CookiesProvider>
       </BrowserRouter>
       </React.StrictMode>
