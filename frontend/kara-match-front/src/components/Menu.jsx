@@ -30,8 +30,6 @@ const Menu = (props) => {
     />
   ));
 
-
-
   return (
     <>
       <h1>Menu Page</h1>
@@ -90,7 +88,7 @@ const Menu = (props) => {
         variant="outlined"
         color="primary"
         component={Link}
-        to="/itunes-api-test"
+        to="/itunes-api"
       >
         Go to itunesAPI test!
       </Button>

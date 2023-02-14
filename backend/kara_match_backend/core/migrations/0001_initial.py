@@ -47,7 +47,7 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Profile',
+            name='Message',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('nickName', models.CharField(max_length=20)),
@@ -60,7 +60,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='FriendRequest',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('approved', models.BooleanField(default=False)),
                 ('askFrom', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='askFrom',
                                               to=settings.AUTH_USER_MODEL)),
@@ -69,6 +69,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'unique_together': {('askFrom', 'askTo')},
+
 
             },
         ),
