@@ -14,8 +14,10 @@ const ApiContextProvider = (props) => {
     const [askListFull, setAskListFull] = useState([]);//自分宛の友達申請+自分が出している申請を格納
     const [cover, setCover] = useState([]);//画像保存用
 
+
 // ページが更新されるたび、関数が読まれてしまうがこのEffect内の関数は最初の一回しか読まれない。
 useEffect(() => {
+
 
     const getMyProfile = async () => {
       try {
