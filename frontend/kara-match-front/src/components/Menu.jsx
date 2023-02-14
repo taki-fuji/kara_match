@@ -61,7 +61,7 @@ const Menu = (props) => {
         variant="outlined"
         color="primary"
         component={Link}
-        to="/itunes-api-test"
+        to="/itunes-api"
       >
         Go to itunesAPI test!
       </Button>
