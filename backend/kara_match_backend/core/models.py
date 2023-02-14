@@ -99,5 +99,6 @@ class Song(models.Model):
 
     created_on = models.DateTimeField(auto_now_add=True)  # 作成日付
 
+    # 曲の画像を保存するモデルを作る
     def __str__(self):
         return self.song_name

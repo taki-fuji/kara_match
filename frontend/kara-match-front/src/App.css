@@ -161,3 +161,17 @@
     }
   }
 
+
+
+
+
+.app-profiles {
+  background-color: #292f38;
+  width: 25%;
+  min-width: 350px;
+  height: 700px;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}
