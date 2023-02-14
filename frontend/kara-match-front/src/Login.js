@@ -1,6 +1,3 @@
-//ログイン画面でログインが完了したら、メニューに遷移できるようにしたい
-//https://qiita.com/kouji0705/items/dd22e8982efb5d2a5d85
-
 import * as React from 'react';
 import { useState , useReducer} from "react";
 //import { Link as RouterLink } from "react-router-dom";
@@ -44,6 +41,8 @@ const SpanError = styled('span')(({theme}) => ({
     color: "fuchsia",
     marginTop: 10,
 })); 
+
+// 状態を管理する変数的なものを宣言
 
 const initialState = {//stateの初期値
   isLoading: false,//ログインされているか
@@ -157,6 +156,7 @@ const Login = (props) => {
     const errors = {}; //どの欄でエラーが吐かれているのかパターンを用意しておく
     const regex =/^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;//メアドの正規表現
     
+
     if(!values.mailAddres){
       errors.mailAddres ="メールアドレスを入力してください";
     }else if(!regex.test(values.mailAddres)){
@@ -206,7 +206,10 @@ const Login = (props) => {
 
   const login = async (event) => {
     event.preventDefault();
+
+    // isLoginViewはbooleanで　ログイン状態ならTrue、登録状態ならFalseを返す。
     if (state.isLoginView) {
+      // credentialsLogのEmailとPassword
       try {
         dispatch({ type: START_FETCH });
         const res = await axios.post(
