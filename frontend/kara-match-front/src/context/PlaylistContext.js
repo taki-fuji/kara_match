@@ -6,7 +6,7 @@ import axios from "axios";
 export const playlistContext = createContext();
 
 const PlaylistContext = (props) => {
-    // ログイン認証に成功したときにcurrent-tokenにtokenが保存されているのでgetで取得する
+    // ログイン認証に成功したときにcurrent-tokenにtokenが保存されているのでgetで取得
     const token = props.cookies.get("current-token");
     // playlistの単体要素songのためのオブジェクト型のinitialSongStateを定義
     const initialSongState = {
