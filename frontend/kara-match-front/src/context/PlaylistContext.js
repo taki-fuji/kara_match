@@ -10,7 +10,7 @@ const PlaylistContext = (props) => {
     const token = props.cookies.get("current-token");
     // playlistの単体要素songのためのオブジェクト型のinitialSongStateを定義
     const initialSongState = {
-      
+      name: 'initialName',
     }
     
   return (
