@@ -1,7 +1,6 @@
 __pycache__/
 .cache/
-<<<<<<< HEAD
-0001_initial.py/
-=======
-/node_modules/
->>>>>>> master
+node_modules/
+/0001_initial.py
+
+
