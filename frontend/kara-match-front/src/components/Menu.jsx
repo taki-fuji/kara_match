@@ -1,8 +1,21 @@
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
 import {withCookies} from 'react-cookie';
+import Profile from "../component_parts/Profile";
+import { ApiContext } from "../context/ApiContext";
+
+
 
 const Menu = (props) => {
+
+
+
+
+  //const { profiles, profile, askList, askListFull } = useContext(ApiContext);
+
+
+
   return (
     <>
       <h1>Menu Page</h1>
