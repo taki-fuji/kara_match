@@ -44,6 +44,7 @@ const SpanError = styled('span')(({theme}) => ({
 
 // 状態を管理する変数的なものを宣言
 
+// ログイン状態やエラーメッセージの変数みたいなものを宣言
 const initialState = {//stateの初期値
   isLoading: false,//ログインされているか
   isLoginView: true,//ログインかレジスターかを判断
@@ -58,7 +59,7 @@ const initialState = {//stateの初期値
   },
 };
 
-
+// dispachのtypeで宣言する。initialStateで宣言した変数の状態を変更したりする。
 const loginReducer = (state, action) => {
   switch (action.type) {
     case START_FETCH: {
@@ -109,6 +110,7 @@ const loginReducer = (state, action) => {
         error: "",
       };
     }
+    // isLoginViewの値を切り替える
     case TOGGLE_MODE: {
       return {
         ...state,
@@ -122,8 +124,10 @@ const loginReducer = (state, action) => {
 
 
 
-
+// テーマを作ってる
+// 開発側がインターフェースのデザイン色を変えたりするときにテーマを使う。createThemeの関数に色々定義する
 const theme = createTheme();
+
 //export default function SignIn(props)
 const Login = (props) => {
 
@@ -177,8 +181,9 @@ const Login = (props) => {
 
 
 
-
+  // この関数はloginのテキストフォームを変更する時のonChangeに使われる。
   const inputChangedLog = () => (event) => {
+    // credにテキストフォームに入力されたemailとpasswordを格納している
     const cred = state.credentialsLog;
     cred[event.target.name] = event.target.value;
     dispatch({
@@ -190,7 +195,7 @@ const Login = (props) => {
     });
   };
 
-
+  // 上のinputChangeLogと同じ
   const inputChangedReg = () => (event) => {
     const cred = state.credentialsReg;
     cred[event.target.name] = event.target.value;
@@ -211,7 +216,9 @@ const Login = (props) => {
     if (state.isLoginView) {
       // credentialsLogのEmailとPassword
       try {
+        // isloadingの状態をSTART_FETCHを使って、dispatchで変更する
         dispatch({ type: START_FETCH });
+        // "http://127.0.0.1:8000/authen/" にcredentialsLogの値をpostして、トークンをresに格納する
         const res = await axios.post(
           "http://127.0.0.1:8000/authen/",
           state.credentialsLog,
@@ -219,17 +226,22 @@ const Login = (props) => {
             headers: { "Content-Type": "application/json" },
           }
         );
+        // current-tokenにresに格納したトークンをcurrent-tokenにセットする。
         props.cookies.set("current-token", res.data.token);
+        // トークンの値がTrueだったら/menuへ、Falseだったら遷移しない。
         res.data.token
           ? (window.location.href = "/menu")
           : (window.location.href = "/");
+        //  ???ここでログイン状態をFalseにしておく。次のLoginの時にFalseからスタートできるようにかな？
         dispatch({ type: FETCH_SUCCESS });
-      } catch {
+      } catch { 
         dispatch({ type: ERROR_CATCHED });
       }
+      // if文と構成は大体同じ
     } else {
       try {
         dispatch({ type: START_FETCH });
+        // "http://127.0.0.1:8000/api/user/create/"にcredentialsRegの内容を送る。新規アカウントの内容を送る。
         await axios.post(
           "http://127.0.0.1:8000/api/user/create/",
           state.credentialsReg,
@@ -245,7 +257,7 @@ const Login = (props) => {
     }
   };
   
-
+  // isloginViewの値を切り替える
   const toggleView = () => {
     dispatch({ type: TOGGLE_MODE });
   };
@@ -254,6 +266,7 @@ const Login = (props) => {
 
 
   return (
+    // 開発側がインターフェースのデザイン色を変えたりするときにテーマを使う。
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -272,7 +285,7 @@ const Login = (props) => {
             {state.isLoginView ? "Login" : "Register"}
           </Typography>
           <Box component="form" onSubmit={login} noValidate sx={{ mt: 1 }}>
-
+            {/* emailのテキストフィールド。isLoginViewが、Trueでログインテキストフィールド、Falseで登録テキストフィールドを表示する */}
             {state.isLoginView ? (
                 <TextField
                   margin="normal"
@@ -300,7 +313,7 @@ const Login = (props) => {
                 />
             )}
               <p className='errorMsg'>{formErrors.mailAddres}</p>
-
+            {/* passwordのテキストフィールド。isLoginViewが、Trueでログインテキストフィールド、Falseで登録テキストフィールドを表示する */}
             {state.isLoginView ? (  
               <TextField
                 margin="normal"
@@ -341,7 +354,8 @@ const Login = (props) => {
             )}
 
 
-
+            {/* Loginボタンを押せるか押せないかを制御している三項演算子 
+            Buttonのdisabledでボタンを押せない状態にできる。*/}
             {state.isLoginView ? (
             !state.credentialsLog.password || !state.credentialsLog.username ? (
               <Button
@@ -363,6 +377,7 @@ const Login = (props) => {
                 Login
               </Button>
             )
+            // ボタンのレジスターバージョン
           ) : !state.credentialsReg.password || !state.credentialsReg.email ? (
             <Button
               type="submit"
@@ -413,6 +428,7 @@ const Login = (props) => {
 
             <Grid container>
               <Grid item xs>
+                {/* Link先のボタンなし */}
                 <Link href="#" variant="body2">
                   パスワードを忘れた場合&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </Link>

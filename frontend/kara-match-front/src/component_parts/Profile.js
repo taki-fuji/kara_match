@@ -16,8 +16,6 @@ const ExButton = styled(Button)(({theme}) => ({
 }));
 
 
-
-
 const Profile = ({ profileData, askData }) => {
   const { newRequestFriend, profile } = useContext(ApiContext);
 
