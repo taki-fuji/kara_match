@@ -270,7 +270,7 @@ useEffect(() => {
       {props.children}
     </ApiContext.Provider>
   );
-}
+};
 
 
 export default withCookies(ApiContextProvider);
