@@ -1,6 +1,8 @@
 import React, { createContext, useState, useEffect } from "react";
 import { withCookies } from "react-cookie";
 import axios from "axios";
+
+// ApiContextという名前で、Contextを宣言している。コンポーネントツリーを無視して、コンポーネントの値を送れる。
 export const ApiContext = createContext();
 
 const ApiContextProvider = (props) => {
@@ -12,7 +14,7 @@ const ApiContextProvider = (props) => {
     const [askListFull, setAskListFull] = useState([]);//自分宛の友達申請+自分が出している申請を格納
     const [cover, setCover] = useState([]);//画像保存用
 
-
+// ページが更新されるたび、関数が読まれてしまうがこのEffect内の関数は最初の一回しか読まれない。
 useEffect(() => {
 
     const getMyProfile = async () => {
