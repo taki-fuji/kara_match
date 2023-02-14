@@ -12,7 +12,7 @@ const Menu = (props) => {
 
 
 
-  //const { profiles, profile, askList, askListFull } = useContext(ApiContext);
+  const { profiles, profile, askList, askListFull } = useContext(ApiContext);
 
 
 

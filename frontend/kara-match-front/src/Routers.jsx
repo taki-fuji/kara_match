@@ -18,6 +18,8 @@ import Setting from "./components/setting_components/setting"
 
 import Search from "./components/itunes_API_components/Search"
 
+import ApiContextProvider from "./context/ApiContext"
+
 
 import { CookiesProvider } from 'react-cookie';
 import React from 'react';//いらないかも
@@ -26,9 +28,11 @@ const Routers = () => {
   return (
     <>
     {/* <h1>RoutersPage</h1> */}
+
     <React.StrictMode>
       <BrowserRouter>
         <CookiesProvider>
+        <ApiContextProvider>
           <Routes>
             {/* <Route path="A" element={<B />} />
             AのURLページでBのコンポーネントを表示している。
@@ -66,6 +70,7 @@ const Routers = () => {
             <Route path="/itunes-api" element={<Search />} />
 
           </Routes>
+          </ApiContextProvider>
         </CookiesProvider>
       </BrowserRouter>
       </React.StrictMode>
