@@ -33,6 +33,7 @@ const Routers = () => {
     <React.StrictMode>
       <BrowserRouter>
         <CookiesProvider>
+          
           {/* <Provider store={store}> */}
             <Routes>
               {/* <Route path="A" element={<B />} />

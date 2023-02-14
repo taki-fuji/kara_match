@@ -13,7 +13,7 @@ const ApiContextProvider = (props) => {
     const [cover, setCover] = useState([]);//画像保存用
 
 
-useEffect(() => {
+    useEffect(() => {
 
     const getMyProfile = async () => {
       try {
