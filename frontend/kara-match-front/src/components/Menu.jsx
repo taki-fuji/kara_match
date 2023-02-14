@@ -9,7 +9,6 @@ import { ApiContext } from "../context/ApiContext";
 
 const Menu = (props) => {
 
-  const { profiles, profile, askList, askListFull } = useContext(ApiContext);
 
   return (
     <>

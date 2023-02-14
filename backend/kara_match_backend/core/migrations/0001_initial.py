@@ -1,3 +1,4 @@
+
 import core.models
 from django.conf import settings
 from django.db import migrations, models
@@ -9,17 +10,14 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-
-
         ('auth', '0012_alter_user_first_name_max_length'),
     ]
 
     operations = [
         migrations.CreateModel(
-
             name='User',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('password', models.CharField(max_length=128, verbose_name='password')),
                 ('last_login', models.DateTimeField(blank=True, null=True, verbose_name='last login')),
                 ('is_superuser', models.BooleanField(default=False, help_text='Designates that this user has all permissions without explicitly assigning them.', verbose_name='superuser status')),
@@ -34,17 +32,9 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='Song',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_on', models.DateTimeField(auto_now_add=True)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='user', to=settings.AUTH_USER_MODEL)),
-            ],
-        ),
-        migrations.CreateModel(
             name='Profile',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('nickName', models.CharField(max_length=20)),
                 ('created_on', models.DateTimeField(auto_now_add=True)),
                 ('img', models.ImageField(blank=True, null=True, upload_to=core.models.upload_path)),
@@ -52,9 +42,18 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
+            name='Message',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('message', models.CharField(max_length=140)),
+                ('receiver', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='receiver', to=settings.AUTH_USER_MODEL)),
+                ('sender', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='sender', to=settings.AUTH_USER_MODEL)),
+            ],
+        ),
+        migrations.CreateModel(
             name='FriendRequest',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('approved', models.BooleanField(default=False)),
                 ('askFrom', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='askFrom', to=settings.AUTH_USER_MODEL)),
                 ('askTo', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='askTo', to=settings.AUTH_USER_MODEL)),

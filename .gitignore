@@ -1,4 +1,6 @@
 __pycache__/
 .cache/
 node_modules/
+/0001_initial.py
+
 
