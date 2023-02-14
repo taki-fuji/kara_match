@@ -1,7 +1,21 @@
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
+import {withCookies} from 'react-cookie';
+import Profile from "../component_parts/Profile";
+import { ApiContext } from "../context/ApiContext";
 
-const Menu = () => {
+
+
+const Menu = (props) => {
+
+
+
+
+  //const { profiles, profile, askList, askListFull } = useContext(ApiContext);
+
+
+
   return (
     <>
       <h1>Menu Page</h1>
@@ -60,7 +74,7 @@ const Menu = () => {
         variant="outlined"
         color="primary"
         component={Link}
-        to="/itunes-api-test"
+        to="/itunes-api"
       >
         Go to itunesAPI test!
       </Button>
@@ -68,4 +82,4 @@ const Menu = () => {
   );
 };
 
-export default Menu;
+export default withCookies(Menu);

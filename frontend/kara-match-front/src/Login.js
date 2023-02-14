@@ -27,7 +27,7 @@ import {
   START_FETCH,
   FETCH_SUCCESS,
   ERROR_CATCHED,
-  //INPUT_EDIT,
+  INPUT_EDIT,
   INPUT_EDIT_LOG,
   INPUT_EDIT_REG,
   TOGGLE_MODE,
@@ -80,17 +80,17 @@ const loginReducer = (state, action) => {
         isLoading: false,
       };
     }
-    // case INPUT_EDIT: {
-    //   return {
-    //     ...state,
-    //     [action.inputName]: action.payload,
-    //     error: "",
-    //   };
-    // }
+    case INPUT_EDIT: {
+      return {
+        ...state,
+        [action.inputName]: action.payload,
+        error: "",
+      };
+    }
     case INPUT_EDIT_LOG: {
       return {
         ...state,
-        //[action.inputName]: action.payload,
+        [action.inputName]: action.payload,
         credentialsLog: {
           ...state.credentialsLog,
           [action.inputName]: action.payload,
@@ -101,7 +101,7 @@ const loginReducer = (state, action) => {
     case INPUT_EDIT_REG: {
       return {
         ...state,
-        //[action.inputName]: action.payload,
+        [action.inputName]: action.payload,
         credentialsReg: {
           ...state.credentialsReg,
           [action.inputName]: action.payload,
@@ -124,8 +124,8 @@ const loginReducer = (state, action) => {
 
 
 const theme = createTheme();
-
-export default function SignIn(props) {
+//export default function SignIn(props)
+const Login = (props) => {
 
   const [state, dispatch] = useReducer(loginReducer, initialState);
 
@@ -179,12 +179,12 @@ export default function SignIn(props) {
 
 
   const inputChangedLog = () => (event) => {
-    //const cred = state.credentialsLog;
-    //cred[event.target.name] = event.target.value;
+    const cred = state.credentialsLog;
+    cred[event.target.name] = event.target.value;
     dispatch({
       type: INPUT_EDIT_LOG,
-      //inputName: "state.credentialLog",
-      //payload: cred,
+      inputName: "state.credentialLog",
+      payload: cred,
       inputName: event.target.name,
       payload: event.target.value,
     });
@@ -221,7 +221,7 @@ export default function SignIn(props) {
         );
         props.cookies.set("current-token", res.data.token);
         res.data.token
-          ? (window.location.href = "/profiles")
+          ? (window.location.href = "/menu")
           : (window.location.href = "/");
         dispatch({ type: FETCH_SUCCESS });
       } catch {
@@ -431,3 +431,5 @@ export default function SignIn(props) {
     </ThemeProvider>
   );
 }
+
+export default  withCookies(Login)

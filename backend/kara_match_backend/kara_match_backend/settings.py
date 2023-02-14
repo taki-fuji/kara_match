@@ -48,6 +48,10 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000"
+]
+
 ROOT_URLCONF = 'kara_match_backend.urls'
 
 TEMPLATES = [
