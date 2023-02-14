@@ -18,10 +18,6 @@ import Setting from "./components/setting_components/setting"
 
 import Search from "./components/itunes_API_components/Search"
 
-//redux
-import {Provider} from 'react-redux';
-import store from './components/redux/store';
-
 // cookie管理
 import { CookiesProvider } from 'react-cookie';
 import React from 'react';//いらないかも
