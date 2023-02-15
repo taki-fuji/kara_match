@@ -8,7 +8,7 @@ import NoResult from './modules/No_result';
 import Result from './modules/Result';
 import Result2 from './modules/Result2';
 
-//material-ui
+// material-uiのインポート
 import SearchIcon from '@mui/icons-material/Search';
 import { TextField } from '@mui/material';
 import Divider from '@mui/material/Divider';
@@ -17,6 +17,7 @@ import Paper from '@mui/material/Paper';
 import {ToggleButton,ToggleButtonGroup} from '@mui/material';
 
 const Search = () => {
+
     // 検索キーワードを保持するためのstate
     const [keyword, setKeyword] = useState('');
     // APIコール状態を管理するstate
@@ -24,7 +25,7 @@ const Search = () => {
     // 検索結果を入れるstate
     const [items, setItems] = useState([]);
     // Result1 or 2 を管理するstate
-    const [alignment, setAlignment] = React.useState(0);
+    const [alignment, setAlignment] = React.useState('1');
 
     const apiClient = axios.create({
         baseURL: "https://itunes.apple.com",
@@ -88,7 +89,8 @@ const Search = () => {
                 return <p>検索してみよう!</p>
         }
     }
-
+    
+    // 検索結果の見せ方を変更するボタンが押された時にそれを変更する関数
     const handleAlignment = (event, newAlignment) => {
       setAlignment(newAlignment);
     };
