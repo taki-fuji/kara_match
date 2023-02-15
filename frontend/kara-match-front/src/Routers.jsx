@@ -34,7 +34,6 @@ const Routers = () => {
       <BrowserRouter>
         <CookiesProvider>
         <ApiContextProvider>
-          <Routes>
             {/* <Route path="A" element={<B />} />
             AのURLページでBのコンポーネントを表示している。
 
