@@ -48,6 +48,15 @@ const Routers = () => {
             <Button
             component = {Link} to = "C"
             >ボタン名<Button>
+          
+          {/* <Provider store={store}> */}
+            <Routes>
+              {/* <Route path="A" element={<B />} />
+              AのURLページでBのコンポーネントを表示している。
+
+              http://localhost:3000 + "A"
+              ↑
+              3000までのURLがデフォルト
             */}
 
             <Route path="/" element={<Login />} />
