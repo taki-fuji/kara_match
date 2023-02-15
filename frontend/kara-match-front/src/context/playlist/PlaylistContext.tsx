@@ -10,6 +10,7 @@ import { playlistReducer } from "./reducer";
 参考2:【TypeScript × React】でグローバルStateを扱う方法(https://qiita.com/curry__30/items/526b45ede95cdbf2b2ee)
 */
 
+// tsなのでpropsの方も定義する必要がある
 type propsType = {
   children: React.ReactNode;
 };
@@ -19,6 +20,7 @@ const initialPlaylistState: playlistState = {
   songs: [],
   nextSongId: 0,
 };
+
 // playlistContextオブジェクトを宣言
 export const PlaylistContext = createContext<playlistState | any>(initialPlaylistState);
 
@@ -26,8 +28,20 @@ export const PlaylistContextProvider = ({children}: propsType): React.ReactNode 
   // 別ファイルで定義したplaylistReducerと上で定義した初期値でuseReducerする
   const [playlist, playlistDispatch] = React.useReducer(playlistReducer, initialPlaylistState);
 
+  // checkされているplaylistを返す関数を作成
+  const showAllCheckedSongs = (playlist: any) => {
+    console.log(playlist)
+    for(let i=0; i < playlist.songs.length; i++){
+      if(playlist.songs[i].checked === true){
+        console.log(playlist.songs[i].name)
+      }
+    }
+  }
+
   return (
-    <PlaylistContext.Provider value={{playlist, playlistDispatch}}>{children}</PlaylistContext.Provider>
+    <PlaylistContext.Provider value={{playlist, playlistDispatch, showAllCheckedSongs}}>
+      {children}
+    </PlaylistContext.Provider>
   );
 }
 

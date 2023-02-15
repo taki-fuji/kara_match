@@ -16,6 +16,7 @@ export const playlistReducer = (state: playlistState, action: playlistActions): 
                     ...state.songs,
                     // 新しいsongを追加したもの
                     {
+                        userId: action.payload.userId,
                         name: action.payload.name,
                         imageSrc: action.payload.imageSrc,
                         collectionId: action.payload.collectionId,
