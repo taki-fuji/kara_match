@@ -18,7 +18,9 @@ import Setting from "./components/setting_components/setting"
 
 import Search from "./components/itunes_API_components/Search"
 
+// hooks context
 import ApiContextProvider from "./context/ApiContext"
+import { PlaylistContextProvider } from "./context/playlist/PlaylistContext.tsx";
 
 
 
@@ -34,6 +36,7 @@ const Routers = () => {
       <BrowserRouter>
         <CookiesProvider>
         <ApiContextProvider>
+        <PlaylistContextProvider>
             {/* <Route path="A" element={<B />} />
             AのURLページでBのコンポーネントを表示している。
 
@@ -79,6 +82,7 @@ const Routers = () => {
             <Route path="/itunes-api" element={<Search />} />
 
           </Routes>
+          </PlaylistContextProvider>
           </ApiContextProvider>
         </CookiesProvider>
       </BrowserRouter>
