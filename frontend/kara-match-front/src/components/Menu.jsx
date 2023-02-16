@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "@mui/material";
+import { AppBar, Button } from "@mui/material";
 import {withCookies} from 'react-cookie';
 import { ApiContext } from "../context/ApiContext";
 import { Grid } from '@mui/material';
@@ -34,10 +34,14 @@ const Menu = (props) => {
   ));
 
   return (
-    <>
+    <div className="all">
+      <div className="MenuContents">
       <h1>Menu Page</h1>
+    <ul className="MenuButton">
       <p></p>
+      <li>
       <Button
+        className="btn1"
         variant="contained"
         color="primary"
         component={Link}
@@ -45,9 +49,12 @@ const Menu = (props) => {
       >
         Logout
       </Button>
+      </li>
 
       <p></p>
+      <li>
       <Button
+        className="btn2"
         variant="outlined"
         color="primary"
         component={Link}
@@ -55,9 +62,12 @@ const Menu = (props) => {
       >
         Go to Friend List Page!
       </Button>
+      </li>
 
       <p></p>
+      <li>
       <Button
+        className="btn3"
         variant="outlined"
         color="primary"
         component={Link}
@@ -65,9 +75,11 @@ const Menu = (props) => {
       >
         Go to My Play List Page!
       </Button>
-
+      </li>
       <p></p>
+      <li>
       <Button
+        className="btn4"
         variant="outlined"
         color="primary"
         component={Link}
@@ -75,9 +87,11 @@ const Menu = (props) => {
       >
         Go to match-search!
       </Button>
+      </li>
 
       <p></p>
-      <Button
+      <li>
+      <Button className="btn5"
         variant="outlined"
         color="primary"
         component={Link}
@@ -85,9 +99,11 @@ const Menu = (props) => {
       >
         Go to setting!
       </Button>
+      </li>
 
       <p></p>
-      <Button
+      <li>
+      <Button className="btn6"
         variant="outlined"
         color="primary"
         component={Link}
@@ -95,6 +111,9 @@ const Menu = (props) => {
       >
         Go to itunesAPI test!
       </Button>
+      </li>
+      </ul>
+</div>
 
       <br/>
       <Grid container>
@@ -106,17 +125,19 @@ const Menu = (props) => {
           </div>
         </Grid>
 
+         <div className="ProfileBox">
         <Grid item xs={4}>
           <div className="app-details">
             <ProfileManager/>
           </div>
+          
           <h3 className="title-ask"><BsFillPeopleFill className="badge" />Approval request list</h3>
           
         </Grid>
-        
+        </div>
 
       </Grid>
-    </>
+    </div>
   );
 };
 

@@ -365,7 +365,7 @@ const Login = (props) => {
                 variant="contained"
                 color="primary"
               >
-                Login
+                ログイン
               </Button>
             ) : (
               <Button
@@ -374,7 +374,7 @@ const Login = (props) => {
                 variant="contained"
                 color="primary"
               >
-                Login
+                ログイン
               </Button>
             )
             // ボタンのレジスターバージョン
