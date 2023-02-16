@@ -29,7 +29,7 @@ export const PlaylistContextProvider = ({children}: propsType): React.ReactNode 
   const [playlist, playlistDispatch] = React.useReducer(playlistReducer, initialPlaylistState);
 
   // checkされているplaylistを返す関数を作成
-  const showAllCheckedSongs = (playlist: any) => {
+  const showAllCheckedSongs = () => {
     console.log(playlist)
     for(let i=0; i < playlist.songs.length; i++){
       if(playlist.songs[i].checked === true){
