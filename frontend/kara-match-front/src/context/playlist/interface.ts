@@ -8,7 +8,7 @@ import React from "react";
 
 // playlistの単体要素songのためのオブジェクト型のsongTypeを定義
 export interface songState{
-    userId: number; // ユーザー　ID
+    userId: number; // ユーザーID
     name: string;// 曲名
     imageSrc: string; //画像URL
     collectionId: number; //曲ごとのユニークなId

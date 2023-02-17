@@ -21,6 +21,7 @@ useEffect(() => {
 
     const getMyProfile = async () => {
       try {
+
         const resmy = await axios.get(
           "http://localhost:8000/api/user/myprofile/",
           {
@@ -29,6 +30,7 @@ useEffect(() => {
             },
           }
         );
+
         const res = await axios.get(
           "http://localhost:8000/api/user/approval/",
           {
@@ -37,6 +39,7 @@ useEffect(() => {
             },
           }
         );
+        
         resmy.data[0] && setProfile(resmy.data[0]);
         resmy.data[0] &&
           setEditedProfile({
