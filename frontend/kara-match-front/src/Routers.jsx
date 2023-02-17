@@ -23,7 +23,7 @@ import Search from "./components/itunes_API_components/Search"
 // import store from './components/redux/store';
 
 // cookie管理
-import { CookiesProvider } from 'react-cookie';
+import { CookiesProvider } from 'react-cookie'
 import React from 'react';//いらないかも
 
 const Routers = () => {
