@@ -212,7 +212,7 @@ const Login = (props) => {
   const login = async (event) => {
     event.preventDefault();
 
-    // isLoginViewはbooleanで　ログイン状態ならTrue、登録状態ならFalseを返す。
+    // isLoginViewはbooleanでログイン状態ならTrue、登録状態ならFalseを返す。
     if (state.isLoginView) {
       // credentialsLogのEmailとPassword
       try {
@@ -365,7 +365,7 @@ const Login = (props) => {
                 variant="contained"
                 color="primary"
               >
-                Login
+                ログイン
               </Button>
             ) : (
               <Button
@@ -374,7 +374,7 @@ const Login = (props) => {
                 variant="contained"
                 color="primary"
               >
-                Login
+                ログイン
               </Button>
             )
             // ボタンのレジスターバージョン

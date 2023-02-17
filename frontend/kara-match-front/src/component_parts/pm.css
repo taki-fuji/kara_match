@@ -1,0 +1,81 @@
+/* ネットの情報 */
+
+body {
+    padding: 2rem;
+  }
+  
+  .comment {
+    display: flex;
+    width: 35rem;
+    padding: 1rem;
+    border: 1px solid #eee;
+    border-radius: 6px;
+  }
+  
+  .comment-left {
+    margin-right: 1rem
+  }
+  
+  .comment-avatar {
+    width: 3rem;
+    height: 3rem;
+  }
+  
+  .comment-buttons {
+    font-size: smaller;
+    text-align: right;
+  }
+  
+  .comment-button:not(:last-child) {
+    margin-right: 0.5rem;
+  }
+
+
+
+/* snsの情報 */
+
+.image-wrapper{
+  text-align: center;
+  position: "relative";
+  margin: 6;
+}
+
+
+.profile_image{
+  width: 150;
+  height: 150;
+  object-fit: cover;
+  max-width: 100%;
+  border-radius: 50px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+.trash {
+  background-color: transparent;
+  color: lightgray;
+  font-size: 24px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.user-invalid {
+  background-color: transparent;
+  color: dimgray;
+  margin-left: 10px;
+  font-size: 26px;
+  border: none;
+  outline: none;
+  cursor: none;
+}
+
+.user {
+  background-color: transparent;
+  color: lightgray;
+  margin-left: 10px;
+  font-size: 26px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}

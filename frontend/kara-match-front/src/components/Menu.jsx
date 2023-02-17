@@ -1,20 +1,47 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "@mui/material";
+import { AppBar, Button } from "@mui/material";
 import {withCookies} from 'react-cookie';
-import Profile from "../component_parts/Profile";
 import { ApiContext } from "../context/ApiContext";
+import { Grid } from '@mui/material';
+import '../App.css';
+import Profile from "../component_parts/Profile";
+import ProfileManager from "../component_parts/ProfileManager";
 
+import { BsFillPeopleFill } from "react-icons/bs";//人のアイコン
+import { GoMail } from "react-icons/go";//メールアイコン
 
 
 const Menu = (props) => {
+  
+  const { profiles, profile, askList, askListFull } = useContext(ApiContext);
 
+  const filterProfiles = profiles.filter((prof) => {return prof.id !== profile.id;});//自分以外のプロフィールをフィルタリングしたリターン
+
+
+  const listProfiles =
+  filterProfiles &&
+  filterProfiles.map((filprof) => (//カードごとの情報をmapのループで取り出しfilprofに入れる
+    <Profile
+      key={filprof.id}
+      profileData={filprof}
+      askData={askListFull.filter((ask) => {//askDataを取り出してローカル変数のaskに入れる
+        return (
+          (filprof.userPro === ask.askFrom) | (filprof.userPro === ask.askTo)
+        );
+      })}
+    />
+  ));
 
   return (
-    <>
+    <div className="all">
+      <div className="MenuContents">
       <h1>Menu Page</h1>
+    <ul className="MenuButton">
       <p></p>
+      <li>
       <Button
+        className="btn1"
         variant="contained"
         color="primary"
         component={Link}
@@ -22,9 +49,12 @@ const Menu = (props) => {
       >
         Logout
       </Button>
+      </li>
 
       <p></p>
+      <li>
       <Button
+        className="btn2"
         variant="outlined"
         color="primary"
         component={Link}
@@ -32,9 +62,12 @@ const Menu = (props) => {
       >
         Go to Friend List Page!
       </Button>
+      </li>
 
       <p></p>
+      <li>
       <Button
+        className="btn3"
         variant="outlined"
         color="primary"
         component={Link}
@@ -42,9 +75,11 @@ const Menu = (props) => {
       >
         Go to My Play List Page!
       </Button>
-
+      </li>
       <p></p>
+      <li>
       <Button
+        className="btn4"
         variant="outlined"
         color="primary"
         component={Link}
@@ -52,9 +87,11 @@ const Menu = (props) => {
       >
         Go to match-search!
       </Button>
+      </li>
 
       <p></p>
-      <Button
+      <li>
+      <Button className="btn5"
         variant="outlined"
         color="primary"
         component={Link}
@@ -62,9 +99,11 @@ const Menu = (props) => {
       >
         Go to setting!
       </Button>
+      </li>
 
       <p></p>
-      <Button
+      <li>
+      <Button className="btn6"
         variant="outlined"
         color="primary"
         component={Link}
@@ -72,7 +111,33 @@ const Menu = (props) => {
       >
         Go to itunesAPI test!
       </Button>
-    </>
+      </li>
+      </ul>
+</div>
+
+      <br/>
+      <Grid container>
+
+        <Grid item xs={4}>
+          <h2 className="sample-box-02">Profile List</h2>
+          <div className="app-profiles">
+            {listProfiles}
+          </div>
+        </Grid>
+
+         <div className="ProfileBox">
+        <Grid item xs={4}>
+          <div className="app-details">
+            <ProfileManager/>
+          </div>
+          
+          <h3 className="title-ask"><BsFillPeopleFill className="badge" />Approval request list</h3>
+          
+        </Grid>
+        </div>
+
+      </Grid>
+    </div>
   );
 };
 
