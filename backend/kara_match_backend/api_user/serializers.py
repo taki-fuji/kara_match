@@ -37,5 +37,5 @@ class SongSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Song
-        fields = ('id', 'user', 'song_name', 'singer', 'artistId', 'collectionId', 'trackId', 'created_on')
+        fields = ('id', 'user', 'song_name', 'singer', 'artistId', 'collectionId', 'trackId', 'created_on', 'img_url')
         extra_kwargs = {'user': {'read_only': True}}  # 何となくuserにした,自分だと知らせる役割?
