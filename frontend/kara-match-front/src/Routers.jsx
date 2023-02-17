@@ -29,7 +29,7 @@ import { PlaylistContextProvider } from "./context/playlist/PlaylistContext.tsx"
 import { CookiesProvider } from 'react-cookie'
 
 import { CookiesProvider } from 'react-cookie';
->>>>>>> origin
+
 import React from 'react';//いらないかも
 
 const Routers = () => {
