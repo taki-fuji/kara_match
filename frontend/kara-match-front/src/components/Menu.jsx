@@ -103,6 +103,18 @@ const Menu = (props) => {
 
       <p></p>
       <li>
+      <Button className="btn5"
+        variant="outlined"
+        color="primary"
+        component={Link}
+        to="/music-search"
+      >
+        Go to music-search!
+      </Button>
+      </li>
+
+      <p></p>
+      <li>
       <Button className="btn6"
         variant="outlined"
         color="primary"
