@@ -1,4 +1,4 @@
-import React, { createContext, } from "react";
+import React, { createContext, useEffect } from "react";
 import { playlistState, PlaylistProvider } from "./interface";
 import { playlistReducer } from "./reducer";
 
@@ -28,15 +28,24 @@ export const PlaylistContextProvider = ({children}: propsType): React.ReactNode 
   // 別ファイルで定義したplaylistReducerと上で定義した初期値でuseReducerする
   const [playlist, playlistDispatch] = React.useReducer(playlistReducer, initialPlaylistState);
 
-  // checkされているplaylistを返す関数を作成
+  // checkされているplaylistを返す関数を作成(この関数は反映にラグがあったため代わりにuseeffectでどうなるか試す)
+  
   const showAllCheckedSongs = () => {
-    console.log(playlist)
     for(let i=0; i < playlist.songs.length; i++){
       if(playlist.songs[i].checked === true){
         console.log(playlist.songs[i].name)
       }
     }
   }
+  
+ useEffect(() => {
+  console.log("playlistに変更がありました。 変更後は以下です: ")
+  for(let i=0; i < playlist.songs.length; i++){
+      if(playlist.songs[i].checked === true){
+        console.log(playlist.songs[i].name)
+      }
+    }
+ }, [playlist]);
 
   return (
     <PlaylistContext.Provider value={{playlist, playlistDispatch, showAllCheckedSongs}}>
