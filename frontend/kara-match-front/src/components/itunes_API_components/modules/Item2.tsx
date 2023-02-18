@@ -1,5 +1,5 @@
 // 検索結果一つひとつのコンポーネントです
-import React from 'react'
+import React, {useEffect} from 'react'
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
@@ -22,6 +22,12 @@ const Item2 = (props: propsType) => {
     
     const [checked, setChecked] = React.useState(false);
 
+    // 再検索時にチェックボックスの初期化がされないバグをuseEffectで解消
+    useEffect(() => {
+      //console.log("propsの音楽に変更がありました。 変更後は以下です: ")
+      setChecked(false);
+     }, [props.item.trackCensoredName]);
+
     const handleToggle =  () => {
         // 曲の追加済みと追加前を切り替える関数
         // すでに追加されているのなら、actionはremoveSong, まだならaddSongをする
@@ -36,7 +42,6 @@ const Item2 = (props: propsType) => {
               collectionId: props.item.collectionId,
               artistName: props.item.artistName,
               artistId: props.item.artistId,
-              checked: !checked,
             }
           });
         }else if (checked === true){
@@ -50,8 +55,6 @@ const Item2 = (props: propsType) => {
         }else{
           console.log("checkedでもuncheckedでもありません in Item2.tsx");
         }
-      console.log("変更後のplaylistStateです。: ")
-      showAllCheckedSongs();
       setChecked(!checked);
     };
 

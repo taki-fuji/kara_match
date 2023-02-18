@@ -34,7 +34,6 @@ interface addSong {
         collectionId: number; //曲ごとのユニークなId
         artistName: string; //アーティスト名
         artistId: number; // アーティストごとのユニークなid
-        checked: boolean
     };
 }
 // 曲の削除(checkedを外すだけで、実際に削除するのはdjangoへのPost)
