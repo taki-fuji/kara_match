@@ -1,3 +1,5 @@
+// ApiContext：全てのファイルで使えるステート、関数などをまとめて宣言する。ファイル
+
 import React, { createContext, useState, useEffect } from "react";
 import { withCookies } from "react-cookie";
 import axios from "axios";
@@ -32,6 +34,7 @@ useEffect(() => {
         );
 
         const res = await axios.get(
+          // approval フレンドリクエストを承認した人たちの情報
           "http://localhost:8000/api/user/approval/",
           {
             headers: {
@@ -91,6 +94,7 @@ useEffect(() => {
     getMyProfile();
     getProfile();
     // getInbox();
+    //tokenかprofile.idが変更されたら、Effect内が実行される
   }, [token, profile.id]);
 
 
