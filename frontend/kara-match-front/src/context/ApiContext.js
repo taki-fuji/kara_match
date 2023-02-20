@@ -2,11 +2,15 @@ import React, { createContext, useState, useEffect } from "react";
 import { withCookies } from "react-cookie";
 import axios from "axios";
 
+import { useCookies } from "react-cookie";
+
 // ApiContextという名前で、Contextを宣言している。コンポーネントツリーを無視して、コンポーネントの値を送れる。
 export const ApiContext = createContext();
 
 const ApiContextProvider = (props) => {
-    const token = props.cookies.get("current-token");// ログイン認証に成功したときにcurrent-tokenにtokenが保存されているのでgetで取得する
+    // const token = props.cookies.get("current-token");// ログイン認証に成功したときにcurrent-tokenにtokenが保存されているのでgetで取得する
+    const [inputToken, setInputToken] = useState("");//tokenを入れておくstate,使わないかも
+    const [cookies, setCookie, removeCookie] = useCookies(["token"]);//cookieを管理する,setCookieでcookiesに値を保存removeCookieでリセット
     const [profile, setProfile] = useState([]);//ログインしたユーザーのプロフィールを格納するstate
     const [profiles, setProfiles] = useState([]);//他のユーザーを含めたプロフィールを格納するstate
     const [editedProfile, setEditedProfile] = useState({ id: "", nickName: "" });//プロフィールを編集した時の情報を格納するstate
@@ -15,44 +19,49 @@ const ApiContextProvider = (props) => {
     const [cover, setCover] = useState([]);//画像保存用
 
 
+    const [mysong, setMysong] = useState([]);//自分のsongを入れておくstate
+    const [addsong, setAddsong] = useState({id: "", song_name: "",singer: "",artistId: "",collectionId: "",trackId: "",img_url: ""});//追加した音楽の情報を入れておくstate
+
+
 // ページが更新されるたび、関数が読まれてしまうがこのEffect内の関数は最初の一回しか読まれない。
 useEffect(() => {
 
 
+  //ログインしているuser自身の情報をとってくる
     const getMyProfile = async () => {
       try {
 
-        const resmy = await axios.get(
+        const resmy = await axios.get(//ログインしているプロフィール情報を取得
           "http://localhost:8000/api/user/myprofile/",
           {
-            headers: {
-              Authorization: `Token ${token}`,
+            headers: {//token割り当て
+              Authorization: `Token ${cookies.token}`,
             },
           }
         );
 
-        const res = await axios.get(
+        const res = await axios.get(//友達申請のリストを取得
           "http://localhost:8000/api/user/approval/",
           {
             headers: {
-              Authorization: `Token ${token}`,
+              Authorization: `Token ${cookies.token}`,
             },
           }
         );
         
-        resmy.data[0] && setProfile(resmy.data[0]);
+        resmy.data[0] && setProfile(resmy.data[0]);//resmyにデータが入っていたらserProfileでデータを格納
         resmy.data[0] &&
           setEditedProfile({
             id: resmy.data[0].id,
             nickName: resmy.data[0].nickName,
-          });
+          });//取得した情報を格納,プロフィールの名前などに初期値として割り当てておく
         resmy.data[0] &&
           setAskList(
             res.data.filter((ask) => {
               return resmy.data[0].userPro === ask.askTo;
             })
-          );
-        setAskListFull(res.data);
+          );//res.dataには自分宛以外の申請も含まれているのでfilterで自分宛のものだけを取り出している
+        setAskListFull(res.data);//res.dataをそのまま入れておく
       } catch {
         console.log("error");
       }
@@ -63,10 +72,25 @@ useEffect(() => {
       try {
         const res = await axios.get("http://localhost:8000/api/user/profile/", {
           headers: {
-            Authorization: `Token ${token}`,
+            Authorization: `Token ${cookies.token}`,
           },
         });
         setProfiles(res.data);
+      } catch {
+        console.log("error");
+      }
+    };
+
+
+
+    const getMysong = async () => {//最初に自分のsongデータをとってくる
+      try{
+        const res = await axios.get("http://localhost:8000/api/user/song/", {
+          headers: {
+            Authorization: `Token ${cookies.token}`,
+          },
+        });
+        setMysong(res.data);
       } catch {
         console.log("error");
       }
@@ -90,11 +114,70 @@ useEffect(() => {
 
     getMyProfile();
     getProfile();
+    getMysong();
     // getInbox();
-  }, [token, profile.id]);
+  }, [cookies.token, profile.id]);
 
 
 
+
+
+  //ここで音楽を追加,除去する関数を作る
+
+    // const token = t.cookies.get("current-token");
+
+    const createSong = async () => {
+      const createData = new FormData();
+      createData.append("song_name", addsong.song_name);
+      createData.append("singer", addsong.singer);
+      createData.append("artistId", addsong.artistId);
+      createData.append("collectionId", addsong.collectionId);
+      // createData.append("trackId", addsong.trackId);
+      createData.append("img_url", addsong.img_url);
+      try {
+        const res = await axios.post(
+          "http://localhost:8000/api/user/song/",
+          createData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Token ${cookies.token}`,
+            },
+          }
+        );
+        setMysong(res.data);
+        // setProfile(res.data);
+        // setEditedProfile({ id: res.data.id, nickName: res.data.nickName });
+      } catch {
+        console.log("error");
+      }
+    };
+
+
+    const deleteSong = async () => {
+      try {
+        await axios.delete(
+          `http://localhost:8000/api/user/song/${mysong.id}/`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Token ${cookies.token}`,
+            },
+          }
+        );
+        setMysong([]);
+        // setProfiles(profiles.filter((dev) => dev.id !== profile.id));
+        // setProfile([]);
+        // setEditedProfile({ id: "", nickName: "" });
+        // setCover([]);
+        // setAskList([]);
+      } catch {
+        console.log("error");
+      }
+    };
+
+
+    //ここで音楽を追加,除去する関数を作る
 
 
   const createProfile = async () => {
@@ -108,7 +191,7 @@ useEffect(() => {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Token ${token}`,
+            Authorization: `Token ${cookies.token}`,
           },
         }
       );
@@ -129,7 +212,7 @@ useEffect(() => {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Token ${token}`,
+            Authorization: `Token ${cookies.token}`,
           },
         }
       );
@@ -155,7 +238,7 @@ useEffect(() => {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Token ${token}`,
+            Authorization: `Token ${cookies.token}`,
           },
         }
       );
@@ -174,7 +257,7 @@ useEffect(() => {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Token ${token}`,
+            Authorization: `Token ${cookies.token}`,
           },
         }
       );
@@ -184,18 +267,18 @@ useEffect(() => {
     }
   };
 
-//   const sendDMCont = async (uploadDM) => {
-//     try {
-//       await axios.post(`http://localhost:8000/api/dm/message/`, uploadDM, {
-//         headers: {
-//           "Content-Type": "application/json",
-//           Authorization: `Token ${token}`,
-//         },
-//       });
-//     } catch {
-//       console.log("error");
-//     }
-//   };
+  //   const sendDMCont = async (uploadDM) => {
+  //     try {
+  //       await axios.post(`http://localhost:8000/api/dm/message/`, uploadDM, {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Token ${token}`,
+  //         },
+  //       });
+  //     } catch {
+  //       console.log("error");
+  //     }
+  //   };
 
   const changeApprovalRequest = async (uploadDataAsk, ask) => {
     try {
@@ -205,7 +288,7 @@ useEffect(() => {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Token ${token}`,
+            Authorization: `Token ${cookies.token}`,
           },
         }
       );
@@ -231,7 +314,7 @@ useEffect(() => {
             {
               headers: {
                 "Content-Type": "application/json",
-                Authorization: `Token ${token}`,
+                Authorization: `Token ${cookies.token}`,
               },
             }
           )
@@ -241,7 +324,7 @@ useEffect(() => {
             {
               headers: {
                 "Content-Type": "application/json",
-                Authorization: `Token ${token}`,
+                Authorization: `Token ${cookies.token}`,
               },
             }
           );
@@ -268,6 +351,20 @@ useEffect(() => {
         // sendDMCont,
         editedProfile,
         setEditedProfile,
+
+
+        //自分で書いた
+        addsong,
+        setAddsong,
+        cookies,
+        setCookie,
+        inputToken,
+        setInputToken,
+        createSong,
+        deleteSong,
+
+        mysong,
+
       }}
     >
       {props.children}
@@ -276,4 +373,4 @@ useEffect(() => {
 };
 
 
-export default withCookies(ApiContextProvider);
+export default ApiContextProvider;
