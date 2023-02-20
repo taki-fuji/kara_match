@@ -1,4 +1,4 @@
-import React, { createContext, useEffect } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { playlistState, PlaylistProvider } from "./interface";
 import { playlistReducer } from "./reducer";
 
@@ -28,15 +28,11 @@ export const PlaylistContextProvider = ({children}: propsType): React.ReactNode 
   // 別ファイルで定義したplaylistReducerと上で定義した初期値でuseReducerする
   const [playlist, playlistDispatch] = React.useReducer(playlistReducer, initialPlaylistState);
 
-  // checkされているplaylistを返す関数を作成(この関数は反映にラグがあったため代わりにuseeffectでどうなるか試す)
-  
-  const showAllCheckedSongs = () => {
-    for(let i=0; i < playlist.songs.length; i++){
-      if(playlist.songs[i].checked === true){
-        console.log(playlist.songs[i].name)
-      }
-    }
-  }
+  // ユーザーが登録したすべてのplaylist名を保存するstate。今後初期値はdjangoに保存したデータを取ってきたいが、テスト1とテスト2を入れておく
+  const [playlist_list, setPlaylist_list] = useState(['test1', 'test2'])
+
+  // 曲追加時に追加先プレイリストをDialogで設定して、その親のItem2で使うためのstate
+  const [targetPlaylistName, setTargetPlaylistName] = useState('');
   
  useEffect(() => {
   console.log("playlistに変更がありました。 変更後は以下です: ")
@@ -48,7 +44,14 @@ export const PlaylistContextProvider = ({children}: propsType): React.ReactNode 
  }, [playlist]);
 
   return (
-    <PlaylistContext.Provider value={{playlist, playlistDispatch, showAllCheckedSongs}}>
+    <PlaylistContext.Provider value={{
+      playlist,
+      playlistDispatch,
+      playlist_list,
+      setPlaylist_list, 
+      targetPlaylistName,
+      setTargetPlaylistName,
+       }}>
       {children}
     </PlaylistContext.Provider>
   );
