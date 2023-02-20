@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState , useReducer} from "react";
+import { useState , useReducer, useContext} from "react";
 //import { Link as RouterLink } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -15,6 +15,10 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import { ApiContext } from './context/ApiContext';
+
+
+import { useCookies } from "react-cookie";
 
 import { withCookies } from 'react-cookie';
 import axios from 'axios';
@@ -131,6 +135,8 @@ const theme = createTheme();
 //export default function SignIn(props)
 const Login = (props) => {
 
+  const { inputToken, setCookie , setInputToken} = useContext(ApiContext);
+
   const [state, dispatch] = useReducer(loginReducer, initialState);
 
   const initialValues = { mailAddres: "", password: "" }; //初期値
@@ -227,7 +233,8 @@ const Login = (props) => {
           }
         );
         // current-tokenにresに格納したトークンをcurrent-tokenにセットする。
-        props.cookies.set("current-token", res.data.token);
+        // props.cookies.set("current-token", res.data.token);
+        setCookie("token", res.data.token);
         // トークンの値がTrueだったら/menuへ、Falseだったら遷移しない。
         res.data.token
           ? (window.location.href = "/menu")
