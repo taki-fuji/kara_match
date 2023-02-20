@@ -103,15 +103,16 @@ const Menu = (props) => {
 
       <p></p>
       <li>
-      <Button className="btn6"
+      <Button className="btn5"
         variant="outlined"
         color="primary"
         component={Link}
-        to="/itunes-api"
+        to="/music-search"
       >
-        Go to itunesAPI test!
+        Go to music-search!
       </Button>
       </li>
+
       </ul>
 </div>
 
@@ -132,6 +133,7 @@ const Menu = (props) => {
           </div>
           
           <h3 className="title-ask"><BsFillPeopleFill className="badge" />Approval request list</h3>
+          
           
         </Grid>
         </div>

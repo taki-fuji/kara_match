@@ -8,7 +8,8 @@ import React from "react";
 
 // playlistの単体要素songのためのオブジェクト型のsongTypeを定義
 export interface songState{
-    userId: number; // ユーザー　ID
+    userId: number; // ユーザーID
+    playlistName: string; //　プレイリスト名
     name: string;// 曲名
     imageSrc: string; //画像URL
     collectionId: number; //曲ごとのユニークなId
@@ -28,13 +29,13 @@ export interface playlistState{
 interface addSong {
     type: "ADD_SONG";
     payload: {
-        userId: number;
+        userId: number; // ユーザーID
+        playlistName: string; // プレイリスト名(選択肢の中から選んでもらう)
         name: string;// 曲名
         imageSrc: string; //画像URL
         collectionId: number; //曲ごとのユニークなId
         artistName: string; //アーティスト名
         artistId: number; // アーティストごとのユニークなid
-        checked: boolean
     };
 }
 // 曲の削除(checkedを外すだけで、実際に削除するのはdjangoへのPost)
@@ -52,5 +53,9 @@ export type playlistActions =
 export interface PlaylistProvider{
     playlist: playlistState;
     playlistDispatch: React.Dispatch<playlistActions>;
-    showAllCheckedSongs: typeof Function
+    showAllCheckedSongs: typeof Function;
+    playlist_list: [];
+    setPlaylist_list: typeof Function;
+    targetPlaylistName: string;
+    setTargetPlaylistName: typeof Function;
 }

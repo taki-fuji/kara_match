@@ -61,6 +61,7 @@ class MyProfileListView(generics.ListAPIView):
         return self.queryset.filter(userPro=self.request.user)
 
 
+# songsなどのように全ての歌をまとめて保存するやつを作り忘れてるから今度作る
 class SongView(viewsets.ModelViewSet):  # ModelViewSetはCRUDに対応
     queryset = Song.objects.all()
     serializer_class = serializers.SongSerializer

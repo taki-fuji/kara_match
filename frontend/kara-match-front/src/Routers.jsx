@@ -10,13 +10,11 @@ import MatchComplete from "./components/match_components/match_complite";
 import FriendList from "./components/friend_components/friend_list";
 import FriendDetail from "./components/friend_components/friend_detail";
 
-import MyPlaylistList from "./components/myUse_components/myplaylist_list";
-import MyPlayList from "./components/myUse_components/my_playlist";
-import MusicSearch from "./components/myUse_components/music_search"
+import MyPlaylistList from "./components/show_playlist_components/myplaylist_list";
+import MyPlayList from "./components/show_playlist_components/my_playlist";
+import MusicSearch from "./components/music_search_components/MusicSearch"
 
 import Setting from "./components/setting_components/setting"
-
-import Search from "./components/itunes_API_components/Search"
 
 // hooks context
 import ApiContextProvider from "./context/ApiContext"
@@ -28,7 +26,6 @@ import { PlaylistContextProvider } from "./context/playlist/PlaylistContext.tsx"
 // cookie管理
 import { CookiesProvider } from 'react-cookie'
 
-// import { CookiesProvider } from 'react-cookie';
 
 import React from 'react';//いらないかも
 
@@ -82,9 +79,6 @@ const Routers = () => {
             <Route path="/music-search" element={<MusicSearch />} />
 
             <Route path="/setting" element={<Setting />} />
-
-
-            <Route path="/itunes-api" element={<Search />} />
 
           </Routes>
           </PlaylistContextProvider>

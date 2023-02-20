@@ -67,15 +67,18 @@ const ProfileManager = () => {
     createProfile,
     editProfile,
   } = useContext(ApiContext);
+
   const handleEditPicture = () => {
     const fileInput = document.getElementById("imageInput");
     fileInput.click();
   };
+
   const handleInputChange = () => (event) => {
     const value = event.target.value;
     const name = event.target.name;
     setEditedProfile({ ...editedProfile, [name]: value });
   };
+  
   return (
     <Profile >
       <Image_wrapper>

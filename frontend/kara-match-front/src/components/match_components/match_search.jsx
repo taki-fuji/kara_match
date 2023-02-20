@@ -8,6 +8,7 @@ import { ApiContext } from "/Users/nagasawa/Karaoke_APP/kara_match/frontend/kara
 import { Grid } from '@mui/material';
 import {App} from "/Users/nagasawa/Karaoke_APP/kara_match/frontend/kara-match-front/src/";
 import Profile from "../../component_parts/Profile";
+
 // import Profile from "../component_parts/Profile";
 // import ProfileManager from "../component_parts/ProfileManager";
 // import { BsFillPeopleFill } from "react-icons/bs";//人のアイコン
@@ -84,3 +85,4 @@ const MatchSearch = (props) => {
   );
 };
 export default MatchSearch;
+

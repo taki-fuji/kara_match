@@ -1,11 +1,11 @@
-import React, { createContext, } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { playlistState, PlaylistProvider } from "./interface";
 import { playlistReducer } from "./reducer";
 
 /*
 ログインしているユーザーのプレイリスト(曲の情報のリスト)をcontext化して保持することで、
 どこからでも参照、書き換え可能にするためのcontextファイル
-使用する型　、actionは./interface.ts, reducerは./reducer.tsに書いてある
+使用する型、actionは./interface.ts, reducerは./reducer.tsに書いてある
 参考:ReactのHooksを使ってReduxのチュートリアルを置き換える(https://qiita.com/okumurakengo/items/aecd060ce64c99a646c8#usecontext%E3%81%AE%E5%89%8D%E3%81%ABcreatecontext%E3%82%92%E5%BE%A9%E7%BF%92)
 参考2:【TypeScript × React】でグローバルStateを扱う方法(https://qiita.com/curry__30/items/526b45ede95cdbf2b2ee)
 */
@@ -15,7 +15,7 @@ type propsType = {
   children: React.ReactNode;
 };
 
-// playlistStateを使ってstateの宣言時の値(initialState)を定義する　
+// playlistStateを使ってstateの宣言時の値(initialState)を定義する
 const initialPlaylistState: playlistState = {
   songs: [],
   nextSongId: 0,
@@ -28,18 +28,30 @@ export const PlaylistContextProvider = ({children}: propsType): React.ReactNode 
   // 別ファイルで定義したplaylistReducerと上で定義した初期値でuseReducerする
   const [playlist, playlistDispatch] = React.useReducer(playlistReducer, initialPlaylistState);
 
-  // checkされているplaylistを返す関数を作成
-  const showAllCheckedSongs = () => {
-    console.log(playlist)
-    for(let i=0; i < playlist.songs.length; i++){
+  // ユーザーが登録したすべてのplaylist名を保存するstate。今後初期値はdjangoに保存したデータを取ってきたいが、テスト1とテスト2を入れておく
+  const [playlist_list, setPlaylist_list] = useState(['test1', 'test2'])
+
+  // 曲追加時に追加先プレイリストをDialogで設定して、その親のItem2で使うためのstate
+  const [targetPlaylistName, setTargetPlaylistName] = useState('');
+  
+ useEffect(() => {
+  console.log("playlistに変更がありました。 変更後は以下です: ")
+  for(let i=0; i < playlist.songs.length; i++){
       if(playlist.songs[i].checked === true){
         console.log(playlist.songs[i].name)
       }
     }
-  }
+ }, [playlist]);
 
   return (
-    <PlaylistContext.Provider value={{playlist, playlistDispatch, showAllCheckedSongs}}>
+    <PlaylistContext.Provider value={{
+      playlist,
+      playlistDispatch,
+      playlist_list,
+      setPlaylist_list, 
+      targetPlaylistName,
+      setTargetPlaylistName,
+       }}>
       {children}
     </PlaylistContext.Provider>
   );

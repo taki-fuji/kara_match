@@ -1,3 +1,6 @@
+import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
+
 import React, {useState} from 'react'
 import qs from 'qs';
 import axios from 'axios';
@@ -16,7 +19,7 @@ import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
 import {ToggleButton,ToggleButtonGroup} from '@mui/material';
 
-const Search = () => {
+const MusicSearch = () => {
 
     // 検索キーワードを保持するためのstate
     const [keyword, setKeyword] = useState('');
@@ -97,6 +100,12 @@ const Search = () => {
 
   return (
     <div>
+        <Button
+        variant="outlined"
+        color="primary"
+        component={Link}
+        to="/myplaylist"
+      >Back to myplaylist</Button>
         <Paper
             component="form"
             sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '80%' }}>
@@ -122,8 +131,9 @@ const Search = () => {
         </ToggleButtonGroup>
         {/* 検索結果表示 */}
         {switchView()}
-    </div>
+
+        </div>
   )
 }
 
-export default Search
+export default MusicSearch;
