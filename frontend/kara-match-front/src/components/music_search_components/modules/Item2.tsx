@@ -9,12 +9,17 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Checkbox from '@mui/material/Checkbox';
 import Avatar from '@mui/material/Avatar';
 
+// import { withCookies } from 'react-cookie';
+// import { useCookies } from "react-cookie";
+
 // Dialog(モーダルみたいなもの)をmuiで作るため
 import PlaylistSelectDialog from './playlistSelectDialog';
 
 // contextをインポート
 import { PlaylistContext } from '../../../context/playlist/PlaylistContext';
 import { PlaylistProvider } from '../../../context/playlist/interface';
+
+import { ApiContext } from '../../../context/ApiContext';
 
 // tsは受け取るpropsの値を宣言する
 type propsType = {
@@ -32,6 +37,8 @@ const Item2 = (props: propsType) => {
     // playlistSelectDialogが表示されるかどうかを管理
     const [playlistSelectDialogIsOpen, setPlaylistSelectDialogIsOpen] = React.useState(false);
     const [selectedPlaylistName, setSelectedPlaylistName] = React.useState('');
+
+    const { createSong, deleteSong, setAddsong, mysong} = React.useContext(ApiContext)
     
     const handleClickOpen = () => {
       setPlaylistSelectDialogIsOpen(true);
@@ -41,6 +48,16 @@ const Item2 = (props: propsType) => {
       setPlaylistSelectDialogIsOpen(false);
       setSelectedPlaylistName(value);
     }
+
+    const SongJudg = () => {
+      mysong.map((s: any) =>{
+        if(props.item.collectionId === s.collectionId){
+          setChecked(true)
+        }
+      })
+    }
+
+    useEffect(() => {SongJudg()})
 
     // 再検索時にチェックボックスの初期化がされないバグをuseEffectで解消
     useEffect(() => {
@@ -64,7 +81,7 @@ const Item2 = (props: propsType) => {
             type: "ADD_SONG",
             payload: {
               userId: props.item.userId, // これはエラー回避のためになんでもない数字を入れているが、将来的にdjango上のユーザーIDを入れたい
-              playlistName: selectedPlaylistName, //　追加先のプレイリスト名で、playlistContextで管理する
+              playlistName: selectedPlaylistName, //追加先のプレイリスト名で、playlistContextで管理する
               name: props.item.trackCensoredName,
               imageSrc: props.item.artWorkUrl100 ,
               collectionId: props.item.collectionId,
@@ -72,6 +89,16 @@ const Item2 = (props: propsType) => {
               artistId: props.item.artistId,
             }
           });
+          setAddsong({//ここにおくと最初だけbadrequestになるのかな？
+            id: props.item.userId,
+            song_name: props.item.trackCensoredName,
+            singer: props.item.artistName,
+            artistId: props.item.artistId,
+            collectionId: props.item.collectionId,
+            trackId: "",
+            img_url: props.item.artWorkUrl100,
+          })
+          createSong()//チェックが押されたらSongを追加する
         }else if (checked === true){
           console.log("曲を削除します。 曲名: " + props.item.trackCensoredName);
           playlistDispatch({
@@ -80,6 +107,7 @@ const Item2 = (props: propsType) => {
               collectionId: props.item.collectionId,
             }
           });
+          deleteSong();
         }else{
           console.log("checkedでもuncheckedでもありません in Item2.tsx");
         }
