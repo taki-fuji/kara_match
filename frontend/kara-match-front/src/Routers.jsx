@@ -16,8 +16,6 @@ import MusicSearch from "./components/music_search_components/MusicSearch"
 
 import Setting from "./components/setting_components/setting"
 
-import Search from "./components/itunes_API_components/Search"
-
 // hooks context
 import ApiContextProvider from "./context/ApiContext"
 import { PlaylistContextProvider } from "./context/playlist/PlaylistContext.tsx";
@@ -80,9 +78,6 @@ const Routers = () => {
             <Route path="/music-search" element={<MusicSearch />} />
 
             <Route path="/setting" element={<Setting />} />
-
-
-            <Route path="/itunes-api" element={<Search />} />
 
           </Routes>
           </PlaylistContextProvider>

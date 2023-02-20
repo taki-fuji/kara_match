@@ -113,17 +113,6 @@ const Menu = (props) => {
       </Button>
       </li>
 
-      <p></p>
-      <li>
-      <Button className="btn6"
-        variant="outlined"
-        color="primary"
-        component={Link}
-        to="/itunes-api"
-      >
-        Go to itunesAPI test!
-      </Button>
-      </li>
       </ul>
 </div>
 
