@@ -1,22 +1,21 @@
 import { Link } from "react-router-dom";
-import { Button } from "@mui/material";
+import { AppBar, Button } from "@mui/material";
 import React, { createContext, useState, useEffect } from "react";
 import { withCookies } from "react-cookie";
 import axios from "axios";
-import React, { useContext } from "react";
-import { AppBar, Button } from "@mui/material";
-import {withCookies} from 'react-cookie';
-import { ApiContext } from "../context/ApiContext";
+import { useContext } from "react";
+import { ApiContext } from "/Users/nagasawa/Karaoke_APP/kara_match/frontend/kara-match-front/src/context/ApiContext";
 import { Grid } from '@mui/material';
-import '../App.css';
-import Profile from "../component_parts/Profile";
-import ProfileManager from "../component_parts/ProfileManager";
-import { BsFillPeopleFill } from "react-icons/bs";//人のアイコン
-import { GoMail } from "react-icons/go";//メールアイコン
+import {App} from "/Users/nagasawa/Karaoke_APP/kara_match/frontend/kara-match-front/src/";
+import Profile from "../../component_parts/Profile";
+// import Profile from "../component_parts/Profile";
+// import ProfileManager from "../component_parts/ProfileManager";
+// import { BsFillPeopleFill } from "react-icons/bs";//人のアイコン
+// import { GoMail } from "react-icons/go";//メールアイコン
 
 // ここにマッチ候補のフレンドと、共通のプレイリストを表示するコンポーネントを作る
 // 1.自分が取得している曲を表示 → PlayListContextにあるshowAllCheckedSongsを使う
-// 2.友達登録している人たちを表示 → askListFullにapproval
+// 2.友達登録している人たちを表示 → askListFullにapproval (プロフィールの中にapprovedがあってそれが承認のbooleanになってる)
 // 3.その友達表示の中にマッチボタンを作成 → cardをつくるかそん中にボタン
 // 4.onClickで押された人のuserIDをもとに、音楽取得のリクエストをDjangoに送る requestMusicList
 // 5.4で受けとった曲を変数に格納する。
@@ -26,8 +25,26 @@ import { GoMail } from "react-icons/go";//メールアイコン
 const MatchSearch = (props) => {
   const { profiles, profile, askList, askListFull } = useContext(ApiContext);
 
-  const friendProfiles = askListFull.filter((prof)=>{return prof.approved === True}); //友達申請して承認された人たちをfriendProfilesに格納
 
+  const filterProfiles = profiles.filter((prof) => {return prof.id !== profile.id;});//自分以外のプロフィールをフィルタリングしたリターン
+
+
+  const listProfiles =
+  filterProfiles &&
+  filterProfiles.map((filprof) => (//カードごとの情報をmapのループで取り出しfilprofに入れる
+    <Profile
+      key={filprof.id}
+      profileData={filprof}
+      askData={askListFull.filter((ask) => {//askDataを取り出してローカル変数のaskに入れる
+        return (
+          ask.approved === "True"
+        );
+      })}
+    />
+  ));
+
+
+ 
   const requestMusicList = (userId) => {
     
   }
@@ -39,8 +56,7 @@ const MatchSearch = (props) => {
   return (
     <>
 
-
-      {/* <h1>match_search_page</h1>
+      <h1>match_search_page</h1>
       <Button
         variant="contained"
         color="primary"
@@ -53,7 +69,17 @@ const MatchSearch = (props) => {
 
       <Button variant="outlined" color="primary" component={Link} to="/menu">
         Back to menu
-      </Button> */}
+      </Button>
+
+      <Grid item xs={4}>
+          <h2 className="sample-box-02">Profile List</h2>
+          <div className="app-profiles">
+            {/* {friendProfiles} */}
+            {listProfiles}
+          </div>
+      </Grid>
+
+
     </>
   );
 };
