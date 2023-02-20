@@ -34,7 +34,7 @@ const Item2 = (props: propsType ) => {
     const [checked, setChecked] = React.useState(false);
 
 
-    useEffect(() => {SongJudg()})
+    useEffect(() => {SongJudg()})//
 
     //setProfiles(profiles.filter((dev) => dev.id !== profile.id));
 
@@ -58,17 +58,17 @@ const Item2 = (props: propsType ) => {
         // すでに追加されているのなら、actionはremoveSong, まだならaddSongをする
         if (checked === false){// 追加されてない曲の場合
           console.log("曲を追加します。 曲名: " + props.item.trackCensoredName);
-          playlistDispatch({
-            type: "ADD_SONG",
-            payload: {
-              userId: props.item.userId,
-              name: props.item.trackCensoredName,
-              imageSrc: props.item.artWorkUrl100 ,
-              collectionId: props.item.collectionId,
-              artistName: props.item.artistName,
-              artistId: props.item.artistId,
-            }
-          });
+          // playlistDispatch({
+          //   type: "ADD_SONG",
+          //   payload: {
+          //     userId: props.item.userId,
+          //     name: props.item.trackCensoredName,
+          //     imageSrc: props.item.artWorkUrl100 ,
+          //     collectionId: props.item.collectionId,
+          //     artistName: props.item.artistName,
+          //     artistId: props.item.artistId,
+          //   }
+          // });
           setAddsong({//ここにおくと最初だけbadrequestになるのかな？
             id: props.item.userId,
             song_name: props.item.trackCensoredName,
