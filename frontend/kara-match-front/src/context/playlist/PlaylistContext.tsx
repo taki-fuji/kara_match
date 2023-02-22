@@ -29,7 +29,7 @@ export const PlaylistContextProvider = ({children}: propsType): React.ReactNode 
   const [playlist, playlistDispatch] = React.useReducer(playlistReducer, initialPlaylistState);
 
   // ユーザーが登録したすべてのplaylist名を保存するstate。今後初期値はdjangoに保存したデータを取ってきたいが、テスト1とテスト2を入れておく
-  const [playlist_list, setPlaylist_list] = useState(['test1', 'test2'])
+  const [playlist_list, setPlaylist_list] = useState(['プレイリスト1', 'プレイリスト2', 'プレイリスト3']);
 
   // 曲追加時に追加先プレイリストをDialogで設定して、その親のItem2で使うためのstate
   const [targetPlaylistName, setTargetPlaylistName] = useState('');
