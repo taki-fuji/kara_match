@@ -71,19 +71,22 @@ const Item2 = (props: propsType) => {
           setMydialogConfig(undefined);//dialog閉じる
           console.log("追加先プレイリスト名: " + ret);// retにはユーザーに選択されたプレイリスト名が入っている
           // 上のawaitでユーザーがdialogを閉じるまで結果をまつ
-
+          if(ret === "cancel"){
+            console.log("プレイリストの選択がないため曲の追加をキャンセルしました");
+          }else{
           playlistDispatch({
-            type: "ADD_SONG",
-            payload: {
-              userId: props.item.userId, // これはエラー回避のためになんでもない数字を入れているが、将来的にdjango上のユーザーIDを入れたい
-              playlistName: selectedPlaylistName, //追加先のプレイリスト名で、playlistContextで管理する
-              name: props.item.trackCensoredName,
-              imageSrc: props.item.artWorkUrl100 ,
-              collectionId: props.item.collectionId,
-              artistName: props.item.artistName,
-              artistId: props.item.artistId,
-            }
+              type: "ADD_SONG",
+              payload: {
+                userId: props.item.userId, // これはエラー回避のためになんでもない数字を入れているが、将来的にdjango上のユーザーIDを入れたい
+                playlistName: selectedPlaylistName, //追加先のプレイリスト名で、playlistContextで管理する
+                name: props.item.trackCensoredName,
+                imageSrc: props.item.artWorkUrl100 ,
+                collectionId: props.item.collectionId,
+                artistName: props.item.artistName,
+                artistId: props.item.artistId,
+              }
           });
+        
           setAddsong({//ここにおくと最初だけbadrequestになるのかな？
             id: "0",
             song_name: props.item.trackCensoredName,
@@ -95,7 +98,10 @@ const Item2 = (props: propsType) => {
             // props.item.artWorkUrl100,
           })
           createSong()//Songを追加する
+          setChecked(!checked);
+        }
         }else if (checked === true){
+          setChecked(!checked);
           console.log("曲を削除します。 曲名: " + props.item.trackCensoredName);
           playlistDispatch({
             type: "REMOVE_SONG",
@@ -107,7 +113,7 @@ const Item2 = (props: propsType) => {
         }else{
           console.log("checkedでもuncheckedでもありません in Item2.tsx");
         }
-      setChecked(!checked);
+      
     };
 
     const handleDisplayCollectionId = () => {
