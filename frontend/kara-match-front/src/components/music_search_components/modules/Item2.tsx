@@ -144,7 +144,7 @@ const Item2 = (props: propsType) => {
         selectedValue={selectedPlaylistName}
         open={playlistSelectDialogIsOpen}
         onClose={handleClose}
-      />
+        />
       </ListItem>
     );
 }
