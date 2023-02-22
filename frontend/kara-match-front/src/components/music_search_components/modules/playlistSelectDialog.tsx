@@ -17,34 +17,22 @@ import { blue } from '@mui/material/colors';
 // context
 import { PlaylistContext } from '../../../context/playlist/PlaylistContext';
 
-export interface SimpleDialogProps {
-  open: boolean;
-  selectedValue: string;
+export interface playlistDialogProps {
   onClose: (value: string) => void;
-  
 }
 
-const PlaylistSelectDialog = (props: SimpleDialogProps) => {
-  const { onClose, selectedValue, open } = props;
-
-  const handleClose = () => {
-    onClose(selectedValue);
-  };
-
-  const handleListItemClick = (value: string) => {
-    onClose(value);
-  };
-
+const PlaylistSelectDialog = (props: playlistDialogProps) => {
+  const { onClose } = props;
 
   const { playlist_list } = React.useContext(PlaylistContext);
 
   return (
-    <Dialog onClose={handleClose} open={open}>
-      <DialogTitle>Set backup account</DialogTitle>
+    <Dialog onClose={() => onClose("close")} open>
+      <DialogTitle>どのプレイリストに追加しますか？</DialogTitle>
       <List sx={{ pt: 0 }}>
         {playlist_list.map((playlist:string) => (
           <ListItem disableGutters>
-            <ListItemButton onClick={() => handleListItemClick(playlist)} key={playlist}>
+            <ListItemButton onClick={() => onClose(playlist)} key={playlist}>
               <ListItemAvatar>
                 <Avatar sx={{ bgcolor: blue[100], color: blue[600] }}>
                   <PersonIcon />
@@ -57,7 +45,7 @@ const PlaylistSelectDialog = (props: SimpleDialogProps) => {
         <ListItem disableGutters>
           <ListItemButton
             autoFocus
-            onClick={() => handleListItemClick('addAccount')}
+            onClick={() => onClose("addAcount")}
           >
             <ListItemAvatar>
               <Avatar>

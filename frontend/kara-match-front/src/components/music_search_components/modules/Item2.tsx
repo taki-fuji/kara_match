@@ -13,7 +13,7 @@ import Avatar from '@mui/material/Avatar';
 // import { useCookies } from "react-cookie";
 
 // Dialog(モーダルみたいなもの)をmuiで作るため
-import PlaylistSelectDialog from './playlistSelectDialog';
+import PlaylistSelectDialog, { playlistDialogProps } from './playlistSelectDialog';
 
 // contextをインポート
 import { PlaylistContext } from '../../../context/playlist/PlaylistContext';
@@ -34,20 +34,11 @@ const Item2 = (props: propsType) => {
     const { playlist, playlistDispatch, playlist_list, targetPlaylistName }: PlaylistProvider = React.useContext(PlaylistContext);
     // checkboxがcheckされるかを管理
     const [checked, setChecked] = React.useState(false);
-    // playlistSelectDialogが表示されるかどうかを管理
-    const [playlistSelectDialogIsOpen, setPlaylistSelectDialogIsOpen] = React.useState(false);
+
     const [selectedPlaylistName, setSelectedPlaylistName] = React.useState('');
+    const [myDialogConfig, setMydialogConfig] = React.useState<playlistDialogProps | undefined>();
 
     const { createSong, deleteSong, setAddsong, addsong, mysong} = React.useContext(ApiContext)
-    
-    const handleClickOpen = () => {
-      setPlaylistSelectDialogIsOpen(true);
-    }
-
-    const handleClose = (value: string) => {
-      setPlaylistSelectDialogIsOpen(false);
-      setSelectedPlaylistName(value);
-    }
 
     // useEffect(() => {SongJudg()})
 
@@ -59,24 +50,27 @@ const Item2 = (props: propsType) => {
     //   })
     // }
 
-
     // 再検索時にチェックボックスの初期化がされないバグをuseEffectで解消
     useEffect(() => {
        //console.log("propsの音楽に変更がありました。 変更後は以下です: ")
        setChecked(false);
       }, [props.item.trackCensoredName]);
 
+    // 曲の追加済みと追加前を切り替える処理
+    // すでに追加されているのなら、actionはremoveSong, まだならaddSongをする
     const handleToggle = async () => {
-        // 曲の追加済みと追加前を切り替える関数
-        // すでに追加されているのなら、actionはremoveSong, まだならaddSongをする
         if (checked === false){// 追加されてない曲の場合
           console.log("曲を追加します。 曲名: " + props.item.trackCensoredName);
 
-          //ここでプレイリストリストdialogを出現させて、どのプレイリストに追加するかを尋ねる
-          setPlaylistSelectDialogIsOpen(true);
-          // ユーザーがdialogを閉じるまで結果をまつ
-          
-          console.log(selectedPlaylistName + "に追加します。");
+          // プレイリスト選択のdialogを出現させる
+          const ret = await new Promise<string>((resolve) => {
+            setMydialogConfig({
+              onClose: resolve,
+            });
+          });
+          setMydialogConfig(undefined);//dialog閉じる
+          console.log("追加先プレイリスト名: " + ret);// retにはユーザーに選択されたプレイリスト名が入っている
+          // 上のawaitでユーザーがdialogを閉じるまで結果をまつ
 
           playlistDispatch({
             type: "ADD_SONG",
@@ -140,11 +134,7 @@ const Item2 = (props: propsType) => {
           </ListItemAvatar>
           <ListItemText primary={props.item.trackCensoredName} />
         </ListItemButton>
-        <PlaylistSelectDialog
-        selectedValue={selectedPlaylistName}
-        open={playlistSelectDialogIsOpen}
-        onClose={handleClose}
-        />
+        {myDialogConfig && <PlaylistSelectDialog {...myDialogConfig} />}
       </ListItem>
     );
 }
