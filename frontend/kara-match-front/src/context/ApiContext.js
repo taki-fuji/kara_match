@@ -22,8 +22,8 @@ const ApiContextProvider = (props) => {
 
 
     const [mysong, setMysong] = useState([]);//自分のsongを入れておくstate
-    const [addsong, setAddsong] = useState({id: "", song_name: "",singer: "",artistId: "",collectionId: "",trackId: "",img_url: ""});//追加した音楽の情報を入れておくstate
-
+    const [addsong, setAddsong] = useState({id: "0",song_name: "",singer: "",artistId: "",collectionId: "",trackId: "",img_url: ""});//追加した音楽の情報を入れておくstate
+    //idを消してみた
 
 // ページが更新されるたび、関数が読まれてしまうがこのEffect内の関数は最初の一回しか読まれない。
 useEffect(() => {
@@ -122,7 +122,7 @@ useEffect(() => {
     getProfile();
     getMysong();
     // getInbox();
-  }, [cookies.token, profile.id]);
+  }, [cookies.token, profile.id, addsong.id]);
     //tokenかprofile.idが変更されたら、Effect内が実行される
 
 
@@ -136,12 +136,14 @@ useEffect(() => {
 
     const createSong = async () => {
       const createData = new FormData();
+      createData.append("id", addsong.id);
       createData.append("song_name", addsong.song_name);
       createData.append("singer", addsong.singer);
       createData.append("artistId", addsong.artistId);
       createData.append("collectionId", addsong.collectionId);
-      // createData.append("trackId", addsong.trackId);
+      createData.append("trackId", addsong.trackId);
       createData.append("img_url", addsong.img_url);
+      
       try {
         const res = await axios.post(
           "http://localhost:8000/api/user/song/",
@@ -153,7 +155,8 @@ useEffect(() => {
             },
           }
         );
-        setMysong(res.data);
+        // setMysong(res.data);
+        // setAddsong({id: res.data.id, song_name: res.data.song_name, singer: res.data.singer, artistId: res.data.artistId, collectionId: res.data.collectionId, trackId: res.data.trackId, img_url: res.data.img_url})
         // setProfile(res.data);
         // setEditedProfile({ id: res.data.id, nickName: res.data.nickName });
       } catch {
@@ -174,6 +177,7 @@ useEffect(() => {
           }
         );
         setMysong([]);
+        setAddsong({id: "0",song_name: "",singer: "",artistId: "",collectionId: "",trackId: "",img_url: ""})
         // setProfiles(profiles.filter((dev) => dev.id !== profile.id));
         // setProfile([]);
         // setEditedProfile({ id: "", nickName: "" });

@@ -38,7 +38,7 @@ const Item2 = (props: propsType) => {
     const [playlistSelectDialogIsOpen, setPlaylistSelectDialogIsOpen] = React.useState(false);
     const [selectedPlaylistName, setSelectedPlaylistName] = React.useState('');
 
-    const { createSong, deleteSong, setAddsong, mysong} = React.useContext(ApiContext)
+    const { createSong, deleteSong, setAddsong, addsong, mysong} = React.useContext(ApiContext)
     
     const handleClickOpen = () => {
       setPlaylistSelectDialogIsOpen(true);
@@ -49,21 +49,22 @@ const Item2 = (props: propsType) => {
       setSelectedPlaylistName(value);
     }
 
-    const SongJudg = () => {
-      mysong.map((s: any) =>{
-        if(props.item.collectionId === s.collectionId){
-          setChecked(true)
-        }
-      })
-    }
+    // useEffect(() => {SongJudg()})
 
-    useEffect(() => {SongJudg()})
+    // const SongJudg = () => {
+    //   mysong.map((s: any) =>{
+    //     if(props.item.collectionId === s.collectionId){
+    //       setChecked(true)
+    //     }
+    //   })
+    // }
+
 
     // 再検索時にチェックボックスの初期化がされないバグをuseEffectで解消
     useEffect(() => {
-      //console.log("propsの音楽に変更がありました。 変更後は以下です: ")
-      setChecked(false);
-     }, [props.item.trackCensoredName]);
+       //console.log("propsの音楽に変更がありました。 変更後は以下です: ")
+       setChecked(false);
+      }, [props.item.trackCensoredName]);
 
     const handleToggle = async () => {
         // 曲の追加済みと追加前を切り替える関数
@@ -90,15 +91,16 @@ const Item2 = (props: propsType) => {
             }
           });
           setAddsong({//ここにおくと最初だけbadrequestになるのかな？
-            id: props.item.userId,
+            id: "0",
             song_name: props.item.trackCensoredName,
             singer: props.item.artistName,
             artistId: props.item.artistId,
             collectionId: props.item.collectionId,
-            trackId: "",
-            img_url: props.item.artWorkUrl100,
+            trackId: "0",
+            img_url: "0",
+            // props.item.artWorkUrl100,
           })
-          createSong()//チェックが押されたらSongを追加する
+          createSong()//Songを追加する
         }else if (checked === true){
           console.log("曲を削除します。 曲名: " + props.item.trackCensoredName);
           playlistDispatch({
