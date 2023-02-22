@@ -1,7 +1,7 @@
 import React from 'react';
 
 // mui
-import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -11,8 +11,11 @@ import ListItemText from '@mui/material/ListItemText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import PersonIcon from '@mui/icons-material/Person';
-import AddIcon from '@mui/icons-material/Add';
 import { blue } from '@mui/material/colors';
+import { IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close'
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
 
 // context
 import { PlaylistContext } from '../../../context/playlist/PlaylistContext';
@@ -26,36 +29,35 @@ const PlaylistSelectDialog = (props: playlistDialogProps) => {
 
   const { playlist_list } = React.useContext(PlaylistContext);
 
+  const closeButtonStyle = {
+    height: 0,
+    textAlign: "center",
+  };
+
   return (
-    <Dialog onClose={() => onClose("close")} open>
+    <Dialog onClose={() => onClose("cancel")} open>
       <DialogTitle>どのプレイリストに追加しますか？</DialogTitle>
-      <List sx={{ pt: 0 }}>
-        {playlist_list.map((playlist:string) => (
-          <ListItem disableGutters>
-            <ListItemButton onClick={() => onClose(playlist)} key={playlist}>
-              <ListItemAvatar>
-                <Avatar sx={{ bgcolor: blue[100], color: blue[600] }}>
-                  <PersonIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary={playlist} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-        <ListItem disableGutters>
-          <ListItemButton
-            autoFocus
-            onClick={() => onClose("addAcount")}
-          >
-            <ListItemAvatar>
-              <Avatar>
-                <AddIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="Add account" />
-          </ListItemButton>
-        </ListItem>
-      </List>
+      <DialogContent dividers>
+        <List sx={{ pt: 0 }}>
+          {playlist_list.map((playlist:string) => (
+            <ListItem disableGutters>
+              <ListItemButton onClick={() => onClose(playlist)} key={playlist}>
+                <ListItemAvatar>
+                  <Avatar sx={{ bgcolor: blue[100], color: blue[600] }}>
+                    <PersonIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText primary={playlist} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </DialogContent>
+      <DialogActions>
+        <IconButton autoFocus onClick={() => onClose("cancel")}>
+          <CloseIcon />
+        </IconButton>
+      </DialogActions>
     </Dialog>
   );
 }
