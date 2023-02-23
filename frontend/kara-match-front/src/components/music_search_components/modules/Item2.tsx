@@ -44,14 +44,14 @@ const Item2 = (props: propsType) => {
 
     const [toggle, setToggle] = React.useState(false);//チェックボックスがチェックされたら変更してuseEffectを起動できるようにする
     
-    const handleClickOpen = () => {
-      setPlaylistSelectDialogIsOpen(true);
-    }
+    //const handleClickOpen = () => {
+    //  setPlaylistSelectDialogIsOpen(true);
+    //}
 
-    const handleClose = (value: string) => {
-      setPlaylistSelectDialogIsOpen(false);
-      setSelectedPlaylistName(value);
-    }
+    //const handleClose = (value: string) => {
+    //  setPlaylistSelectDialogIsOpen(false);
+    //  setSelectedPlaylistName(value);
+    //}
 
 
 
@@ -142,6 +142,7 @@ const Item2 = (props: propsType) => {
           setToggle(true)//ここでstateを変えてcreateSong()を起動する,そうしないとstateの中身が更新されておらず一個遅れて歌の情報が送信されてしまう
 
           setChecked(!checked);
+          }
         }else if (checked === true){
           setChecked(!checked);
           console.log("曲を削除します。 曲名: " + props.item.trackCensoredName);
