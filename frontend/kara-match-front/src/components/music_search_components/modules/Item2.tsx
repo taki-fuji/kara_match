@@ -148,8 +148,10 @@ const Item2 = (props: propsType) => {
                 collectionId: props.item.collectionId,
                 artistName: props.item.artistName,
                 artistId: props.item.artistId,
+                trackId: props.item.tracId,
               }
           });
+          }
 
         
           setAddsong({//ここにおくと最初だけbadrequestになるのかな？
