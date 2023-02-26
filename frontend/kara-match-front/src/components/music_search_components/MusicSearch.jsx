@@ -44,6 +44,7 @@ const MusicSearch = () => {
             limit: "50"
         };
         console.log(params.keyword)
+
         // baseURLに設定したparamsを使ってgetリクエストを送信
         try{
             const response = await apiClient.get(`/search?${qs.stringify(params)}`);

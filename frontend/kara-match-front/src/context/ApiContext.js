@@ -22,8 +22,13 @@ const ApiContextProvider = (props) => {
 
 
     const [mysong, setMysong] = useState([]);//自分のsongを入れておくstate
-    const [addsong, setAddsong] = useState({id: "",song_name: "",singer: "",artistId: "",collectionId: "",trackId: "",img_url: ""});//追加した音楽の情報を入れておくstate
+    const [addsong, setAddsong] = useState({song_name: "",singer: "",artistId: "",collectionId: "",trackId: "",img_url: ""});//追加した音楽の情報を入れておくstate
     //idを消してみたid: "0",
+
+    const [Dsong,setDsong] = useState([]);//消去する歌のidを入れておくstate
+
+    const [UpdateCheck, setUpdateCheck] = useState(false);//追加、除去をsongjudgeに知らせるstate,いらないかも
+
 
 // ページが更新されるたび、関数が読まれてしまうがこのEffect内の関数は最初の一回しか読まれない。
 useEffect(() => {
@@ -120,13 +125,26 @@ useEffect(() => {
 
     getMyProfile();
     getProfile();
-    getMysong();
     // getInbox();
-  }, [cookies.token, profile.id, addsong.id]);
+  }, [cookies.token, profile.id]);
     //tokenかprofile.idが変更されたら、Effect内が実行される
 
+    const getMysong = async () => {//最初に自分のsongデータをとってくる
+      try{
+        const res = await axios.get("http://localhost:8000/api/user/song/", {
+          headers: {
+            Authorization: `Token ${cookies.token}`,
+          },
+        });
+        setMysong(res.data);
+      } catch {
+        console.log("error");
+      }
+    };
 
-
+    useEffect(() => {
+      getMysong();
+    },[cookies.token, addsong, Dsong])
 
 
 
@@ -136,8 +154,19 @@ useEffect(() => {
 
     const createSong = async () => {
       
-      console.log(addsong)
+      // console.log(addsong)
+      var create_judge = true;
 
+      Object.values(mysong).map((s) =>{//Object.values(mysong)とすることでmtsongをobject型からarray型に変更している
+        if(addsong.trackId === s.trackId){//チェックを押した歌のcollectionIdと自分の選択した歌のcollectionIdを比較して同じ場合だったら
+          console.log("同じ曲は追加できません")
+          create_judge = false;
+        }
+      })
+
+      if(create_judge === false){//いらないとは思うがバグ予防?
+        console.log("同じ曲は追加できません")
+      }else {
       const createData = new FormData();
       createData.append("id", addsong.id);
       createData.append("song_name", addsong.song_name);
@@ -147,9 +176,9 @@ useEffect(() => {
       createData.append("trackId", addsong.trackId);
       createData.append("img_url", addsong.img_url);
 
-      for (let value of createData.entries()) { 
-        console.log(value); 
-    }
+      // for (let value of createData.entries()) { 
+      //   console.log(value); 
+      // }
       
       try {
         const res = await axios.post(
@@ -162,20 +191,27 @@ useEffect(() => {
             },
           }
         );
-        setMysong(res.data);
+        console.log("保存完了")
+        setAddsong([])
+        setMysong([])
+        getMysong()
+        setUpdateCheck(!UpdateCheck)
+        // setMysong(res.data);
         // setAddsong({id: res.data.id, song_name: res.data.song_name, singer: res.data.singer, artistId: res.data.artistId, collectionId: res.data.collectionId, trackId: res.data.trackId, img_url: res.data.img_url})
         // setProfile(res.data);
         // setEditedProfile({ id: res.data.id, nickName: res.data.nickName });
       } catch {
         console.log("error");
       }
+    }
     };
 
 
     const deleteSong = async () => {
+      console.log(Dsong)
       try {
         await axios.delete(
-          `http://localhost:8000/api/user/song/${mysong.id}/`,
+          `http://localhost:8000/api/user/song/${Dsong}/`,//mysong.id -> Dsong
           {
             headers: {
               "Content-Type": "application/json",
@@ -183,8 +219,14 @@ useEffect(() => {
             },
           }
         );
-        setMysong([]);
-        setAddsong({id: "0",song_name: "",singer: "",artistId: "",collectionId: "",trackId: "",img_url: ""})
+        console.log("除去完了")
+        setDsong([])
+        setMysong([])
+        getMysong()
+        setUpdateCheck(!UpdateCheck)
+        // setMysong([]);
+        // setAddsong({id: "",song_name: "",singer: "",artistId: "",collectionId: "",trackId: "",img_url: ""})
+
         // setProfiles(profiles.filter((dev) => dev.id !== profile.id));
         // setProfile([]);
         // setEditedProfile({ id: "", nickName: "" });
@@ -382,7 +424,14 @@ useEffect(() => {
         createSong,
         deleteSong,
 
+        setMysong,
         mysong,
+
+        Dsong,
+        setDsong,
+
+        UpdateCheck,
+        setUpdateCheck,
 
       }}
     >

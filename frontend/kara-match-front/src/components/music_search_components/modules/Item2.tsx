@@ -40,7 +40,14 @@ const Item2 = (props: propsType) => {
     const [selectedPlaylistName, setSelectedPlaylistName] = React.useState('');
     const [myDialogConfig, setMydialogConfig] = React.useState<playlistDialogProps | undefined>();
 
-    const { createSong, deleteSong, setAddsong, addsong, mysong} = React.useContext(ApiContext)
+    const { createSong, deleteSong, setAddsong, addsong, mysong, setMysong, Dsong, setDsong,UpdateCheck,setUpdateCheck} = React.useContext(ApiContext)
+
+    const [createToggle, setCreateToggle] = React.useState(false);//チェックボックスがチェックされたら変更してuseEffectを起動できるようにする,歌を追加する関数を起動する
+    const [deleteToggle, setDeleteToggle] = React.useState(false);//歌を除去する関数を起動する
+
+    const [SongUpdateToggle, setSongUpdateToggle] = React.useState(false);//songステイトを更新するためのstate変数
+    
+
 
     const [toggle, setToggle] = React.useState(false);//チェックボックスがチェックされたら変更してuseEffectを起動できるようにする
     
@@ -55,9 +62,8 @@ const Item2 = (props: propsType) => {
 
 
 
-    function useDidUpdateEffect(fn: EffectCallback, deps: DependencyList) {//useEffectを初回に起動しないようにする
+    function useDidUpdateEffect(fn: EffectCallback, deps: DependencyList) {//useEffectを初回起動しないようにするuseEffect
       const didMountRef = useRef(false);
-    
       useEffect(() => {
         if (!didMountRef.current) {
           didMountRef.current = true;
@@ -67,31 +73,50 @@ const Item2 = (props: propsType) => {
       }, deps);
     }
 
-    useDidUpdateEffect(() => {//初回起動しないuseEffect,上で作った
-      createSong()//この関数で歌をデータベースに保存する
-    }, [toggle]);
 
+    //stateが一個遅れるためuseEffectを使うことでワンクッション置くことにした
+    useDidUpdateEffect(() => {//初回起動しないuseEffect,上で作った
+      createSong();//この関数で歌をデータベースに保存する
+      // setKeyToggle(!KeyToggle)
+    }, [createToggle]);
+
+    useDidUpdateEffect(() => {
+      deleteSong();//この関数で歌をデータベースから除去する
+    }, [deleteToggle]);
+
+    useDidUpdateEffect(() => {
+      Del();
+    },[SongUpdateToggle]);
+
+    function Del(){//歌を除去する関数の下準備
+      Object.values(mysong).map((s: any) =>{//Object.values(mysong)とすることでmtsongをobject型からarray型に変更している
+        if(props.item.trackId === s.trackId){//チェックを押した歌のcollectionIdと自分の選択した歌のcollectionIdを比較して同じ場合だったら
+          setDsong(s.id)//変更する歌のidをDsongに格納する
+          console.log(s.song_name + "id :" + s.id)
+          setDeleteToggle(!deleteToggle);//歌を除去する関数を起動する
+        }
+      })
+    }
 
     function SongJudg(){//歌がデータベースにあった時は、チェックボックスにチェックをいれる,
-      console.log("データベースの情報と合わせる")
-      mysong.map((s: any) =>{
-        if(props.item.collectionId === s.collectionId){
+      mysong.map((s: any) =>{//mapを使いデータベースと表示されている歌のリストで同じものを探しチェックする
+        if(props.item.trackId === s.trackId){
+          console.log(props.item.trackCensoredName)
           setChecked(true)
         }
       })
     }
 
 
-    useEffect(() => {SongJudg()},[])
+    useEffect(() => {SongJudg()},[UpdateCheck])//props.item,,addsong,Dsong
 
-
-    //今したのコメントアウトを外すとバグが出るsongjudeと干渉している、直す方法はしたの関数が全て完了してからsongjudgを起動する必要がある
 
     // 再検索時にチェックボックスの初期化がされないバグをuseEffectで解消
-    // useEffect(() => {
-    //     console.log("propsの音楽に変更がありました。 変更後は以下です: ")
-    //     setChecked(false);
-    // }, [props.item.trackCensoredName]);
+    useEffect(() => {
+        console.log("propsの音楽に変更がありました。 変更後は以下です: ")
+        setChecked(false);
+        SongJudg();//追加することで初期化された後にデータベースの中身をチェックボックスに反映させることができた
+    }, [props.item.trackCensoredName]);
 
 
 
@@ -134,12 +159,11 @@ const Item2 = (props: propsType) => {
             singer: props.item.artistName,
             artistId: props.item.artistId,
             collectionId: props.item.collectionId,
-            trackId: "0",
+            trackId: props.item.trackId,
             img_url: props.item.artWorkUrl100,
           })
-
-
-          setToggle(true)//ここでstateを変えてcreateSong()を起動する,そうしないとstateの中身が更新されておらず一個遅れて歌の情報が送信されてしまう
+          
+          setCreateToggle(!createToggle)//ここでstateを変えてcreateSong()を起動する,そうしないとstateの中身が更新されておらず一個遅れて歌の情報が送信されてしまう
 
           setChecked(!checked);
           }
@@ -152,16 +176,25 @@ const Item2 = (props: propsType) => {
               collectionId: props.item.collectionId,
             }
           });
-          deleteSong();
+
+          // console.log(mysong.song_name);
+          // console.log(typeof(mysong));
+          // Object.values(mysong).map((s: any) =>{
+          //   console.log("現在の歌リスト" + s)
+          // })
+
+          setSongUpdateToggle(!SongUpdateToggle);//歌を除去する関数をuseEffectで起動する,直接関数を呼び出すとデータがずれる
+
         }else{
           console.log("checkedでもuncheckedでもありません in Item2.tsx");
         }
-      
+        setChecked(!checked);
     };
 
     const handleDisplayCollectionId = () => {
         console.log(props.item.collectionId)
     }
+
   return (
       <ListItem
         key={props.key}

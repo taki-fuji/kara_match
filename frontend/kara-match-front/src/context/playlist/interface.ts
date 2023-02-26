@@ -15,6 +15,7 @@ export interface songState{
     collectionId: number; //曲ごとのユニークなId
     artistName: string; //アーティスト名
     artistId: number; // アーティストごとのユニークなid
+    trackId: number;//曲を見分ける
     checked: boolean; // チェック(プレイリストに追加)済みかどうか
 };
 
@@ -36,6 +37,7 @@ interface addSong {
         collectionId: number; //曲ごとのユニークなId
         artistName: string; //アーティスト名
         artistId: number; // アーティストごとのユニークなid
+        trackId: number;//曲を見分ける
     };
 }
 // 曲の削除(checkedを外すだけで、実際に削除するのはdjangoへのPost)
