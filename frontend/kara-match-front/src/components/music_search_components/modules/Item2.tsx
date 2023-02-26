@@ -168,7 +168,7 @@ const Item2 = (props: propsType) => {
           setCreateToggle(!createToggle)//ここでstateを変えてcreateSong()を起動する,そうしないとstateの中身が更新されておらず一個遅れて歌の情報が送信されてしまう
 
           setChecked(!checked);
-          }
+          
         }else if (checked === true){
           setChecked(!checked);
           console.log("曲を削除します。 曲名: " + props.item.trackCensoredName);

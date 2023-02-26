@@ -35,10 +35,13 @@ const MyPlaylistList = () => {
 
       <Box>
         <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-          {playlist_list.map((item,index)=>(
-              <PlaylistItem key={index} />
+          {playlist_list.map((playlist,index)=>(
+              <PlaylistItem playlistName={playlist} key={index} />
           ))}
       </List>
+        <Button >
+          プレイリスト追加
+        </Button>
     </Box>
 
       <Button variant="outlined" color="primary" component={Link} to="/menu">
