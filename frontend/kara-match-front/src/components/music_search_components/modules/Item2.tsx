@@ -47,14 +47,18 @@ const Item2 = (props: propsType) => {
 
     const [SongUpdateToggle, setSongUpdateToggle] = React.useState(false);//songステイトを更新するためのstate変数
     
-    // const handleClickOpen = () => {
-    //   setPlaylistSelectDialogIsOpen(true);
-    // }
 
-    // const handleClose = (value: string) => {
-    //   setPlaylistSelectDialogIsOpen(false);
-    //   setSelectedPlaylistName(value);
-    // }
+
+    const [toggle, setToggle] = React.useState(false);//チェックボックスがチェックされたら変更してuseEffectを起動できるようにする
+    
+    //const handleClickOpen = () => {
+    //  setPlaylistSelectDialogIsOpen(true);
+    //}
+
+    //const handleClose = (value: string) => {
+    //  setPlaylistSelectDialogIsOpen(false);
+    //  setSelectedPlaylistName(value);
+    //}
 
 
 
@@ -103,6 +107,7 @@ const Item2 = (props: propsType) => {
       })
     }
 
+
     useEffect(() => {SongJudg()},[UpdateCheck])//props.item,,addsong,Dsong
 
 
@@ -143,12 +148,14 @@ const Item2 = (props: propsType) => {
                 collectionId: props.item.collectionId,
                 artistName: props.item.artistName,
                 artistId: props.item.artistId,
-                trackId: props.item.trackId,
+                trackId: props.item.tracId,
               }
-          }); 
+          });
           }
-          setAddsong({//チェックした音楽の情報を保存する
-            // id: "0",
+        
+          setAddsong({//ここにおくと最初だけbadrequestになるのかな？
+
+            id: "0",
             song_name: props.item.trackCensoredName,
             singer: props.item.artistName,
             artistId: props.item.artistId,
@@ -158,9 +165,11 @@ const Item2 = (props: propsType) => {
           })
           
           setCreateToggle(!createToggle)//ここでstateを変えてcreateSong()を起動する,そうしないとstateの中身が更新されておらず一個遅れて歌の情報が送信されてしまう
+
           setChecked(!checked);
 
         }else if (checked === true){
+          setChecked(!checked);
           console.log("曲を削除します。 曲名: " + props.item.trackCensoredName);
           playlistDispatch({
             type: "REMOVE_SONG",
