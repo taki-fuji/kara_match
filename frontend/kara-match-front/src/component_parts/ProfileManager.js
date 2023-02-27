@@ -66,11 +66,14 @@ const ProfileManager = () => {
     setCover,
     createProfile,
     editProfile,
+
+    editCover,
   } = useContext(ApiContext);
 
   const handleEditPicture = () => {
-    const fileInput = document.getElementById("imageInput");
+    const fileInput = document.getElementById("imageInput");//引数で指定されたIDの要素(return の中にある<input>のidの名前)を取得
     fileInput.click();
+    console.log("カメラアイコンクリック")
   };
 
   const handleInputChange = () => (event) => {
@@ -93,9 +96,10 @@ const ProfileManager = () => {
         <input
           type="file"
           id="imageInput"
-          hidden="hidden"
+          hidden="hidden"//inputのダイアログボタンを隠す
           //hidden=true
-          onChange={(event) => {
+          onChange={(event) => {//
+            console.log(event.target.files[0])
             setCover(event.target.files[0]);
             event.target.value = "";
           }}

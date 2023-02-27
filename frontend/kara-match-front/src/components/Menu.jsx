@@ -7,6 +7,7 @@ import { Grid } from '@mui/material';
 import '../App.css';
 import Profile from "../component_parts/Profile";
 import ProfileManager from "../component_parts/ProfileManager";
+import Ask from "../component_parts/Ask";
 
 import { BsFillPeopleFill } from "react-icons/bs";//人のアイコン
 import { GoMail } from "react-icons/go";//メールアイコン
@@ -131,10 +132,18 @@ const Menu = (props) => {
           <div className="app-details">
             <ProfileManager/>
           </div>
-          
           <h3 className="title-ask"><BsFillPeopleFill className="badge" />Approval request list</h3>
-          
-          
+            <div className="app-details">
+              <ul>
+              {profile.id && askList.map((ask) => (
+                  <Ask
+                    key={ask.id}
+                    ask={ask}
+                    prof={profiles.filter((item) => { return item.userPro === ask.askFrom;})}
+                  />
+                ))}
+              </ul>
+            </div>
         </Grid>
         </div>
 

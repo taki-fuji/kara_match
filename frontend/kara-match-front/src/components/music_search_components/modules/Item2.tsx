@@ -153,6 +153,7 @@ const Item2 = (props: propsType) => {
           });
           }
 
+          //console.log("音楽のURL" + props.item.artWorkUrl100)
 
         
           setAddsong({//ここにおくと最初だけbadrequestになるのかな？

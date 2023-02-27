@@ -126,7 +126,7 @@ useEffect(() => {
     getMyProfile();
     getProfile();
     // getInbox();
-  }, [cookies.token, profile.id]);
+  }, [cookies.token, profile.id, cover]);
     //tokenかprofile.idが変更されたら、Effect内が実行される
 
     const getMysong = async () => {//最初に自分のsongデータをとってくる
@@ -242,6 +242,7 @@ useEffect(() => {
 
 
   const createProfile = async () => {
+    console.log(cover.name)
     const createData = new FormData();
     createData.append("nickName", editedProfile.nickName);
     cover.name && createData.append("img", cover, cover.name);
@@ -289,6 +290,8 @@ useEffect(() => {
 
 
   const editProfile = async () => {
+    console.log(cover.name)
+    console.log(editedProfile.nickName)
     const editData = new FormData();
     editData.append("nickName", editedProfile.nickName);
     cover.name && editData.append("img", cover, cover.name);
@@ -414,7 +417,7 @@ useEffect(() => {
         setEditedProfile,
 
 
-        //自分で書いた
+        //自分で書いた下
         addsong,
         setAddsong,
         cookies,
@@ -432,6 +435,7 @@ useEffect(() => {
 
         UpdateCheck,
         setUpdateCheck,
+        //songのstate達上
 
       }}
     >
