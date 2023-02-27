@@ -153,6 +153,7 @@ const Item2 = (props: propsType) => {
           });
           }
 
+
         
           setAddsong({//ここにおくと最初だけbadrequestになるのかな？
 
@@ -166,6 +167,7 @@ const Item2 = (props: propsType) => {
           })
           
           setCreateToggle(!createToggle)//ここでstateを変えてcreateSong()を起動する,そうしないとstateの中身が更新されておらず一個遅れて歌の情報が送信されてしまう
+
 
           setChecked(!checked);
           
