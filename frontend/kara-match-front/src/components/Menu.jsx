@@ -62,7 +62,7 @@ const Menu = (props) => {
         component={Link}
         to="/friend-list"
       >
-        Go to Friend List Page!
+        Go to My Song List Page!
       </Button>
       </li>
 
@@ -149,6 +149,7 @@ const Menu = (props) => {
         </Grid>
 
         <Grid item xs={4}>
+          <h1 className="sample-box-02">Search Users</h1>
           <div>
             <Search/>
           </div>

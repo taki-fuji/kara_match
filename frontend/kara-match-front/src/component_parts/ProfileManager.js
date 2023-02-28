@@ -11,6 +11,8 @@ import { IconButton } from '@mui/material';
 import './pm.css';
 
 
+import Paper from '@mui/material/Paper';
+
 
 const Profile = styled("div")(({theme}) => ({
    
@@ -83,6 +85,7 @@ const ProfileManager = () => {
   };
   
   return (
+    <Paper>
     <Profile >
       <Image_wrapper>
         {profile.id ? (
@@ -148,6 +151,7 @@ const ProfileManager = () => {
         <LocationOn /> <span>JAPAN</span>
       </Profile_details>
     </Profile>
+    </Paper>
   );
 };
 
