@@ -62,7 +62,7 @@ const Menu = (props) => {
         component={Link}
         to="/friend-list"
       >
-        Go to Friend List Page!
+        Go to My Song List Page!
       </Button>
       </li>
 
