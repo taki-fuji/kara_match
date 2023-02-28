@@ -8,6 +8,7 @@ import '../App.css';
 import Profile from "../component_parts/Profile";
 import ProfileManager from "../component_parts/ProfileManager";
 import Ask from "../component_parts/Ask";
+import Search from "../component_parts/Search";
 
 import { BsFillPeopleFill } from "react-icons/bs";//人のアイコン
 import { GoMail } from "react-icons/go";//メールアイコン
@@ -127,25 +128,31 @@ const Menu = (props) => {
           </div>
         </Grid>
 
-         <div className="ProfileBox">
         <Grid item xs={4}>
-          <div className="app-details">
-            <ProfileManager/>
-          </div>
-          <h3 className="title-ask"><BsFillPeopleFill className="badge" />Approval request list</h3>
+          <div className="ProfileBox">
             <div className="app-details">
-              <ul>
-              {profile.id && askList.map((ask) => (
-                  <Ask
-                    key={ask.id}
-                    ask={ask}
-                    prof={profiles.filter((item) => { return item.userPro === ask.askFrom;})}
-                  />
-                ))}
-              </ul>
+              <ProfileManager/>
             </div>
+            <h3 className="title-ask"><BsFillPeopleFill className="badge" />Approval request list</h3>
+              <div className="app-details">
+                <ul>
+                {profile.id && askList.map((ask) => (
+                    <Ask
+                      key={ask.id}
+                      ask={ask}
+                      prof={profiles.filter((item) => { return item.userPro === ask.askFrom;})}
+                    />
+                  ))}
+                </ul>
+              </div>
+          </div>
         </Grid>
-        </div>
+
+        <Grid item xs={4}>
+          <div>
+            <Search/>
+          </div>
+        </Grid>
 
       </Grid>
     </div>
