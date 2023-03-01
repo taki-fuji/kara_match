@@ -6,7 +6,7 @@ import { ApiContext } from "../../context/ApiContext";
 import { Card, CardContent } from '@mui/material'
 import { Typography } from '@mui/material';
 
-import "/Users/ookouchikengo/Songbird/kara_match/frontend/kara-match-front/src/App.css"
+import "../../App.css"
 
 import Mymusic from "../../component_parts/Mymusic";
 
