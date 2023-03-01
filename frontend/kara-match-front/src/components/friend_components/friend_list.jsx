@@ -40,7 +40,7 @@ const FriendList = (props) => {
       </Button>
 
 
-      <h2 >Profile List</h2>
+      <h2 >Mysong List</h2>
       <div >
         {listmysong}
       </div>
