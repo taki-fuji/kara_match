@@ -144,7 +144,7 @@ const Item2 = (props: propsType) => {
                 userId: props.item.userId, // これはエラー回避のためになんでもない数字を入れているが、将来的にdjango上のユーザーIDを入れたい
                 playlistName: selectedPlaylistName, //追加先のプレイリスト名で、playlistContextで管理する
                 name: props.item.trackCensoredName,
-                imageSrc: props.item.artWorkUrl100 ,
+                imageSrc: props.item.artworkUrl100,
                 collectionId: props.item.collectionId,
                 artistName: props.item.artistName,
                 artistId: props.item.artistId,
@@ -153,8 +153,7 @@ const Item2 = (props: propsType) => {
           });
           }
 
-          //console.log("音楽のURL" + props.item.artWorkUrl100)
-
+          console.log("音楽のURL:" + props.item.artworkUrl100)
         
           setAddsong({//ここにおくと最初だけbadrequestになるのかな？
 
@@ -164,7 +163,7 @@ const Item2 = (props: propsType) => {
             artistId: props.item.artistId,
             collectionId: props.item.collectionId,
             trackId: props.item.trackId,
-            img_url: props.item.artWorkUrl100,
+            img_url: props.item.artworkUrl100,
           })
           
           setCreateToggle(!createToggle)//ここでstateを変えてcreateSong()を起動する,そうしないとstateの中身が更新されておらず一個遅れて歌の情報が送信されてしまう
