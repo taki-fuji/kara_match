@@ -13,6 +13,8 @@ import Mymusic from "../../component_parts/Mymusic";
 const FriendList = (props) => {
   const { mysong } = useContext(ApiContext);
 
+  // const new_mysong = mysong.filter((s) => {return s.id !== profile.id;});//自分以外のプロフィールをフィルタリングしたリターン
+
   const listmysong =
   mysong &&
   mysong.map((filsong) => (//カードごとの情報をmapのループで取り出しfilsongに入れる
