@@ -61,13 +61,23 @@ class MyProfileListView(generics.ListAPIView):
         return self.queryset.filter(userPro=self.request.user)
 
 
-# songsなどのように全ての歌をまとめて保存するやつを作り忘れてるから今度作る
+# songsなどのように全ての歌をまとめて保存するやつを作り忘れてるから今度作る(完了)
 class SongView(viewsets.ModelViewSet):  # ModelViewSetはCRUDに対応
+    queryset = Song.objects.all()
+    serializer_class = serializers.SongSerializer
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)  # custompermissions.ProfilePermissionを外したら歌を除去できるようになった
+
+    # うまくCRUDができなかったら下記が原因になる
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class MySongView(generics.ListAPIView):
     queryset = Song.objects.all()
     serializer_class = serializers.SongSerializer
     authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
 
-    # うまくCRUDができなかったら下記が原因になる
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+    def get_queryset(self):
+        return self.queryset.filter(user=self.request.user)

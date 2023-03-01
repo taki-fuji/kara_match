@@ -131,12 +131,12 @@ useEffect(() => {
 
     const getMysong = async () => {//最初に自分のsongデータをとってくる
       try{
-        const res = await axios.get("http://localhost:8000/api/user/song/", {
+        const res = await axios.get("http://localhost:8000/api/user/mysong/", {
           headers: {
             Authorization: `Token ${cookies.token}`,
           },
         });
-        setMysong(res.data);
+        res.data[0] && setMysong(res.data);
       } catch {
         console.log("error");
       }
@@ -145,6 +145,11 @@ useEffect(() => {
     useEffect(() => {
       getMysong();
     },[cookies.token, addsong, Dsong])
+
+
+    // useEffect(() => {
+    //   editProfile()
+    // },[cover])
 
 
 

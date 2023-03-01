@@ -153,7 +153,12 @@ const Item2 = (props: propsType) => {
           });
           }
 
-          console.log("音楽のURL:" + props.item.artworkUrl100)
+          // console.log("音楽のURL:" + props.item.artworkUrl100)
+          // console.log(mysong.song_name);
+          // console.log(typeof(mysong));
+          // Object.values(mysong).map((s: any) =>{
+          //   console.log("現在の歌リスト" + s)
+          // })
         
           setAddsong({//ここにおくと最初だけbadrequestになるのかな？
 
