@@ -9,12 +9,13 @@ import React from "react";
 // playlistの単体要素songのためのオブジェクト型のsongTypeを定義
 export interface songState{
     userId: number; // ユーザーID
-    playlistName: string; //　プレイリスト名
+    playlistName: string; //プレイリスト名
     name: string;// 曲名
     imageSrc: string; //画像URL
     collectionId: number; //曲ごとのユニークなId
     artistName: string; //アーティスト名
     artistId: number; // アーティストごとのユニークなid
+    trackId: number;//曲を見分ける
     checked: boolean; // チェック(プレイリストに追加)済みかどうか
 };
 
@@ -36,6 +37,7 @@ interface addSong {
         collectionId: number; //曲ごとのユニークなId
         artistName: string; //アーティスト名
         artistId: number; // アーティストごとのユニークなid
+        trackId: number;//曲を見分ける
     };
 }
 // 曲の削除(checkedを外すだけで、実際に削除するのはdjangoへのPost)

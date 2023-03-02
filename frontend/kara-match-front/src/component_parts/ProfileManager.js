@@ -11,6 +11,8 @@ import { IconButton } from '@mui/material';
 import './pm.css';
 
 
+import Paper from '@mui/material/Paper';
+
 
 const Profile = styled("div")(({theme}) => ({
    
@@ -66,11 +68,14 @@ const ProfileManager = () => {
     setCover,
     createProfile,
     editProfile,
+
+    editCover,
   } = useContext(ApiContext);
 
   const handleEditPicture = () => {
-    const fileInput = document.getElementById("imageInput");
+    const fileInput = document.getElementById("imageInput");//引数で指定されたIDの要素(return の中にある<input>のidの名前)を取得
     fileInput.click();
+    console.log("カメラアイコンクリック")
   };
 
   const handleInputChange = () => (event) => {
@@ -80,6 +85,7 @@ const ProfileManager = () => {
   };
   
   return (
+    <Paper>
     <Profile >
       <Image_wrapper>
         {profile.id ? (
@@ -93,9 +99,10 @@ const ProfileManager = () => {
         <input
           type="file"
           id="imageInput"
-          hidden="hidden"
+          hidden="hidden"//inputのダイアログボタンを隠す
           //hidden=true
-          onChange={(event) => {
+          onChange={(event) => {//
+            console.log(event.target.files[0])
             setCover(event.target.files[0]);
             event.target.value = "";
           }}
@@ -144,6 +151,7 @@ const ProfileManager = () => {
         <LocationOn /> <span>JAPAN</span>
       </Profile_details>
     </Profile>
+    </Paper>
   );
 };
 

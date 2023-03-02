@@ -23,7 +23,9 @@ export const playlistReducer = (state: playlistState, action: playlistActions): 
                         collectionId: action.payload.collectionId,
                         artistName: action.payload.artistName,
                         artistId: action.payload.artistId,
-                        checked: true
+                        checked: true,
+
+                        trackId: action.payload.trackId,
                     }
                 ],
                 nextSongId: state.nextSongId + 1
