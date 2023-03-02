@@ -15,6 +15,7 @@ import { GoMail } from "react-icons/go";//メールアイコン
 
 
 const Menu = (props) => {
+ 
   
   const { profiles, profile, askList, askListFull } = useContext(ApiContext);
 
