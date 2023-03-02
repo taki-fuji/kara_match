@@ -60,4 +60,6 @@ export interface PlaylistProvider{
     setPlaylist_list: typeof Function;
     targetPlaylistName: string;
     setTargetPlaylistName: typeof Function;
+    addPlaylist: typeof Function;
+    deletePlaylist: typeof Function;
 }

@@ -33,6 +33,17 @@ export const PlaylistContextProvider = ({children}: propsType): React.ReactNode 
 
   // 曲追加時に追加先プレイリストをDialogで設定して、その親のItem2で使うためのstate
   const [targetPlaylistName, setTargetPlaylistName] = useState('');
+
+
+  // プレイリストリストにプレイリスト名を受け取って追加したり削除したりする
+  const addPlaylist = (playlistName: string) => {
+    setPlaylist_list([...playlist_list, playlistName]);
+  }
+  const deletePlaylist = (playlistName: string) => {
+    setPlaylist_list(
+      playlist_list.filter((playlist, index) => (playlistName !== playlist))
+    )
+  }
   
  useEffect(() => {
   console.log("playlistに変更がありました。 変更後は以下です: ")
@@ -51,6 +62,8 @@ export const PlaylistContextProvider = ({children}: propsType): React.ReactNode 
       setPlaylist_list, 
       targetPlaylistName,
       setTargetPlaylistName,
+      addPlaylist,
+      deletePlaylist,
        }}>
       {children}
     </PlaylistContext.Provider>
