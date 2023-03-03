@@ -103,7 +103,6 @@ const MusicSearch = () => {
         component={Link}
         to="/myplaylist"
       >Back to myplaylist</Button>
-      <h1 id="search_component_title">検索</h1>
       <TextField
         onChange={handleChange}
         id="outlined-multiline-flexible"

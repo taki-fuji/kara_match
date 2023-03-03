@@ -187,7 +187,14 @@ const Item2 = (props: propsType) => {
               src={props.item.artworkUrl100.replace('100x100bb.jpg','300x300bb.jpg')}
             />
           </ListItemAvatar>
-          <ListItemText primary={props.item.trackCensoredName} />
+          <ListItemText 
+            primary={props.item.trackCensoredName}
+            secondary={
+              <React.Fragment>
+                {props.item.artistName}
+              </React.Fragment>
+            }
+           />
         </ListItemButton>
       </ListItem>
     );
