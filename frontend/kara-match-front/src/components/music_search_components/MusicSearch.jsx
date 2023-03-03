@@ -45,8 +45,8 @@ const MusicSearch = () => {
         // baseURLに設定したparamsを使ってgetリクエストを送信
         try{
             const response = await apiClient.get(`/search?${qs.stringify(params)}`);
-            // console.log('/search?$'+qs.stringify(params))
-
+            console.log('/search?$'+qs.stringify(params))
+            console.log(response)
             const {data} = response;
             // console.log(data.resultCount)
             //以下の条件分岐でgetの結果がどうなったのかをresultTyleに保持する
@@ -61,6 +61,7 @@ const MusicSearch = () => {
             console.log(error)
             setResultType('failure')
         }
+        
     }
 
     // 検索窓の入力が行われたときに、入力された値をkeyword stateに格納する関数
