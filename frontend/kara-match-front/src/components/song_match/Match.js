@@ -147,11 +147,20 @@ const Match = () => {
     const search_Profiles =
     serch_frend &&
     serch_frend.map((filprof) => (//カードごとの情報をmapのループで取り出しfilprofに入れる
-        <Profile2
+        <Search_frends
         key={filprof.id}
-        profileData={filprof}
+        Data={filprof}
         />
     ));
+
+    // const listProfiles =
+    // fprof &&
+    // fprof.map((fri_prof) => (//カードごとの情報をmapのループで取り出しfilprofに入れる
+    //     <Search_frends
+    //     key={fri_prof.id}
+    //     Data={fri_prof}
+    //     />
+    // ));
 
     // 検索窓の入力が行われたときに、入力された値をkeyword stateに格納する関数
     const handleChange = (event) => {
@@ -174,16 +183,17 @@ const Match = () => {
             </IconButton>
         </Paper>
 
-        <h2>フレンドリスト</h2>
-
         <div>
             {search_Profiles}
         </div>
+
+        <h2>List of the same song</h2>
 
         <div>
             {matching_song}
         </div>
 
+        <h2>Friends List</h2>
 
         <div>
             {listProfiles}
