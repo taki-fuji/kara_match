@@ -180,8 +180,7 @@ const Match = () => {
     <div>
       <h1>Hello My friend</h1>
 
-      <Grid container>
-        <Grid>
+      <Grid>
         <Paper component="form" sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '80%' }}>
             <TextField sx={{ ml: 1, flex: 1 }} variant='standard' label="キーワードでフレンドを検索" id="standard-basic" onChange={handleChange} type="text"/>
             <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
@@ -189,9 +188,7 @@ const Match = () => {
                     <SearchIcon />
             </IconButton>
         </Paper>
-        </Grid>
 
-        <Grid>
         <div>
             {search_Profiles}
         </div>
@@ -209,8 +206,6 @@ const Match = () => {
         <div>
             {listProfiles}
         </div>
-        </Grid>
-        
         </Grid>
     </div>
   )
