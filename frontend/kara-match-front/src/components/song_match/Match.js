@@ -25,6 +25,8 @@ import Match_show from "../../component_parts/Match_show";
 
 import { useRef, EffectCallback, DependencyList } from 'react';
 
+import { Grid } from '@mui/material';
+
 
 
 const Match = () => {
@@ -178,7 +180,7 @@ const Match = () => {
     <div>
       <h1>Hello My friend</h1>
 
-
+      <Grid>
         <Paper component="form" sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '80%' }}>
             <TextField sx={{ ml: 1, flex: 1 }} variant='standard' label="キーワードでフレンドを検索" id="standard-basic" onChange={handleChange} type="text"/>
             <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
@@ -204,6 +206,7 @@ const Match = () => {
         <div>
             {listProfiles}
         </div>
+        </Grid>
     </div>
   )
 }
