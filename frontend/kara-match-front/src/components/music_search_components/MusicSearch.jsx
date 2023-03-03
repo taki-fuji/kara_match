@@ -15,6 +15,7 @@ import Result2 from './modules/Result2';
 import SearchIcon from '@mui/icons-material/Search';
 import { TextField } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
+import Box from "@mui/material/Box";
 
 const MusicSearch = () => {
 
@@ -40,16 +41,14 @@ const MusicSearch = () => {
             lang: "ja_jp",
             limit: "50"
         };
-        console.log(params.keyword)
 
         // baseURLに設定したparamsを使ってgetリクエストを送信
         try{
             const response = await apiClient.get(`/search?${qs.stringify(params)}`);
-            console.log('/search?$'+qs.stringify(params))
-            console.log(response)//APIのレスポンスをテスト出力
+            // console.log('/search?$'+qs.stringify(params))
 
             const {data} = response;
-            console.log(data.resultCount)
+            // console.log(data.resultCount)
             //以下の条件分岐でgetの結果がどうなったのかをresultTyleに保持する
             if(data.resultCount === 0){//検索結果がない時
                 setResultType('no_result')
@@ -62,7 +61,6 @@ const MusicSearch = () => {
             console.log(error)
             setResultType('failure')
         }
-        console.log(keyword + "で検索しました")
     }
 
     // 検索窓の入力が行われたときに、入力された値をkeyword stateに格納する関数
@@ -72,7 +70,7 @@ const MusicSearch = () => {
 
     // APIとの通信ができたかどうかで表示するコンポーネントを変更する関数
     const switchView = () => {
-        console.log(alignment)
+        // console.log(alignment)
         switch(resultType){
             case "no_result":
                 return <NoResult />
@@ -107,8 +105,9 @@ const MusicSearch = () => {
       <h1 id="search_component_title">検索</h1>
       <TextField
         onChange={handleChange}
-        id="input-with-icon-textfield"
+        id="outlined-multiline-flexible"
         label="アーティスト、曲名、歌詞"
+        multiline
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
