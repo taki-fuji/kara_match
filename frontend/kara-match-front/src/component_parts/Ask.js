@@ -8,6 +8,7 @@ import { styled } from '@mui/material/styles';
 import { RiMailAddLine } from "react-icons/ri";
 import { IoIosSend } from "react-icons/io";
 import { IoMdClose } from "react-icons/io";
+import {FaUserFriends} from "react-icons/fa"
 
 const ExButton = styled(Button)(({theme}) => ({
     margin: theme.spacing(1),
@@ -53,7 +54,7 @@ const Ask = ({ ask, prof }) => {
           </ExButton>
         ) : (
           <button className="mail" onClick={() => setModalIsOpen(true)}>
-            <RiMailAddLine />
+            <FaUserFriends />
           </button>
         )}
   

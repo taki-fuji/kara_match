@@ -115,6 +115,18 @@ const Menu = (props) => {
       </Button>
       </li>
 
+      <p></p>
+      <li>
+      <Button className="btn5"
+        variant="outlined"
+        color="primary"
+        component={Link}
+        to="/matting"
+      >
+        Go to mutch!
+      </Button>
+      </li>
+
       </ul>
 </div>
 

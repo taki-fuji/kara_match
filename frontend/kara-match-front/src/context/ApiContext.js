@@ -21,6 +21,7 @@ const ApiContextProvider = (props) => {
     const [cover, setCover] = useState([]);//画像保存用
 
 
+    const [Allsongs, setAllsongs] = useState([])//全ての歌を入れるstate
     const [mysong, setMysong] = useState([]);//自分のsongを入れておくstate
     const [addsong, setAddsong] = useState({song_name: "",singer: "",artistId: "",collectionId: "",trackId: "",img_url: ""});//追加した音楽の情報を入れておくstate
     //idを消してみたid: "0",
@@ -146,7 +147,22 @@ useEffect(() => {
       getMysong();
     },[cookies.token, addsong, Dsong])
 
+    const getAllsong = async () => {//最初に自分のsongデータをとってくる
+      try{
+        const res = await axios.get("http://localhost:8000/api/user/song/", {
+          headers: {
+            Authorization: `Token ${cookies.token}`,
+          },
+        });
+        setAllsongs(res.data);
+      } catch {
+        console.log("error");
+      }
+    };
 
+    useEffect(() => {
+      getAllsong();
+    },[cookies.token, addsong, Dsong])
     // useEffect(() => {
     //   editProfile()
     // },[cover])
@@ -441,6 +457,8 @@ useEffect(() => {
         UpdateCheck,
         setUpdateCheck,
         //songのstate達上
+
+        Allsongs,
 
       }}
     >
