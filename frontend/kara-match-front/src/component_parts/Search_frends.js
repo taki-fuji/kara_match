@@ -20,10 +20,11 @@ import { MatchContext } from '../context/MatchContext';
 
 //DataにMatch.jsから送られてきたフレンドのプロフィール情報が入っている
 const Search_frends = ({Data}) => {
-const { setclick, click, setSelectUser, SelectUser} = useContext(MatchContext);
+const { setclick, click, setSelectUser, SelectUser, setusername} = useContext(MatchContext);
 
 const change = () => {//ボタンが押されたら押したuserをsetSelectUserに格納する
     setSelectUser(Data.userPro)
+    setusername(Data.nickName)
     console.log(Data.userPro)
     console.log(SelectUser)
     setclick(!click);

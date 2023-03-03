@@ -12,6 +12,8 @@ const MatchContextProvider = (props) => {
 
     const [click, setclick] = useState(false)//match機能のフレンド選択でクリックされたか判定するstate
 
+    const [username, setusername] = useState("No Select");
+
   return (
     <MatchContext.Provider
     value={{
@@ -19,6 +21,8 @@ const MatchContextProvider = (props) => {
         setSelectUser,
         click,
         setclick,
+        username,
+        setusername,
     }}    
     >
         {props.children}
