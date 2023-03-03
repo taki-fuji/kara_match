@@ -73,17 +73,16 @@ const Match = () => {
 
     //ここまでがフレンドを表示する機能
 
-
+//---------------------------------------------------------------
 
     //下記がフレンドと同じ歌を表示する機能
     const { mysong, Allsongs} = useContext(ApiContext);//自分の歌のリスト
-    const { SelectUser,click} = useContext(MatchContext);
-    const [matchsongs, setmatchsongs] = useState([]);
-    const [frend_songs2, setfrend_songs2] = useState([]);
+    const { SelectUser, click, username, setusername} = useContext(MatchContext);
+    const [matchsongs, setmatchsongs] = useState([]);//同じ歌を格納するstate
 
 
     const frend_songs=[]//選択したフレンドの歌格納する
-    const mso =[]//フレンドのプロフィールを格納する変数
+    const mso =[]//同じ歌を格納する配列
 
     const isFirstRender = useRef(false)//これを使うことで初回にuseffectが起動するのを防ぐ
 
@@ -112,7 +111,7 @@ const Match = () => {
                     }
                 })
             })
-        setmatchsongs(mso);
+        setmatchsongs(mso);//配列からstateに値を入れるとなんか上手くいく
     }
 
     useEffect(() => {
@@ -135,6 +134,11 @@ const Match = () => {
     //ここまでがフレンドと同じ歌を表示する機能
 
 
+    useEffect(() => {//ページに戻ってきた時に前の値が入っているためrenderのタイミングで初期化
+        setusername("No Select")
+    },[])
+
+//---------------------------------------------------------------
 
 
     // 検索キーワードを保持するためのstate
@@ -176,7 +180,7 @@ const Match = () => {
 
 
         <Paper component="form" sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '80%' }}>
-            <TextField sx={{ ml: 1, flex: 1 }} variant='standard' label="下のselectかキーワードでフレンドを選択" id="standard-basic" onChange={handleChange} type="text"/>
+            <TextField sx={{ ml: 1, flex: 1 }} variant='standard' label="キーワードでフレンドを検索" id="standard-basic" onChange={handleChange} type="text"/>
             <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
             <IconButton type="button" sx={{ p: '15px', width:'20px'}} aria-label="search" size='small' onClick={handleSearch}>
                     <SearchIcon />
@@ -188,6 +192,8 @@ const Match = () => {
         </div>
 
         <h2>List of the same song</h2>
+
+        <h4>{username}</h4>
 
         <div>
             {matching_song}
