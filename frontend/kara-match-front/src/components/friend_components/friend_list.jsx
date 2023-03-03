@@ -46,6 +46,7 @@ const FriendList = (props) => {
 
       <h2 >Mysong List</h2>
       <div >
+        {console.log(listmysong)}
         {listmysong}
       </div>
 

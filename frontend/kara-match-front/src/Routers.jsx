@@ -16,10 +16,15 @@ import MusicSearch from "./components/music_search_components/MusicSearch"
 
 import Setting from "./components/setting_components/setting"
 
+import Match from "./components/song_match/Match";
+
+
 // hooks context
 import ApiContextProvider from "./context/ApiContext"
 import { PlaylistContextProvider } from "./context/playlist/PlaylistContext.tsx";
 
+
+import MatchContextProvider from "./context/MatchContext"
 
 
 
@@ -38,6 +43,7 @@ const Routers = () => {
       <BrowserRouter>
         <CookiesProvider>
         <ApiContextProvider>
+        <MatchContextProvider>
         <PlaylistContextProvider>
             {/* <Route path="A" element={<B />} />
             AのURLページでBのコンポーネントを表示している。
@@ -80,8 +86,11 @@ const Routers = () => {
 
             <Route path="/setting" element={<Setting />} />
 
+            <Route path="/matting" element={<Match />} />
+
           </Routes>
           </PlaylistContextProvider>
+          </MatchContextProvider>
           </ApiContextProvider>
         </CookiesProvider>
       </BrowserRouter>
