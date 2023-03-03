@@ -8,12 +8,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Checkbox from '@mui/material/Checkbox';
 import Avatar from '@mui/material/Avatar';
-
-// import { withCookies } from 'react-cookie';
-// import { useCookies } from "react-cookie";
-
-// Dialog(モーダルみたいなもの)をmuiで作るため
-import PlaylistSelectDialog, { playlistDialogProps } from './playlistSelectDialog';
+import PlusIcon from '@mui/icons-material/AddCircleOutline';
 
 // contextをインポート
 import { PlaylistContext } from '../../../context/playlist/PlaylistContext';
@@ -177,6 +172,7 @@ const Item2 = (props: propsType) => {
         key={props.key}
         secondaryAction={
           <Checkbox
+            icon={<PlusIcon/>}
             edge="end"
             onChange={handleToggle}
             checked={checked}
