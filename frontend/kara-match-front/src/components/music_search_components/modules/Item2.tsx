@@ -84,7 +84,7 @@ const Item2 = (props: propsType) => {
     function SongJudg(){//歌がデータベースにあった時は、チェックボックスにチェックをいれる,
       mysong.map((s: any) =>{//mapを使いデータベースと表示されている歌のリストで同じものを探しチェックする
         if(props.item.trackId === s.trackId){
-          console.log(props.item.trackCensoredName)
+          // console.log(props.item.trackCensoredName)
           setChecked(true)
         }
       })
@@ -120,7 +120,7 @@ const Item2 = (props: propsType) => {
                 collectionId: props.item.collectionId,
                 artistName: props.item.artistName,
                 artistId: props.item.artistId,
-                trackId: props.item.tracId,
+                trackId: props.item.trackId,
               }
           });
           

@@ -17,6 +17,7 @@ import MusicSearch from "./components/music_search_components/MusicSearch"
 import Setting from "./components/setting_components/setting"
 
 import Match from "./components/song_match/Match";
+import SongList from "./components/songlist_components/SongList";
 
 
 // hooks context
@@ -33,6 +34,7 @@ import { CookiesProvider } from 'react-cookie'
 
 
 import React from 'react';//いらないかも
+import SongListAndSearch from "./components/SongListAndSearch/SongListAndSearch";
 
 const Routers = () => {
   return (
@@ -87,6 +89,9 @@ const Routers = () => {
             <Route path="/setting" element={<Setting />} />
 
             <Route path="/matting" element={<Match />} />
+            <Route path="/song-list" element={<SongList />} />
+
+            <Route path="/songlistandsearch" element={<SongListAndSearch />} />
 
           </Routes>
           </PlaylistContextProvider>

@@ -257,6 +257,38 @@ justify-content: center;
 
 .search_component{
   position:relative;
-  top:10px;
-  width:80%;
+  top:0px;
+  height:100%;
+  width:100%;
+}
+
+.songlist{
+  position:relative;
+  top:0px;
+  width: 100%;
+  height:100%;
+}
+
+html{
+  height:90vh;
+}
+body{
+  height:90vh;
+  margin:0px;
+}
+
+.scroll{
+  position:relative;
+  top:0px;
+  height: 85vh;
+  overflow: auto;
+}
+
+#song_list{
+  position:relative;
+  top: 0px;
+}
+
+.songlist-and-search{
+  height:1px;
 }

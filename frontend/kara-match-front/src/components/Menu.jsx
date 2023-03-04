@@ -61,7 +61,7 @@ const Menu = (props) => {
         variant="outlined"
         color="primary"
         component={Link}
-        to="/friend-list"
+        to="/song-list"
       >
         Go to My Song List Page!
       </Button>
@@ -125,6 +125,18 @@ const Menu = (props) => {
         to="/matting"
       >
         Go to mutch!
+      </Button>
+      </li>
+
+      <p></p>
+      <li>
+      <Button className="btn5"
+        variant="outlined"
+        color="primary"
+        component={Link}
+        to="/songlistandsearch"
+      >
+        Go to songlistandsearch!
       </Button>
       </li>
 

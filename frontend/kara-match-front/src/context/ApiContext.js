@@ -3,6 +3,7 @@
 import React, { createContext, useState, useEffect } from "react";
 import { withCookies } from "react-cookie";
 import axios from "axios";
+import PlaylistContext from "./playlist/PlaylistContext";
 
 import { useCookies } from "react-cookie";
 
@@ -32,7 +33,7 @@ const ApiContextProvider = (props) => {
 
 
 // ページが更新されるたび、関数が読まれてしまうがこのEffect内の関数は最初の一回しか読まれない。
-useEffect(() => {
+  useEffect(() => {
 
 
   //ログインしているuser自身の情報をとってくる
@@ -92,22 +93,6 @@ useEffect(() => {
         console.log("error");
       }
     };
-
-
-
-    const getMysong = async () => {//最初に自分のsongデータをとってくる
-      try{
-        const res = await axios.get("http://localhost:8000/api/user/song/", {
-          headers: {
-            Authorization: `Token ${cookies.token}`,
-          },
-        });
-        setMysong(res.data);
-      } catch {
-        console.log("error");
-      }
-    };
-
     
     // const getInbox = async () => {
     //   try {
@@ -121,15 +106,13 @@ useEffect(() => {
     //     console.log("error");
     //   }
     // };
-
-
-
     getMyProfile();
     getProfile();
     // getInbox();
   }, [cookies.token, profile.id, cover]);
     //tokenかprofile.idが変更されたら、Effect内が実行される
-
+      // playlistContextを取ってきて歌のデータをここにも共有する
+  //  const {playlist, playlistDispatch} = React.useContext(PlaylistContext);
     const getMysong = async () => {//最初に自分のsongデータをとってくる
       try{
         const res = await axios.get("http://localhost:8000/api/user/mysong/", {
