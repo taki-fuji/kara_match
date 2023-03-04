@@ -103,9 +103,11 @@ const MusicSearch = () => {
         component={Link}
         to="/myplaylist"
       >Back to myplaylist</Button>
+      <Box className="search_component">
       <TextField
         onChange={handleChange}
-        id="outlined-multiline-flexible"
+        id="music_searchbox"
+        fullWidth
         label="アーティスト、曲名、歌詞"
         multiline
         InputProps={{
@@ -119,6 +121,7 @@ const MusicSearch = () => {
       />
 
         {switchView()}
+        </Box>
 
         </div>
   )

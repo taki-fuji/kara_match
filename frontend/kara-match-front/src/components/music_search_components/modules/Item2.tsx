@@ -2,6 +2,7 @@
 import React, {useEffect} from 'react'
 
 // mui
+import { styled } from '@mui/material/styles';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
@@ -9,6 +10,8 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Checkbox from '@mui/material/Checkbox';
 import Avatar from '@mui/material/Avatar';
 import PlusIcon from '@mui/icons-material/AddCircleOutline';
+import { Tooltip } from '@mui/material';
+import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 
 // contextをインポート
 import { PlaylistContext } from '../../../context/playlist/PlaylistContext';
@@ -31,26 +34,12 @@ const Item2 = (props: propsType) => {
     const { playlist, playlistDispatch, playlist_list, targetPlaylistName }: PlaylistProvider = React.useContext(PlaylistContext);
     // checkboxがcheckされるかを管理
     const [checked, setChecked] = React.useState(false);
-
     const { createSong, deleteSong, setAddsong, addsong, mysong, setMysong, Dsong, setDsong,UpdateCheck,setUpdateCheck} = React.useContext(ApiContext)
-
     const [createToggle, setCreateToggle] = React.useState(false);//チェックボックスがチェックされたら変更してuseEffectを起動できるようにする,歌を追加する関数を起動する
     const [deleteToggle, setDeleteToggle] = React.useState(false);//歌を除去する関数を起動する
-
     const [SongUpdateToggle, setSongUpdateToggle] = React.useState(false);//songステイトを更新するためのstate変数
-    
-
-
     const [toggle, setToggle] = React.useState(false);//チェックボックスがチェックされたら変更してuseEffectを起動できるようにする
     
-    //const handleClickOpen = () => {
-    //  setPlaylistSelectDialogIsOpen(true);
-    //}
-
-    //const handleClose = (value: string) => {
-    //  setPlaylistSelectDialogIsOpen(false);
-    //  setSelectedPlaylistName(value);
-    //}
     function useDidUpdateEffect(fn: EffectCallback, deps: DependencyList) {//useEffectを初回起動しないようにするuseEffect
       const didMountRef = useRef(false);
       useEffect(() => {
@@ -61,6 +50,12 @@ const Item2 = (props: propsType) => {
         }
       }, deps);
     }
+    // Avatarをstyledする
+    const CustomAvatar = styled(Avatar)({
+      "&:hover":{
+        backGroundColor: "red",
+      }
+    });
 
     //stateが一個遅れるためuseEffectを使うことでワンクッション置くことにした
     useDidUpdateEffect(() => {//初回起動しないuseEffect,上で作った
@@ -180,12 +175,15 @@ const Item2 = (props: propsType) => {
         }
         disablePadding
       >
-        <ListItemButton onClick={handleMoveItunesPage}>
+        <ListItemButton onClick={handleToggle}>
           <ListItemAvatar>
-            <Avatar
-              alt={`Avatar n°${props.key + 1}`}
-              src={props.item.artworkUrl100.replace('100x100bb.jpg','300x300bb.jpg')}
-            />
+            <Tooltip title={<PlayCircleOutlineIcon/>} arrow={true} enterDelay={50} placement="top-start">
+              <CustomAvatar
+                onClick={handleMoveItunesPage}
+                alt={`Avatar n°${props.key + 1}`}
+                src={props.item.artworkUrl100.replace('100x100bb.jpg','300x300bb.jpg')}
+              />
+            </Tooltip>
           </ListItemAvatar>
           <ListItemText 
             primary={props.item.trackCensoredName}
