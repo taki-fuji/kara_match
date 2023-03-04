@@ -12,6 +12,8 @@ import Search from "../component_parts/Search";
 
 import { BsFillPeopleFill } from "react-icons/bs";//人のアイコン
 import { GoMail } from "react-icons/go";//メールアイコン
+import Menuber from "../components/Menuber_components/Menuber";
+
 
 
 const Menu = (props) => {
@@ -37,7 +39,12 @@ const Menu = (props) => {
   ));
 
   return (
+
+ 
     <div className="all">
+      
+      <Menuber/>
+      
       <div className="MenuContents">
       <h1>Menu Page</h1>
     <ul className="MenuButton">
@@ -53,7 +60,7 @@ const Menu = (props) => {
         Logout
       </Button>
       </li>
-
+/* */
       <p></p>
       <li>
       <Button
@@ -144,6 +151,8 @@ const Menu = (props) => {
 </div>
 
       <br/>
+
+      
       <Grid container>
 
         <Grid item xs={4}>
