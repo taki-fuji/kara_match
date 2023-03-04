@@ -43,6 +43,11 @@ export const playlistReducer = (state: playlistState, action: playlistActions): 
                     song
                     )
             };
+        case "INITIALIZE_SONG":
+            return{
+                ...state,
+                songs: []
+            };
         default:
             return state;
     }

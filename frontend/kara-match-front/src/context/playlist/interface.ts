@@ -48,9 +48,18 @@ interface removeSong {
         collectionId:number;
     }
 }
+// 曲の削除(checkedを外すだけで、実際に削除するのはdjangoへのPost)
+interface initializeSong {
+    type: "INITIALIZE_SONG";
+    payload: {
+        // 削除対象のcollectionIdを持ってくる
+        collectionId:number;
+    }
+}
 export type playlistActions =
 | addSong
-| removeSong;
+| removeSong
+| initializeSong;
 
 
 export interface PlaylistProvider{

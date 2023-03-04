@@ -79,7 +79,12 @@ const MusicSearch = () => {
                 if(alignment === '0'){
                     return <Result items={items} />
                 }else if(alignment === '1'){
-                    return <Result2 items={items} />
+                    return (
+                        <div className="scroll">
+                            <Result2 items={items} />
+                        </div>
+                        )
+                    
                 }else{
                     return <h1>予期していません</h1>
                 }
@@ -97,12 +102,7 @@ const MusicSearch = () => {
 
   return (
     <div>
-        <Button
-        variant="outlined"
-        color="primary"
-        component={Link}
-        to="/myplaylist"
-      >Back to myplaylist</Button>
+        
       <Box className="search_component">
       <TextField
         onChange={handleChange}
