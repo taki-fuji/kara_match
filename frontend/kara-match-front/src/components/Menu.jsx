@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import { AppBar, Button } from "@mui/material";
 import {withCookies} from 'react-cookie';
@@ -13,28 +13,40 @@ import Search from "../component_parts/Search";
 import { BsFillPeopleFill } from "react-icons/bs";//人のアイコン
 import { GoMail } from "react-icons/go";//メールアイコン
 
+import { MatchContext } from "../context/MatchContext";
+import Profile3 from "../component_parts/Profile3";
 
 const Menu = (props) => {
- 
+
+  
   
   const { profiles, profile, askList, askListFull } = useContext(ApiContext);
-
+  const { fprof, setfprof, del_comp } = useContext(MatchContext);
+  let listProfiles = [];
+  const [run, setrun] = useState(false);
+  
   const filterProfiles = profiles.filter((prof) => {return prof.id !== profile.id;});//自分以外のプロフィールをフィルタリングしたリターン
 
 
-  const listProfiles =
-  filterProfiles &&
-  filterProfiles.map((filprof) => (//カードごとの情報をmapのループで取り出しfilprofに入れる
-    <Profile
+  useEffect(() => {
+   
+  },[del_comp])
+  
+  listProfiles =
+  fprof &&
+  fprof.map((filprof) => (//カードごとの情報をmapのループで取り出しfilprofに入れる
+    <Profile3
       key={filprof.id}
       profileData={filprof}
-      askData={askListFull.filter((ask) => {//askDataを取り出してローカル変数のaskに入れる
-        return (
-          (filprof.userPro === ask.askFrom) | (filprof.userPro === ask.askTo)
-        );
-      })}
+      // askData={askListFull.filter((ask) => {//askDataを取り出してローカル変数のaskに入れる
+      //   return (
+      //     (filprof.userPro === ask.askFrom) | (filprof.userPro === ask.askTo)
+      //   );
+      // })}
     />
   ));
+
+
 
   return (
     <div className="all">
@@ -135,7 +147,7 @@ const Menu = (props) => {
       <Grid container>
 
         <Grid item xs={4}>
-          <h2 className="sample-box-02">Profile List</h2>
+          <h2 className="sample-box-02">Friends Profile List</h2>
           <div className="app-profiles">
             {listProfiles}
           </div>

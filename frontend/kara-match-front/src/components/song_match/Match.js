@@ -30,38 +30,10 @@ import { Grid } from '@mui/material';
 
 
 const Match = () => {
+    const { profiles, profile, askList, askListFull, cookies } = useContext(ApiContext);
 
     //ここから下記がフレンドを表示する機能
-    const { profiles, profile, askList, askListFull } = useContext(ApiContext);
-    const approve_askList = askList.filter((ask) => {return ask.approved === true;});//自分宛のフレンドリクエストがtrueのもの(フレンドのuser)をフィルタリングしたリターン
-    
-
-    const [fprof, setfprof] = useState([]);//フレンドのプロフィールを格納する
-    const friends_profile =[]//フレンドのプロフィールを格納する変数
-
-    
-    useEffect(() => {
-            console.log("下記が友達のapproveList" + approve_askList)
-            console.log(approve_askList)
-            Search_myfrends_profile()
-    }, [askList])
-    
-    const Search_myfrends_profile = () => {//ここでフレンドだけのprofileを選択している
-    Object.values(profiles).map((s) =>{//Object.values(mysong)とすることでmtsongをobject型からarray型に変更している
-        Object.values(approve_askList).map((a) =>{
-            if(s.userPro === a.askFrom){//チェックを押した歌のcollectionIdと自分の選択した歌のcollectionIdを比較して同じ場合だったら
-                // console.log("User nickName")
-                // console.log(s.nickName)
-                // setfprof(s)
-                friends_profile.push(s)
-                console.log("下記が友達List" + approve_askList)
-                console.log(friends_profile)
-            }
-        })
-    })
-    console.log(fprof)
-    setfprof(friends_profile)//ここでstateに入れることで下記のmapから画面に表示することができた
-    }
+    const { fprof } = useContext(MatchContext);//fprofにフレンドのプロフィール情報が入っている
 
     
     const listProfiles =

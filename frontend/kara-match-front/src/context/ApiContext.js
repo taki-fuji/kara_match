@@ -168,6 +168,7 @@ useEffect(() => {
     // },[cover])
 
 
+    
 
   //ここで音楽を追加,除去する関数を作る
 
@@ -439,6 +440,7 @@ useEffect(() => {
         setEditedProfile,
 
 
+
         //自分で書いた下
         addsong,
         setAddsong,
@@ -460,6 +462,8 @@ useEffect(() => {
         //songのstate達上
 
         Allsongs,
+
+        cookies,
 
       }}
     >
