@@ -64,7 +64,7 @@ const MatchContextProvider = (props) => {
             console.log("下記が友達のapproveList" + approve_askList)
             console.log(approve_askList)
             Search_myfrends_profile()
-    }, [askList, cookies.token,  profile.id, del_comp])
+    }, [askList, cookies.token,  profile.id])
     
     const Search_myfrends_profile = () => {//ここでフレンドだけのprofileを選択している
     Object.values(profiles).map((s) =>{//Object.values(mysong)とすることでmtsongをobject型からarray型に変更している
