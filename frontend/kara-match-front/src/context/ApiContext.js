@@ -6,6 +6,7 @@ import axios from "axios";
 import PlaylistContext from "./playlist/PlaylistContext";
 
 import { useCookies } from "react-cookie";
+import { FaGlasses } from "react-icons/fa";
 
 // ApiContextという名前で、Contextを宣言している。コンポーネントツリーを無視して、コンポーネントの値を送れる。
 export const ApiContext = createContext();
@@ -30,6 +31,9 @@ const ApiContextProvider = (props) => {
     const [Dsong,setDsong] = useState([]);//消去する歌のidを入れておくstate
 
     const [UpdateCheck, setUpdateCheck] = useState(false);//追加、除去をsongjudgeに知らせるstate,いらないかも
+
+    const [updata_prof, setupdata_prof] = useState(false);
+    const [updata_prof2, setupdata_prof2] = useState(false);
 
 
 // ページが更新されるたび、関数が読まれてしまうがこのEffect内の関数は最初の一回しか読まれない。
@@ -109,7 +113,8 @@ const ApiContextProvider = (props) => {
     getMyProfile();
     getProfile();
     // getInbox();
-  }, [cookies.token, profile.id, cover]);
+    setupdata_prof2(!updata_prof2)
+  }, [cookies.token, profile.id, cover, updata_prof]);
     //tokenかprofile.idが変更されたら、Effect内が実行される
       // playlistContextを取ってきて歌のデータをここにも共有する
   //  const {playlist, playlistDispatch} = React.useContext(PlaylistContext);
@@ -447,6 +452,12 @@ const ApiContextProvider = (props) => {
         Allsongs,
 
         cookies,
+
+        updata_prof,
+        setupdata_prof,
+
+        updata_prof2,
+        setupdata_prof2,
 
       }}
     >
