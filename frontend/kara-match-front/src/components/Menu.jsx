@@ -12,7 +12,7 @@ import Search from "../component_parts/Search";
 
 import { BsFillPeopleFill } from "react-icons/bs";//人のアイコン
 import { GoMail } from "react-icons/go";//メールアイコン
-import Menuber from "../components/Menuber_components/Menuber";
+// import Menuber from "../components/Menuber_components/Menuber";
 
 
 import { MatchContext } from "../context/MatchContext";
@@ -24,17 +24,13 @@ const Menu = (props) => {
   
   const { profiles, profile, askList, askListFull } = useContext(ApiContext);
   const { fprof, setfprof, del_comp } = useContext(MatchContext);
-  let listProfiles = [];
+  // let listProfiles = [];
   const [run, setrun] = useState(false);
   
   const filterProfiles = profiles.filter((prof) => {return prof.id !== profile.id;});//自分以外のプロフィールをフィルタリングしたリターン
 
 
-  useEffect(() => {
-   
-  },[del_comp])
-  
-  listProfiles =
+  const listProfiles =
   fprof &&
   fprof.map((filprof) => (//カードごとの情報をmapのループで取り出しfilprofに入れる
     <Profile3
@@ -55,7 +51,7 @@ const Menu = (props) => {
  
     <div className="all">
       
-      <Menuber/>
+      {/* <Menuber/> */}
       
       <div className="MenuContents">
       <h1>Menu Page</h1>
@@ -72,7 +68,6 @@ const Menu = (props) => {
         Logout
       </Button>
       </li>
-/* */
       <p></p>
       <li>
       <Button
@@ -170,7 +165,18 @@ const Menu = (props) => {
         <Grid item xs={4}>
           <h2 className="sample-box-02">Friends Profile List</h2>
           <div className="app-profiles">
-            {listProfiles}
+            {/* {listProfiles} */}
+            {fprof.map((filprof) => (//カードごとの情報をmapのループで取り出しfilprofに入れる
+              <Profile3
+                key={filprof.id}
+                profileData={filprof}
+                // askData={askListFull.filter((ask) => {//askDataを取り出してローカル変数のaskに入れる
+                //   return (
+                //     (filprof.userPro === ask.askFrom) | (filprof.userPro === ask.askTo)
+                //   );
+                // })}
+              />
+            ))}
           </div>
         </Grid>
 

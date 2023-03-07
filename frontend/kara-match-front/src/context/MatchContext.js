@@ -14,12 +14,13 @@ const MatchContextProvider = (props) => {
     const [click, setclick] = useState(false)//match機能のフレンド選択でクリックされたか判定するstate
     const [username, setusername] = useState("No Select");//usernameを保存するstate
     const [fprof, setfprof] = useState([]);//フレンドのプロフィールを格納する
-    const { profiles, profile, askList, askListFull, cookies } = useContext(ApiContext);
+    const { profiles, profile, askList, askListFull, cookies, setupdata_prof, updata_prof, setupdata_prof2, updata_prof2 } = useContext(ApiContext);
     const approve_askList = askList.filter((ask) => {return ask.approved === true;});//自分宛のフレンドリクエストがtrueのもの(フレンドのuser)をフィルタリングしたリターン
     const friends_profile =[]//フレンドのプロフィールを格納する変数
     const [delete_ask_id, setdelete_ask_id] = useState();
     const [delete_ask_id2, setdelete_ask_id2] = useState();
     const [del_comp, setdel_comp] = useState(false);
+    const [del_comp2, setdel_comp2] = useState(false);
 
 
     const Delete_frends_tunction = async () => {
@@ -55,7 +56,7 @@ const MatchContextProvider = (props) => {
         console.log("error");
       }
 
-      setdel_comp(!del_comp)
+      setupdata_prof(!updata_prof)
     };
 
 
@@ -64,7 +65,7 @@ const MatchContextProvider = (props) => {
             console.log("下記が友達のapproveList" + approve_askList)
             console.log(approve_askList)
             Search_myfrends_profile()
-    }, [askList, cookies.token,  profile.id, del_comp])
+    }, [askList, cookies.token,  profile.id, updata_prof2])
     
     const Search_myfrends_profile = () => {//ここでフレンドだけのprofileを選択している
     Object.values(profiles).map((s) =>{//Object.values(mysong)とすることでmtsongをobject型からarray型に変更している
@@ -100,6 +101,8 @@ const MatchContextProvider = (props) => {
         delete_ask_id2,
         setdelete_ask_id2,
         del_comp,
+
+        del_comp2,
     }}    
     >
         {props.children}
