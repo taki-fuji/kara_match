@@ -65,6 +65,7 @@ const MatchContextProvider = (props) => {
             console.log("下記が友達のapproveList" + approve_askList)
             console.log(approve_askList)
             Search_myfrends_profile()
+
     }, [askList, cookies.token,  profile.id, updata_prof2])
     
     const Search_myfrends_profile = () => {//ここでフレンドだけのprofileを選択している
