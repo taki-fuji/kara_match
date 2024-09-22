@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./Login";
 import Menu from "./components/Menu";
+import Home from "./Home";
 
 import MatchSearch from "./components/match_components/match_search";
 import MatchWaite from "./components/match_components/match_waite";
@@ -70,6 +71,8 @@ const Routers = () => {
               ↑
               3000までのURLがデフォルト
             */}
+
+            <Route path="/Home" element={<Home />} />
 
             <Route path="/" element={<Login />} />
             <Route path="/menu" element={<Menu />} />

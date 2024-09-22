@@ -10,6 +10,12 @@ import { IoIosSend } from "react-icons/io";
 import { IoMdClose } from "react-icons/io";
 import {FaUserFriends} from "react-icons/fa"
 
+import { Card } from '@mui/material';
+import { CardMedia } from '@mui/material';
+import { CardContent } from '@mui/material';
+
+import './pm.css';
+
 const ExButton = styled(Button)(({theme}) => ({
     margin: theme.spacing(1),
 }));
@@ -17,6 +23,9 @@ const ExButton = styled(Button)(({theme}) => ({
 const ExTextField = styled(TextField)(({theme}) => ({
     margin: theme.spacing(1),
 }));
+
+
+
 
 
 const Ask = ({ ask, prof }) => {
@@ -41,8 +50,9 @@ const Ask = ({ ask, prof }) => {
     };
   
     return (
-      <li className="list-item">
-        <h4> {prof[0].nickName}</h4>
+      <li >
+        <h4 className='float_test'> {prof[0].nickName}</h4>
+        <div className='float_test '>
         {!ask.approved ? (
           <ExButton
             size="small"
@@ -53,11 +63,9 @@ const Ask = ({ ask, prof }) => {
             Approve
           </ExButton>
         ) : (
-          <button className="mail" onClick={() => setModalIsOpen(true)}>
-            <FaUserFriends />
-          </button>
+            <h1><FaUserFriends /></h1>
         )}
-  
+       </div>
       </li>
     );
   };
