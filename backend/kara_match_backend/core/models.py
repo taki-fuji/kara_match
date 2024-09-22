@@ -52,6 +52,7 @@ class Profile(models.Model):
         on_delete=models.CASCADE  # ユーザーの削除がされた時このモデルも削除される
     )
     created_on = models.DateTimeField(auto_now_add=True)
+    # img = models.ImageField(blank=True, null=True, upload_to="_media/image")
     img = models.ImageField(blank=True, null=True, upload_to=upload_path)
 
     def __str__(self):

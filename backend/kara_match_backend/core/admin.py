@@ -7,7 +7,7 @@ from . import models
 # Register your models here.
 
 class UserAdmin(BaseUserAdmin):
-    ordering = ['id']
+    ordering = ['id']   # idの昇順
     list_display = ['email']
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
