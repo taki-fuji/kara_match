@@ -188,11 +188,13 @@
 
 
 .app-details {
+  text-align: center;
   display: flex;
   width: 11rem;
   padding: 1rem;
-  border: 1px solid #eee;
-  border-radius: 6px;
+  border: 1px solid rgb(30, 30, 30);
+  border-radius: 12px;
+  
 }
 
 .btn1{
@@ -291,4 +293,9 @@ body{
 
 .songlist-and-search{
   height:1px;
+}
+
+
+.approval_request_list{
+  text-align: center;
 }

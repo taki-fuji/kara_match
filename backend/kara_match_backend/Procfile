@@ -1,0 +1,1 @@
+web: gunicorn KaraMatch.wsgi --log-file -

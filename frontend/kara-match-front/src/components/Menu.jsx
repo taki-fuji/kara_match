@@ -13,6 +13,8 @@ import Search from "../component_parts/Search";
 import { BsFillPeopleFill } from "react-icons/bs";//人のアイコン
 import { GoMail } from "react-icons/go";//メールアイコン
 // import Menuber from "../components/Menuber_components/Menuber";
+import { styled } from '@mui/material/styles';
+
 
 
 import { MatchContext } from "../context/MatchContext";
@@ -185,8 +187,17 @@ const Menu = (props) => {
             <div className="app-details">
               <ProfileManager/>
             </div>
-            <h3 className="title-ask"><BsFillPeopleFill className="badge" />Approval request list</h3>
-              <div className="app-details">
+          </div>
+        </Grid>
+
+        <Grid item xs={4} >
+          <h1 className="sample-box-02">Search Users</h1>
+          <div >
+            <Search/>
+          </div>
+
+          <h3 className="title-ask"><BsFillPeopleFill className="badge" />Approval request list</h3>
+              <div className="app-details" >
                 <ul>
                 {profile.id && askList.map((ask) => (
                     <Ask
@@ -197,14 +208,6 @@ const Menu = (props) => {
                   ))}
                 </ul>
               </div>
-          </div>
-        </Grid>
-
-        <Grid item xs={4}>
-          <h1 className="sample-box-02">Search Users</h1>
-          <div>
-            <Search/>
-          </div>
         </Grid>
 
       </Grid>

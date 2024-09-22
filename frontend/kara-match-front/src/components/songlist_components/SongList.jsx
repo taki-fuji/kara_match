@@ -28,9 +28,16 @@ const FriendList = (props) => {
 
   return (
     <>
-      <div >
-        {listmysong}
-      </div>
+     
+
+
+      {!listmysong[0] ? (
+          <h1>No Song</h1>
+        ) : (
+          <div >
+            {listmysong}
+          </div>
+        )}
     </>
   );
 };

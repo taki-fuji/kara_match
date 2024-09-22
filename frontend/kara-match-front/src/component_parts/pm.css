@@ -79,3 +79,9 @@ body {
   outline: none;
   cursor: pointer;
 }
+
+/* Ask.js */
+
+.float_test {
+  float:  left;   /* 回り込み指定 */
+}
