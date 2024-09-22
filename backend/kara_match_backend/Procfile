@@ -1,1 +1,2 @@
-web: gunicorn your_application.wsgi
+web: gunicorn kara_match_backend.wsgi
+
