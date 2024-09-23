@@ -107,7 +107,7 @@ DATABASES = {
 DATABASE_URL = None  # 環境変数を明示的に無効にする（または削除）
 
 DATABASES = {
-    'default': dj_database_url.config(default='postgresql://kara_match_database_user:a1Oe8mNmdTiXt4WHIY6G1CTjovRbtxbu@dpg-croi7gij1k6c739hvimg-a/kara_match_database')
+    'default': dj_database_url.config(default='postgresql://kara_match_database_user:a1Oe8mNmdTiXt4WHIY6G1CTjovRbtxbu@dpg-croi7gij1k6c739hvimg-a.oregon-postgres.render.com/kara_match_database')
 }
 
 if DATABASE_URL:
