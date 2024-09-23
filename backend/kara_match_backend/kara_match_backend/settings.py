@@ -2,6 +2,19 @@ from pathlib import Path
 import os
 import dj_database_url
 from decouple import config
+from django.views.generic import TemplateView
+from django.urls import re_path, include
+
+from django.urls import path
+
+CORS_ORIGIN_ALLOW_ALL = True  #
+
+urlpatterns = [
+
+    # Reactのすべての他のルート
+    re_path(r'^.*$', TemplateView.as_view(template_name='index.html')),
+]
+
 
 # 追加
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
