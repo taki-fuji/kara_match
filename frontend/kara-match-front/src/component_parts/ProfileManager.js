@@ -92,7 +92,8 @@ const ProfileManager = () => {
           <Profile_image src={profile.img} alt="profile" />
         ) : (
           <Profile_image
-            src="http://127.0.0.1:8000/media/image/null.png"
+            // src="http://127.0.0.1:8000/media/image/null.png"
+            src="https://kara-match-backend.onrender.com/media/image/null.png"
             alt="profile"
           />
         )}

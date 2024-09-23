@@ -226,7 +226,8 @@ const Login = (props) => {
         dispatch({ type: START_FETCH });
         // "http://127.0.0.1:8000/authen/" にcredentialsLogの値をpostして、トークンをresに格納する
         const res = await axios.post(
-          "http://127.0.0.1:8000/authen/",
+          // "http://127.0.0.1:8000/authen/",
+          "https://kara-match-backend.onrender.com/authen/",
           state.credentialsLog,
           {
             headers: { "Content-Type": "application/json" },
@@ -250,7 +251,8 @@ const Login = (props) => {
         dispatch({ type: START_FETCH });
         // "http://127.0.0.1:8000/api/user/create/"にcredentialsRegの内容を送る。新規アカウントの内容を送る。
         await axios.post(
-          "http://127.0.0.1:8000/api/user/create/",
+          // "http://127.0.0.1:8000/api/user/create/",
+          "https://kara-match-backend.onrender.com/api/user/create/",
           state.credentialsReg,
           {
             headers: { "Content-Type": "application/json" },

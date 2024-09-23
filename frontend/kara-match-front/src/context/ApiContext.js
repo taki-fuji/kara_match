@@ -45,7 +45,8 @@ const ApiContextProvider = (props) => {
       try {
 
         const resmy = await axios.get(//ログインしているプロフィール情報を取得
-          "http://localhost:8000/api/user/myprofile/",
+          // "http://localhost:8000/api/user/myprofile/", // ローカル環境
+          "https://kara-match-backend.onrender.com/api/user/myprofile/", // デプロイ用
           {
             headers: {//token割り当て
               Authorization: `Token ${cookies.token}`,
@@ -58,7 +59,8 @@ const ApiContextProvider = (props) => {
         const res = await axios.get(
           // approval フレンドリクエストを承認した人たちの情報
 
-          "http://localhost:8000/api/user/approval/",
+          // "http://localhost:8000/api/user/approval/", //
+          "https://kara-match-backend.onrender.com/api/user/approval/",
           {
             headers: {
               Authorization: `Token ${cookies.token}`,
@@ -87,7 +89,7 @@ const ApiContextProvider = (props) => {
 
     const getProfile = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/api/user/profile/", {
+        const res = await axios.get("https://kara-match-backend.onrender.com/api/user/profile/", {
           headers: {
             Authorization: `Token ${cookies.token}`,
           },
@@ -120,7 +122,7 @@ const ApiContextProvider = (props) => {
   //  const {playlist, playlistDispatch} = React.useContext(PlaylistContext);
     const getMysong = async () => {//最初に自分のsongデータをとってくる
       try{
-        const res = await axios.get("http://localhost:8000/api/user/mysong/", {
+        const res = await axios.get("https://kara-match-backend.onrender.com/api/user/mysong/", {
           headers: {
             Authorization: `Token ${cookies.token}`,
           },
@@ -137,7 +139,7 @@ const ApiContextProvider = (props) => {
 
     const getAllsong = async () => {//最初に自分のsongデータをとってくる
       try{
-        const res = await axios.get("http://localhost:8000/api/user/song/", {
+        const res = await axios.get("https://kara-match-backend.onrender.com/api/user/song/", {
           headers: {
             Authorization: `Token ${cookies.token}`,
           },
@@ -192,7 +194,7 @@ const ApiContextProvider = (props) => {
       
       try {
         const res = await axios.post(
-          "http://localhost:8000/api/user/song/",
+          "https://kara-match-backend.onrender.com/api/user/song/",
           createData,
           {
             headers: {
@@ -221,7 +223,7 @@ const ApiContextProvider = (props) => {
       console.log(Dsong)
       try {
         await axios.delete(
-          `http://localhost:8000/api/user/song/${Dsong}/`,//mysong.id -> Dsong
+          `https://kara-match-backend.onrender.com/api/user/song/${Dsong}/`,//mysong.id -> Dsong
           {
             headers: {
               "Content-Type": "application/json",
@@ -258,7 +260,7 @@ const ApiContextProvider = (props) => {
     cover.name && createData.append("img", cover, cover.name);
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/user/profile/",
+        "https://kara-match-backend.onrender.com/api/user/profile/",
         createData,
         {
           headers: {
@@ -280,7 +282,7 @@ const ApiContextProvider = (props) => {
   const deleteProfile = async () => {
     try {
       await axios.delete(
-        `http://localhost:8000/api/user/profile/${profile.id}/`,
+        `https://kara-match-backend.onrender.com/api/user/profile/${profile.id}/`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -307,7 +309,7 @@ const ApiContextProvider = (props) => {
     cover.name && editData.append("img", cover, cover.name);
     try {
       const res = await axios.put(
-        `http://localhost:8000/api/user/profile/${profile.id}/`,
+        `https://kara-match-backend.onrender.com/api/user/profile/${profile.id}/`,
         editData,
         {
           headers: {
@@ -326,7 +328,7 @@ const ApiContextProvider = (props) => {
   const newRequestFriend = async (askData) => {
     try {
       const res = await axios.post(
-        `http://localhost:8000/api/user/approval/`,
+        `https://kara-match-backend.onrender.com/api/user/approval/`,
         askData,
         {
           headers: {
@@ -357,7 +359,7 @@ const ApiContextProvider = (props) => {
   const changeApprovalRequest = async (uploadDataAsk, ask) => {
     try {
       const res = await axios.put(
-        `http://localhost:8000/api/user/approval/${ask.id}/`,
+        `https://kara-match-backend.onrender.com/api/user/approval/${ask.id}/`,
         uploadDataAsk,
         {
           headers: {
@@ -383,7 +385,7 @@ const ApiContextProvider = (props) => {
 
       !resp[0]
         ? await axios.post(
-            `http://localhost:8000/api/user/approval/`,
+            `https://kara-match-backend.onrender.com/api/user/approval/`,
             newDataAsk,
             {
               headers: {
@@ -393,7 +395,7 @@ const ApiContextProvider = (props) => {
             }
           )
         : await axios.put(
-            `http://localhost:8000/api/user/approval/${resp[0].id}/`,
+            `https://kara-match-backend.onrender.com/api/user/approval/${resp[0].id}/`,
             newDataAskPut,
             {
               headers: {
