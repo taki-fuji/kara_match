@@ -15,7 +15,9 @@ SECRET_KEY = 'django-insecure-y)0s2x%$8d&c1o^u&3spbit4=9q-cxkzf6jia)#46vq2z64w58
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['kara-match-backend.onrender.com', 'localhost', '127.0.0.1']
+
+# render デプロイ用に追加した
+ALLOWED_HOSTS = ['kara-match-backend.onrender.com', 'localhost', '127.0.0.1', 'kara-match-frontend.onrender.com']
 
 
 # Application definition
@@ -50,7 +52,8 @@ MIDDLEWARE = [
 ]
 
 CORS_ORIGIN_WHITELIST = [
-    "http://localhost:3000"
+    "https://kara-match-frontend.onrender.com",
+    "http://localhost:3000",
 ]
 
 ROOT_URLCONF = 'kara_match_backend.urls'
