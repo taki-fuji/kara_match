@@ -72,7 +72,8 @@ const Profile3 = ({ profileData }) => {
       ) : (
         <CardMedia
           style={{ minWidth: 100 }}
-          image="http://127.0.0.1:8000/media/image/null.png"
+          // image="http://127.0.0.1:8000/media/image/null.png"
+          image="https://kara-match-backend.onrender.com/media/image/null.png"
         />
       )}
 

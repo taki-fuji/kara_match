@@ -10,6 +10,8 @@ import { styled } from '@mui/material/styles';
 
 const Friend = ({ prof }) => {
 
+  const BASE_URL = "https://kara-match-backend.onrender.com";
+
   const getUserMusic =() => {
     // profのユーザのプレイリストを取得するリクエストをする関数
   }
@@ -22,7 +24,8 @@ const Friend = ({ prof }) => {
         ) : (
           <CardMedia
             style={{ minWidth: 100 }}
-            image="http://127.0.0.1:8000/media/image/null.png"
+            // image="http://127.0.0.1:8000/media/image/null.png"
+            image={`${BASE_URL}/media/image/null.png`}
           />
         )}
         <CardContent style={{ padding: 5 }}>

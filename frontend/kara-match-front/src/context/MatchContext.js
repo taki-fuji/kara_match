@@ -27,7 +27,7 @@ const MatchContextProvider = (props) => {
       console.log(delete_ask_id)
       try {
         await axios.delete(
-          `http://localhost:8000/api/user/approval/${delete_ask_id}/`,
+          `https://kara-match-backend.onrender.com/api/user/approval/${delete_ask_id}/`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -43,7 +43,7 @@ const MatchContextProvider = (props) => {
       console.log(delete_ask_id2)
       try {
         await axios.delete(
-          `http://localhost:8000/api/user/approval/${delete_ask_id2}/`,
+          `https://kara-match-backend.onrender.com/api/user/approval/${delete_ask_id2}/`,
           {
             headers: {
               "Content-Type": "application/json",
