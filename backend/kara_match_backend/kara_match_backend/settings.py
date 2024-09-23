@@ -1,6 +1,9 @@
 from pathlib import Path
 import os
 import dj_database_url
+from decouple import config
+
+DATABASE_URL = config('DATABASE_URL')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -80,20 +83,37 @@ WSGI_APPLICATION = 'kara_match_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql', # 変更
+#         'NAME': 'kara_match_database', # プロジェクトで使用するデータベース名
+#         'USER': 'root', # パソコンにインストールしたMySQLのユーザー名
+#         'PASSWORD': '', # 同上。そのパスワード
+#     }
+# }
+
+# DATABASES設定をPostgreSQL用に変更
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', # 変更
-        'NAME': 'kara_match_database', # プロジェクトで使用するデータベース名
-        'USER': 'root', # パソコンにインストールしたMySQLのユーザー名
-        'PASSWORD': '', # 同上。そのパスワード
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'kara_match_database',  # データベース名
+        'USER': 'kara_match_database_user',  # ユーザー名
+        'PASSWORD': 'a1Oe8mNmdTiXt4WHIY6G1CTjovRbtxbu',  # パスワード
+        'HOST': 'dpg-croi7gij1k6c739hvimg-a',  # ホスト名
+        'PORT': '5432',  # ポート（デフォルト: 5432）
     }
 }
-
 # Render用に環境変数 DATABASE_URL が設定されている場合、それを使用
-DATABASE_URL = os.getenv('DATABASE_URL')
+DATABASE_URL = None  # 環境変数を明示的に無効にする（または削除）
+
+DATABASES = {
+    'default': dj_database_url.config(default='postgresql://kara_match_database_user:a1Oe8mNmdTiXt4WHIY6G1CTjovRbtxbu@dpg-croi7gij1k6c739hvimg-a/kara_match_database')
+}
 
 if DATABASE_URL:
     DATABASES['default'] = dj_database_url.config(default=DATABASE_URL)
+
+# DATABASES設定をPostgreSQL用に変更 -ここまで
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
