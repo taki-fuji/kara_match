@@ -40,7 +40,7 @@ DEBUG = True
 
 
 # render デプロイ用に追加した
-ALLOWED_HOSTS = ['kara-match-backend.onrender.com', 'localhost', '127.0.0.1', 'kara-match-frontend.onrender.com']
+ALLOWED_HOSTS = ['https://kara-match.web.app', 'kara-match-backend.onrender.com', 'localhost', '127.0.0.1', 'kara-match-frontend.onrender.com']
 
 
 # Application definition
@@ -77,6 +77,7 @@ MIDDLEWARE = [
 CORS_ORIGIN_WHITELIST = [
     "https://kara-match-frontend.onrender.com",
     "http://localhost:3000",
+    "https://kara-match.web.app",
 ]
 
 ROOT_URLCONF = 'kara_match_backend.urls'
