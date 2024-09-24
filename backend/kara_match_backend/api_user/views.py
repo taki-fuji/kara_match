@@ -50,6 +50,9 @@ class ProfileViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(userPro=self.request.user)
 
+    def perform_update(self, serializer):
+        serializer.save()  # ユーザー情報を保存
+
 
 class MyProfileListView(generics.ListAPIView):
     queryset = Profile.objects.all()
