@@ -139,7 +139,7 @@ WSGI_APPLICATION = 'kara_match_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',  # データベース名
+        'NAME': 'kara-match',  # データベース名
         'USER': 'postgres',  # ユーザー名
         'PASSWORD': 'yHMtycDsdoMfkGZ',  # パスワード
         'HOST': 'kara-match.internal',  # ホスト名
@@ -148,7 +148,7 @@ DATABASES = {
 }
 
 # DATABASE_URLが設定されている場合、それを優先して使用
-DATABASE_URL = config('DATABASE_URL', default='postgres://postgres:yHMtycDsdoMfkGZ@kara-match.flycast:5432/postgres')
+DATABASE_URL = config('DATABASE_URL', default='postgres://postgres:yHMtycDsdoMfkGZ@kara-match.flycast:5432/kara-match')
 
 if DATABASE_URL:
     DATABASES['default'] = dj_database_url.config(default=DATABASE_URL)
