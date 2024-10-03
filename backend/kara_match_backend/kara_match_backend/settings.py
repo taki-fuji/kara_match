@@ -148,7 +148,7 @@ DATABASES = {
 }
 
 # DATABASE_URLが設定されている場合、それを優先して使用
-DATABASE_URL = config('DATABASE_URL', default='postgres://postgres:yHMtycDsdoMfkGZ@kara-match.flycast:5432')
+DATABASE_URL = config('DATABASE_URL', default='postgres://postgres:yHMtycDsdoMfkGZ@kara-match.flycast:5432/postgres')
 
 if DATABASE_URL:
     DATABASES['default'] = dj_database_url.config(default=DATABASE_URL)
