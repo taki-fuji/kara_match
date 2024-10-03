@@ -114,45 +114,45 @@ WSGI_APPLICATION = 'kara_match_backend.wsgi.application'
 # }
 
 # DATABASES設定をPostgreSQL用に変更
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'kara_match_database',  # データベース名
-#         'USER': 'kara_match_database_user',  # ユーザー名
-#         'PASSWORD': 'a1Oe8mNmdTiXt4WHIY6G1CTjovRbtxbu',  # パスワード
-#         'HOST': 'dpg-croi7gij1k6c739hvimg-a',  # ホスト名
-#         'PORT': '5432',  # ポート（デフォルト: 5432）
-#     }
-# }
-# # Render用に環境変数 DATABASE_URL が設定されている場合、それを使用
-# DATABASE_URL = None  # 環境変数を明示的に無効にする（または削除）
-#
-# DATABASES = {
-#     'default': dj_database_url.config(default='postgresql://kara_match_database_user:a1Oe8mNmdTiXt4WHIY6G1CTjovRbtxbu@dpg-croi7gij1k6c739hvimg-a.oregon-postgres.render.com/kara_match_database')
-# }
-#
-# if DATABASE_URL:
-#     DATABASES['default'] = dj_database_url.config(default=DATABASE_URL)
-
-
-# Database configuration
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'kara-match',  # データベース名
-        'USER': 'postgres',  # ユーザー名
-        'PASSWORD': 'yHMtycDsdoMfkGZ',  # パスワード
-        'HOST': 'kara-match.internal',  # ホスト名
+        'NAME': 'kara_match_database',  # データベース名
+        'USER': 'kara_match_database_user',  # ユーザー名
+        'PASSWORD': 'a1Oe8mNmdTiXt4WHIY6G1CTjovRbtxbu',  # パスワード
+        'HOST': 'dpg-croi7gij1k6c739hvimg-a',  # ホスト名
         'PORT': '5432',  # ポート（デフォルト: 5432）
     }
 }
+# Render用に環境変数 DATABASE_URL が設定されている場合、それを使用
+DATABASE_URL = None  # 環境変数を明示的に無効にする（または削除）
 
-# DATABASE_URLが設定されている場合、それを優先して使用
-DATABASE_URL = config('DATABASE_URL', default='postgres://postgres:yHMtycDsdoMfkGZ@kara-match.flycast:5432/kara-match')
+DATABASES = {
+    'default': dj_database_url.config(default='postgresql://kara_match_database_user:a1Oe8mNmdTiXt4WHIY6G1CTjovRbtxbu@dpg-croi7gij1k6c739hvimg-a.oregon-postgres.render.com/kara_match_database')
+}
 
 if DATABASE_URL:
     DATABASES['default'] = dj_database_url.config(default=DATABASE_URL)
 
+
+# Database configuration
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'kara-match',  # データベース名
+#         'USER': 'postgres',  # ユーザー名
+#         'PASSWORD': 'yHMtycDsdoMfkGZ',  # パスワード
+#         'HOST': 'kara-match.internal',  # ホスト名
+#         'PORT': '5432',  # ポート（デフォルト: 5432）
+#     }
+# }
+#
+# # DATABASE_URLが設定されている場合、それを優先して使用
+# DATABASE_URL = config('DATABASE_URL', default='postgres://postgres:yHMtycDsdoMfkGZ@kara-match.flycast:5432/kara-match')
+#
+# if DATABASE_URL:
+#     DATABASES['default'] = dj_database_url.config(default=DATABASE_URL)
+#
 
 # DATABASES設定をPostgreSQL用に変更 -ここまで
 
