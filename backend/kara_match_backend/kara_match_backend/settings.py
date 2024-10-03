@@ -139,7 +139,7 @@ WSGI_APPLICATION = 'kara_match_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'kara_match_database',  # データベース名
+        'NAME': 'postgres',  # データベース名
         'USER': 'postgres',  # ユーザー名
         'PASSWORD': 'yHMtycDsdoMfkGZ',  # パスワード
         'HOST': 'kara-match.internal',  # ホスト名
