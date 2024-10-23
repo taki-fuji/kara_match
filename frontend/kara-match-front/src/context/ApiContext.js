@@ -35,6 +35,8 @@ const ApiContextProvider = (props) => {
     const [updata_prof, setupdata_prof] = useState(false);
     const [updata_prof2, setupdata_prof2] = useState(false);
 
+    
+
 
 // ページが更新されるたび、関数が読まれてしまうがこのEffect内の関数は最初の一回しか読まれない。
   useEffect(() => {
@@ -73,6 +75,7 @@ const ApiContextProvider = (props) => {
           setEditedProfile({
             id: resmy.data[0].id,
             nickName: resmy.data[0].nickName,
+
           });//取得した情報を格納,プロフィールの名前などに初期値として割り当てておく
         resmy.data[0] &&
           setAskList(
@@ -301,28 +304,61 @@ const ApiContextProvider = (props) => {
   };
 
 
+  // const editProfile = async () => {
+  //   console.log(cover.name)
+  //   console.log(editedProfile.nickName)
+  //   const editData = new FormData();
+  //   editData.append("nickName", editedProfile.nickName);
+  //   cover.name && editData.append("img", cover, cover.name);
+  //   try {
+  //     const res = await axios.put(
+  //       `https://kara-match-backend.onrender.com/api/user/profile/${profile.id}/`,
+  //       editData,
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Token ${cookies.token}`,
+  //         },
+  //       }
+  //     );
+  //     setProfile(res.data);
+  //   } catch {
+  //     console.log("error");
+  //   }
+  // };
+
   const editProfile = async () => {
-    console.log(cover.name)
-    console.log(editedProfile.nickName)
+    console.log("画像",cover.name);
+    console.log(editedProfile.nickName);
+    
     const editData = new FormData();
     editData.append("nickName", editedProfile.nickName);
-    cover.name && editData.append("img", cover, cover.name);
+    
+    if (cover.name) {
+      editData.append("img", cover, cover.name);
+    }
+    console.log("Profile(ApiContext)", profile);
+  
     try {
       const res = await axios.put(
         `https://kara-match-backend.onrender.com/api/user/profile/${profile.id}/`,
         editData,
         {
           headers: {
-            "Content-Type": "application/json",
-            Authorization: `Token ${cookies.token}`,
+            
+            Authorization: `Token ${cookies.token}`, // ここでトークンを追加
+            
           },
         }
       );
+  
       setProfile(res.data);
-    } catch {
-      console.log("error");
+    } catch (error) {
+      console.error("Error updating profile:", error.response ? error.response.data : error.message);
     }
   };
+  
+  
   
 
   const newRequestFriend = async (askData) => {
@@ -408,6 +444,7 @@ const ApiContextProvider = (props) => {
       console.log("error");
     }
   };
+  
 
 
   return (
