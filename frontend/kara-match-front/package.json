@@ -48,5 +48,5 @@
   "devDependencies": {
     "@types/react-modal": "^3.13.1"
   },
-  "homepage": "https://kara-match-frontend.onrender.com"
+  "homepage": "."
 }

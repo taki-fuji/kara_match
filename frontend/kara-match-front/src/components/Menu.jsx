@@ -95,32 +95,9 @@ const Menu = (props) => {
         Go to My Play List Page!
       </Button>
       </li>
-      <p></p>
-      <li>
-      <Button
-        className="btn4"
-        variant="outlined"
-        color="primary"
-        component={Link}
-        to="/match-search"
-      >
-        Go to match-search!
-      </Button>
-      </li>
 
       <p></p>
-      <li>
-      <Button className="btn5"
-        variant="outlined"
-        color="primary"
-        component={Link}
-        to="/setting"
-      >
-        Go to setting!
-      </Button>
-      </li>
-
-      <p></p>
+  
       <li>
       <Button className="btn5"
         variant="outlined"
