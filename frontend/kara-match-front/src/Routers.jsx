@@ -20,6 +20,12 @@ import Setting from "./components/setting_components/setting"
 import Match from "./components/song_match/Match";
 import SongList from "./components/songlist_components/SongList";
 
+import Show_SongList from "./components/songlist_components/Show_SongList";
+
+import Shwo_MusicSearch from "./components/music_search_components/Shwo_MusicSearch";
+
+import Show_friend_songs from "./components/friend_songs/show_friend_songs";
+
 
 // hooks context
 import ApiContextProvider from "./context/ApiContext"
@@ -88,11 +94,15 @@ const Routers = () => {
             <Route path="/myplaylist" element={<MyPlayList />} />
             <Route path="/myplaylist-list" element={<MyPlaylistList />} />
             <Route path="/music-search" element={<MusicSearch />} />
+            <Route path="/shwo_musicSearch" element={<Shwo_MusicSearch/>} />
 
             <Route path="/setting" element={<Setting />} />
 
             <Route path="/matting" element={<Match />} />
             <Route path="/song-list" element={<SongList />} />
+            <Route path="/show_songList" element={<Show_SongList/>} /> 
+
+            <Route path="/show_friend_songs" element={<Show_friend_songs/>} />
 
             <Route path="/songlistandsearch" element={<SongListAndSearch />} />
 

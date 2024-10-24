@@ -1,42 +1,25 @@
+import React, {useRef, useState, useContext, useEffect} from 'react'
 import { Link } from "react-router-dom";
-import { Button } from "@mui/material";
-
-import React, {useState, useContext, useEffect} from 'react'
+import { AppBar, Button, Grid, Paper, Card, CardContent, Typography, Box } from "@mui/material";
 import { ApiContext } from '../../context/ApiContext';
-import { Card, CardContent, Box } from '@mui/material'
-import { Typography } from '@mui/material';
+import { MatchContext } from "../../context/MatchContext";
+import Search_frends from '../../component_parts/Search_frends';
 
+import NewMenuber from '../../component_parts/NewMenuber';
 
 import SearchIcon from '@mui/icons-material/Search';
 import { TextField } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Paper from '@mui/material/Paper';
-
-import "../../App.css"
-
-import Search_frends from '../../component_parts/Search_frends';
-
-import Profile2 from "../../component_parts/Profile2";//検索したプロフィールを表示する
-
-import { MatchContext } from "../../context/MatchContext";
 
 import Match_show from "../../component_parts/Match_show";
 
-import { useRef, EffectCallback, DependencyList } from 'react';
-
-import { Grid } from '@mui/material';
-
-import NewMenuber from "../../component_parts/NewMenuber";
 
 
-const Match = () => {
-    const { profiles, profile, askList, askListFull, cookies } = useContext(ApiContext);
-
-    //ここから下記がフレンドを表示する機能
+const show_friend_songs = () => {
+    const { profiles, profile, askList, askListFull, cookies,  setAllsongs } = useContext(ApiContext);
     const { fprof } = useContext(MatchContext);//fprofにフレンドのプロフィール情報が入っている
 
-    
     const listProfiles =
     fprof &&
     fprof.map((fri_prof) => (//カードごとの情報をmapのループで取り出しfilprofに入れる
@@ -45,6 +28,11 @@ const Match = () => {
         Data={fri_prof}
         />
     ));
+
+    useEffect(() =>{
+        console.log(Allsongs)
+    }, [])
+
 
     //ここまでがフレンドを表示する機能
 
@@ -72,21 +60,10 @@ const Match = () => {
             if(m.user === SelectUser){//SelectUserには選択したuserが入っている
                 frend_songs.push(m);
             }
+            
         })
-        console.log(frend_songs)
-        // const frend_songs = Allsongs.filter((son) => {return son.user === SelectUser;});
-            Object.values(mysong).map((m) =>{//自分の歌をmapで回す
-                console.log(m.trackId)
-                Object.values(frend_songs).map((f) =>{//フレンドの歌をmapで回す
-                    console.log(f.trackId)
-                    if(m.trackId === f.trackId){//trackIdが一緒なら画面に出力する
-                        // setmatchsongs(m);
-                        console.log("マッチ")
-                        mso.push(m);
-                    }
-                })
-            })
-        setmatchsongs(mso);//配列からstateに値を入れるとなんか上手くいく
+       
+        setmatchsongs(frend_songs);//配列からstateに値を入れるとなんか上手くいく
     }
 
     useEffect(() => {
@@ -107,6 +84,7 @@ const Match = () => {
                 />
     ));
     //ここまでがフレンドと同じ歌を表示する機能
+    console.log("match song", matchsongs)
 
 
     useEffect(() => {//ページに戻ってきた時に前の値が入っているためrenderのタイミングで初期化
@@ -132,15 +110,6 @@ const Match = () => {
         />
     ));
 
-    // const listProfiles =
-    // fprof &&
-    // fprof.map((fri_prof) => (//カードごとの情報をmapのループで取り出しfilprofに入れる
-    //     <Search_frends
-    //     key={fri_prof.id}
-    //     Data={fri_prof}
-    //     />
-    // ));
-
     // 検索窓の入力が行われたときに、入力された値をkeyword stateに格納する関数
     const handleChange = (event) => {
         setKeyword(event.target.value)
@@ -149,53 +118,10 @@ const Match = () => {
     const handleSearch = async() => {
     }
 
-    // <TextField sx={{ ml: 1, flex: 1 }} variant='standard' label="キーワードでフレンドを検索" id="standard-basic" onChange={handleChange} type="text"/>
-
   return (
-    // <div>
-    //   <NewMenuber/>
-
-    //   <Grid container>
-    //     <Grid item xs={6}>
-    //     <Paper component="form" sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '80%' }}>
-    //         <TextField sx={{ ml: 1, flex: 1 }} variant='standard' label="キーワードでフレンドを検索" id="standard-basic" onChange={handleChange} type="text"/>
-    //         <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-    //         <IconButton type="button" sx={{ p: '15px', width:'20px'}} aria-label="search" size='small' onClick={handleSearch}>
-    //                 <SearchIcon />
-    //         </IconButton>
-    //     </Paper>
-
-    //         <div>
-    //             {search_Profiles}
-    //         </div>
-
-    //         <h2>Friends List</h2>
-    //         <div>
-    //             {listProfiles}
-    //         </div>
-    //     </Grid>
-
-
-    //     <Grid item xs={6}>
-    //     <h2>List of the same song</h2>
-
-    //     <h4>{username}</h4>
-       
-    //     <div>
-    //         {matching_song}
-    //     </div>
-    //     </Grid>
-
-
-
-    //     </Grid>
-    // </div>
-
     <div>
-
-      <NewMenuber />
-      
-      <Box
+        <NewMenuber />
+        <Box
         sx={{
           bgcolor: '#e3f2fd', // 青系の背景色
           color: '#0d47a1',   // テキストカラーを濃い青
@@ -278,7 +204,7 @@ const Match = () => {
           >
             <Box sx={{ mt: 2 }}>
               <Typography variant="h5" component="div" sx={{ fontWeight: 'bold', color: '#1976d2' }}>
-                List of the same song
+                List of the friend song
               </Typography>
               <h4 style={{ color: '#1976d2' }}>{username}</h4>
               <div>{matching_song}</div>
@@ -291,4 +217,5 @@ const Match = () => {
   )
 }
 
-export default Match
+export default show_friend_songs;
+
