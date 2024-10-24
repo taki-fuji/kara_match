@@ -1,116 +1,134 @@
-// import * as React from 'react';
-// import PropTypes from 'prop-types';
-// import SwipeableViews from 'react-swipeable-views';
-// import { useTheme } from '@mui/material/styles';
-// import AppBar from '@mui/material/AppBar';
-// import Tabs from '@mui/material/Tabs';
-// import Tab from '@mui/material/Tab';
-// import Typography from '@mui/material/Typography';
-// import Box from '@mui/material/Box';
-// import FriendList from "../friend_components/friend_list"
-// import MyPlayList from '../show_playlist_components/my_playlist';
-// import MusicSearch from '../music_search_components/MusicSearch';
-// import MatchSearch from '../match_components/match_search';
-// import Setting from '../setting_components/setting';
-// import Match from '../song_match/Match';
+// import React, { useContext, useEffect, useState} from "react";
 // import { Link } from "react-router-dom";
-// import { Button } from '@mui/material';
+// import { AppBar, Button } from "@mui/material";
+// import {withCookies} from 'react-cookie';
+// import { Grid } from '@mui/material';
+// import '../App.css';
 
 
-// function TabPanel(props) {
-//   const { children, value, index, ...other } = props;
+// import { BsFillPeopleFill } from "react-icons/bs";//人のアイコン
+// import { GoMail } from "react-icons/go";//メールアイコン
+// // import Menuber from "../components/Menuber_components/Menuber";
+// import { styled } from '@mui/material/styles';
 
-//   return (
-//     <div
-//       role="tabpanel"
-//       hidden={value !== index}
-//       id={`full-width-tabpanel-${index}`}
-//       aria-labelledby={`full-width-tab-${index}`}
-//       {...other}
-//     >
-//       {value === index && (
-//         <Box sx={{ p: 3 }}>
-//           <Typography>{children}</Typography>
-//         </Box>
-//       )}
-//     </div>
-//   );
-// }
+// import { Toolbar, Typography, Box } from '@mui/material';
 
-// TabPanel.propTypes = {
-//   children: PropTypes.node,
-//   index: PropTypes.number.isRequired,
-//   value: PropTypes.number.isRequired,
-// };
 
-// function a11yProps(index) {
-//   return {
-//     id: `full-width-tab-${index}`,
-//     'aria-controls': `full-width-tabpanel-${index}`,
-//   };
-// }
 
-// export default function FullWidthTabs() {
-//   const theme = useTheme();
-//   const [value, setValue] = React.useState(0);
 
-//   const handleChange = (event, newValue) => {
-//     setValue(newValue);
-//   };
+// const Menuber = () => {
 
-//   const handleChangeIndex = (index) => {
-//     setValue(index);
-//   };
-
-//   return (
-//     <Box sx={{ bgcolor: 'background.paper', width: 500 }}>
-//       <AppBar position="static">
-//         <Tabs
-//           value={value}
-//           onChange={handleChange}
-//           indicatorColor="secondary"
-//           textColor="inherit"
-//           variant="fullWidth"
-//           aria-label="full width tabs example"
+//     return (
+//         <div>
+//         <Paper elevation={4} sx={{ borderRadius: 2, overflow: 'hidden', marginBottom: 4 }}>
+//         <AppBar
+//             position="static"
+//             sx={{
+//             backgroundColor: '#1976d2', // More modern blue
+//             padding: '10px 20px',
+//             }}
 //         >
-//           <Tab label="My Song List " {...a11yProps(0)} />
-//           <Tab label="My Play List" {...a11yProps(1)} />
-//           <Tab label="Music Serch" {...a11yProps(2)} />
-//           <Tab label="Match Serch" {...a11yProps(3)} />
-//           <Tab label="Match" {...a11yProps(4)} />
-//           <Tab label="Setting" {...a11yProps(5)} />
-//         </Tabs>
-//       </AppBar>
-//       <SwipeableViews
-//         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-//         index={value}
-//         onChangeIndex={handleChangeIndex}
-//       >
-//         <TabPanel value={value} index={0} dir={theme.direction}>
-          
-//           <FriendList/>
+//             <Toolbar sx={{ justifyContent: 'space-between' }}>
+//             <Typography variant="h5" component="div" sx={{ fontWeight: 'bold' }}>
+//                 My Music App
+//             </Typography>
 
-//         </TabPanel>
-//         <TabPanel value={value} index={1} dir={theme.direction}>
-//           <MyPlayList/>
-//         </TabPanel>
-//         <TabPanel value={value} index={2} dir={theme.direction}>
-//           <MusicSearch/>
-//         </TabPanel>
-//         <TabPanel value={value} index={3} dir={theme.direction}>
-//           <MatchSearch/>
-//         </TabPanel>
-//         <TabPanel value={value} index={4} dir={theme.direction}>
-//           <Match/>
-//         </TabPanel>
-//         <TabPanel value={value} index={5} dir={theme.direction}>
-//         <Setting/>
-//         </TabPanel>
-//       </SwipeableViews>
-//     </Box>
+//             <Box sx={{ display: 'flex', gap: 2 }}>
+//                 <Button
+//                 variant="contained"
+//                 color="secondary"
+//                 component={Link}
+//                 to="/"
+//                 sx={{
+//                     textTransform: 'none',
+//                     padding: '8px 16px',
+//                     borderRadius: 8,
+//                 }}
+//                 >
+//                 Logout
+//                 </Button>
 
+//                 <Button
+//                 variant="outlined"
+//                 color="inherit"
+//                 component={Link}
+//                 to="/song-list"
+//                 sx={{
+//                     textTransform: 'none',
+//                     padding: '8px 16px',
+//                     borderRadius: 8,
+//                     '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' },
+//                 }}
+//                 >
+//                 My Song List
+//                 </Button>
 
+//                 <Button
+//                 variant="outlined"
+//                 color="inherit"
+//                 component={Link}
+//                 to="/myplaylist-list"
+//                 sx={{
+//                     textTransform: 'none',
+//                     padding: '8px 16px',
+//                     borderRadius: 8,
+//                     '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' },
+//                 }}
+//                 >
+//                 My Playlist
+//                 </Button>
 
+//                 <Button
+//                 variant="outlined"
+//                 color="inherit"
+//                 component={Link}
+//                 to="/music-search"
+//                 sx={{
+//                     textTransform: 'none',
+//                     padding: '8px 16px',
+//                     borderRadius: 8,
+//                     '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' },
+//                 }}
+//                 >
+//                 Music Search
+//                 </Button>
 
-// );
+//                 <Button
+//                 variant="outlined"
+//                 color="inherit"
+//                 component={Link}
+//                 to="/matting"
+//                 sx={{
+//                     textTransform: 'none',
+//                     padding: '8px 16px',
+//                     borderRadius: 8,
+//                     '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' },
+//                 }}
+//                 >
+//                 Match
+//                 </Button>
+
+//                 <Button
+//                 variant="outlined"
+//                 color="inherit"
+//                 component={Link}
+//                 to="/songlistandsearch"
+//                 sx={{
+//                     textTransform: 'none',
+//                     padding: '8px 16px',
+//                     borderRadius: 8,
+//                     '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' },
+//                 }}
+//                 >
+//                 Songlist & Search
+//                 </Button>
+//             </Box>
+//             </Toolbar>
+//         </AppBar>
+//         </Paper>
+        
+//         </div>
+//     )
 // }
+
+// export default Menuber

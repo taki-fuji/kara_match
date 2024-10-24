@@ -95,6 +95,7 @@ const ProfileManager = () => {
   return (
     <Paper>
       <Profile>
+        {console.log("img: " + profile.img + " nickname: " + profile.nickName)}
         <Image_wrapper>
           {profile.id ? (
             <Profile_image src={profile.img} alt="profile" />
@@ -139,7 +140,7 @@ const ProfileManager = () => {
           <hr />
 
           {/* ニックネームが追加されていない場合は「ニックネーム追加」ボタンを表示 */}
-          {!profile.nickName ? (
+          {!profile.nickName || !profile.img  ? (
             <Button
               variant="contained"
               color="primary"
